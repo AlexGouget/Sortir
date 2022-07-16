@@ -11,6 +11,10 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 :root {
   --blue: #79A9F5;
   --indigo: #C45F90;
@@ -88,6 +92,10 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+}
+
+.customFont{
+  font-family: 'Press Start 2P', cursive !important;
 }
 
 abbr[title],
@@ -2191,10 +2199,8 @@ pre code {
 
 .form-control:focus {
   color: #dee2e6;
-  background-color: #495057;
-  border-color: #ff214f;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(255, 33, 79, 0.25);
+
 }
 
 .form-control::-webkit-input-placeholder {
@@ -2285,6 +2291,15 @@ select.form-control:focus::-ms-value {
   line-height: 1.5;
   border-radius: 0.1rem;
 }
+
+.custom-form-control-lg{
+  height: calc(1.5em + 1.6rem + 2px);
+  padding: 0.8rem 1.6rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.15rem;
+}
+
 
 .form-control-lg {
   height: calc(1.5em + 1.6rem + 2px);
@@ -2722,6 +2737,8 @@ textarea.form-control {
     margin-bottom: 0;
   }
 }
+
+
 
 .btn {
   display: inline-block;
@@ -7308,7 +7325,7 @@ button.bg-dark:focus {
 }
 
 .rounded {
-  border-radius: 0.2rem !important;
+  border-radius: 100px !important;
 }
 
 .rounded-top {
@@ -11066,11 +11083,36 @@ pre {
   border-radius: 0.2rem;
 }
 
+.searchBox{
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  border-radius: 50px;
+}
+
+.searchBox:focus-within{
+  border-color: #ff214f;
+  color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(255, 33, 79, 0.25);
+
+}
+
+.searchBox input{
+  flex-grow: 2;
+}
+
+.custom-form-control-main {
+  background: transparent;
+  color: #fff;
+  border: none;
+
+}
+
 .custom-form-control {
   background: transparent;
   color: #fff;
   border: 2px solid #fff;
-  border-radius: 0;
+
 }
 
 .custom-form-control::-webkit-input-placeholder {
@@ -11135,7 +11177,7 @@ pre {
 
 .custom-navbar .collapse .navbar-nav,
 .custom-navbar .collapse .navbar-brand {
-  width: 100%;
+ /* width: 100%;*/
 }
 
 .custom-navbar .collapse .navbar-nav:last-child {
@@ -11150,7 +11192,7 @@ pre {
 }
 
 .navbar-brand .brand-img {
-  width: 110px;
+  width: 200px;
   display: inline-block;
   margin: auto;
   opacity: 1;
@@ -11183,12 +11225,12 @@ pre {
 }
 
 .affix .navbar-brand .brand-img {
-  -webkit-transform: translateY(-30px);
+  /*-webkit-transform: translateY(-30px);
       -ms-transform: translateY(-30px);
           transform: translateY(-30px);
   opacity: 0;
   visibility: hidden;
-  width: 50px;
+  width: 50px;*/
 }
 
 .affix .navbar-brand .brand-txt {
@@ -11201,7 +11243,7 @@ pre {
   height: 100vh;
   max-height: 900px;
   background-size: cover !important;
-  
+
 }
 
 .header .overlay {
