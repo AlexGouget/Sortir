@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -24,6 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Veuillez renseigner ce champ")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -40,16 +43,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
+     * @Assert\NotBlank(message="Veuillez renseigner ce champ")
+     * @Assert\Range(min=2, max=25, notInRangeMessage="Entre un nom (2 à 25 caractères)")
      * @ORM\Column(type="string", length=25)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Veuillez renseigner ce champ")
+     * @Assert\Range(min=2, max=25, notInRangeMessage="Entre un nom (3 à 25 caractères)")
      * @ORM\Column(type="string", length=25)
      */
     private $prenom;
 
     /**
+     * @Assert\Length(max=10, maxMessage="10 chiffres maximum")
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $telephone;
