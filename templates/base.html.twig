@@ -22,14 +22,15 @@
         <script src="{{ asset('assets/js/sortir.js') }}"></script>
     {% endblock %}
 </head>
+
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    {% include('inc/nav.html.twig') %}
-    {% block header %} {% endblock %}
-
-    {% block body %} {% endblock %}
-
+    <div class="header">
+        {% include('inc/nav.html.twig') %}
+        {% block header %} {% endblock %}
+    </div>
+    <main class="position-absolute">
+        {% block body %} {% endblock %}
+    </main>
     {% block footer %} {% endblock %}
-
-
 </body>
 </html>

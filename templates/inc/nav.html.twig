@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <a class="navbar-brand m-auto" href="#">
+        <a class="navbar-brand m-auto" href="{{ path('main_home') }}">
             <img src="{{ asset('assets/imgs/logo.svg') }}" class="brand-img" alt="">
 
         </a>
@@ -12,11 +12,16 @@
                 <a class="nav-link" href="#testmonial">Trouvez un évènement</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
+            </li>
+            {% if app.user %}
+            <li class="nav-item">
                 <a class="nav-link" href="#contact">Mon profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#contact">Déconnection</a>
+                <a class="nav-link" href={{ path('security_logout') }}>Déconnection</a>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a href="components.html" class="btn btn-primary ml-xl-4">Créer une évènement</a>
             </li>
