@@ -11406,6 +11406,10 @@ pre {
   align-items: center;
 }
 
+.form-login{
+  display: flex;
+  flex-direction: column;
+}
 
 .gallary .gallary-item .gallary-overlay {
   background: rgba(52, 58, 64, 0.7);

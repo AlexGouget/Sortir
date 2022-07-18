@@ -2,11 +2,21 @@
 
 {% block title %}Log in!{% endblock %}
 
-{% block header %}{% endblock %}
+{% block header %}
+
+{% endblock %}
 
 {% block body %}
+ <style>
+ main{
+     /*background: url({{ asset('assets/imgs/connected.jpg') }}) no-repeat center center fixed;*/
+     background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url({{ asset('assets/imgs/connected.jpg') }});
+    background-size: cover;
+    background-attachment: fixed;
+ }
+ </style>
 <div class="header login">
-    <form method="post">
+    <form class="form-login" method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
