@@ -3,11 +3,17 @@
 {% block title %}Hello SortieController!{% endblock %}
 
 {% block body %}
+
+
+    <! BALISE TEMPORAIRE !>
+    <style>
+        form {
+            margin-top: 150px;
+        }
+    </style>
+
     {{ form_start(formulaireSortie) }}
     {{ form_widget(formulaireSortie) }}
     <button>Envoyer</button>
-    <button>Envoyer</button>
-    <button>Envoyer</button>
-    <h1>dfrer</h1>
     {{ form_end(formulaireSortie) }}
 {% endblock %}

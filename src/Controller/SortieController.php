@@ -2,34 +2,56 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\CreeSortieType;
+use App\Repository\EtatRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+
 /**
  * @Route("/sortie", name="sortie_")
  */
 
 class SortieController extends AbstractController
 {
+
+
     /**
      * @Route("/cree", name="cree")
      */
-    public function cree(Request $request, EntityManagerInterface $entityManager): Response
+    public function cree(Request $request,
+                         EntityManagerInterface $entityManager,
+                         UserRepository $userRepository,
+                         EtatRepository $etatRepository,
+                         Security $security
+                          ): Response
     {
         $sortie = new Sortie();
-        $user = new User();
-        $user->setNom('lol');
-        $user->setActif('true');
-        $user->setEmail('lol@l');
-        $user->setIsVerified('true');
-        $user->setPassword('abc');
-        $user->setTelephone('03');
-        $user->setRoles((array)'[ROLES_USER]');
+
+        //TODO Recupérer l'instance de la personne connecté
+
+
+        $userTest = $this->get('security.token_storage')->getToken()->getUser();
+        $etat = $etatRepository->find(1);
+
+         $sortie->setOrganisateur($userTest);
+        $sortie->setEtat($etat);
+
+
+
+
+
+
+
+
+
 
 
 

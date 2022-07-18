@@ -24,7 +24,6 @@ class CreeSortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionMax')
             ->add('infosSortie')
-            ->add('libelle')
             ->add('etat' ,EntityType::class, [
                 'class'=> Etat::class,
                 'choice_label'=>'libelle'
@@ -39,12 +38,14 @@ class CreeSortieType extends AbstractType
             ]);
 
 
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Sortie::class,
+            "allow_extra_fields" => true,
         ]);
     }
 }
