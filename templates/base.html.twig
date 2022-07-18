@@ -24,13 +24,13 @@
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    <div class="header">
+
         {% include('inc/nav.html.twig') %}
-        {% block header %} {% endblock %}
-    </div>
-    <main class="position-absolute">
+        {% block header %}{% endblock %}
+
+    <main >
         {% block body %} {% endblock %}
     </main>
-    {% block footer %} {% endblock %}
+    {% include('inc/footer.html.twig') %}
 </body>
 </html>

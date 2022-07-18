@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
      */
-    private ArrayCollection $sortiesOrga;
+    private  $sortiesOrga;
 
     /**
      * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="participant")
