@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\CreeLieuType;
 use App\Form\CreeSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -36,6 +38,7 @@ class SortieController extends AbstractController
                           ): Response
     {
         $sortie = new Sortie();
+        $lieu = new Lieu();
 
         //TODO Recupérer l'instance de la personne connecté
 
@@ -51,6 +54,7 @@ class SortieController extends AbstractController
 
 
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
+        $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
 
 
 
@@ -58,10 +62,21 @@ class SortieController extends AbstractController
         //TODO Seter avec le nom de l'utilisateur courant
 
         $formulaireSortie->handleRequest($request);
+        $formulaireLieu->handleRequest($request);
 
         if($formulaireSortie->isSubmitted()&&$formulaireSortie->isValid()){
             $entityManager->persist($sortie);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie ajoutée !');
+        }
+
+
+        if($formulaireLieu->isSubmitted()&&$formulaireLieu->isValid()){
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Lieu ajoutée !');
         }
 
 
@@ -70,6 +85,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/index.html.twig', [
             'formulaireSortie' =>  $formulaireSortie->createView(),
+            'formulaireLieu' =>  $formulaireLieu->createView(),
         ]);
     }
 

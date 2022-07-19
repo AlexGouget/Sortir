@@ -12,30 +12,45 @@
         }
     </style>
 
+
+
+    {{ form_start(formulaireSortie.nom) }}
+    <h1>Formulaire sortie</h1>
+
+    {{ form_row(formulaireSortie.nom) }}
+    {{ form_row(formulaireSortie.dateHeureDebut) }}
+    {{ form_row(formulaireSortie.dateLimiteInscription) }}
+    {{ form_row(formulaireSortie.nbInscriptionMax) }}
+    {{ form_row(formulaireSortie.duree) }}
+    {{ form_row(formulaireSortie.infosSortie) }}
+
+    <hr>
+    {{ form_row(formulaireSortie.campus) }}
+    {{ form_row(formulaireLieu.ville) }}  <a href="#">Vous ne trouvez pas votre ville ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
+    {{ form_row(formulaireSortie.lieu) }}  <a href="#">Votre lieu preférer n'est pas encore inscrit ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
+
+
+    <button>Enregistrer </button>
+    <button>Publier la sortie</button>
+    <button>Annuler</button>
+
+
+
+{#
+    <h1>Formulaire sortie</h1>
     {{ form_start(formulaireSortie) }}
     {{ form_widget(formulaireSortie) }}
+    <hr>
+    <h1>Formulaire lieu </h1>
+    {{ form_start(formulaireLieu) }}
+    {{ form_widget(formulaireLieu) }}
 
+    <button>Envoyer 2 </button>
 
-    <hr>
-    <label for="rue"> Rue </label><input type="text" id="rue" name="rue"
-                                                         minlength="4" maxlength="8" size="10">
-    <hr>
-    <label for="CP">CP</label><input type="text" id="CP" name="CP"
-                                         minlength="4" maxlength="8" size="10">
-    <hr>
-    <label for="rue">Latitude</label><input type="text" id="latitude" name="latitude"
-                                         minlength="4" maxlength="8" size="10">
-    <hr>
-    <label for="rue">Longitude</label><input type="text" id="longitude" name="longitude"
-                                         maxlength="8" size="10">
-    <hr>
-    <label for="rue">Ville</label><input type="text" id="longitude" name="longitude"
-                                             maxlength="8" size="10">
-    <hr>
-
-
-    <button>Envoyer</button>
+    {{ form_end(formulaireLieu) }}
     {{ form_end(formulaireSortie) }}
+
+#}
 
 
 {% endblock %}
