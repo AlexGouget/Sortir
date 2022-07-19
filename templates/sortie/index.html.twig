@@ -14,6 +14,28 @@
 
     {{ form_start(formulaireSortie) }}
     {{ form_widget(formulaireSortie) }}
+
+
+    <hr>
+    <label for="rue"> Rue </label><input type="text" id="rue" name="rue"
+                                                         minlength="4" maxlength="8" size="10">
+    <hr>
+    <label for="CP">CP</label><input type="text" id="CP" name="CP"
+                                         minlength="4" maxlength="8" size="10">
+    <hr>
+    <label for="rue">Latitude</label><input type="text" id="latitude" name="latitude"
+                                         minlength="4" maxlength="8" size="10">
+    <hr>
+    <label for="rue">Longitude</label><input type="text" id="longitude" name="longitude"
+                                         maxlength="8" size="10">
+    <hr>
+    <label for="rue">Ville</label><input type="text" id="longitude" name="longitude"
+                                             maxlength="8" size="10">
+    <hr>
+
+
     <button>Envoyer</button>
     {{ form_end(formulaireSortie) }}
+
+
 {% endblock %}

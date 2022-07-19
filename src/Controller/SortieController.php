@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\CreeSortieType;
 use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,6 +31,7 @@ class SortieController extends AbstractController
                          EntityManagerInterface $entityManager,
                          UserRepository $userRepository,
                          EtatRepository $etatRepository,
+                         SortieRepository $sortieRepository,
                          Security $security
                           ): Response
     {
@@ -41,16 +43,8 @@ class SortieController extends AbstractController
         $userTest = $this->get('security.token_storage')->getToken()->getUser();
         $etat = $etatRepository->find(1);
 
-         $sortie->setOrganisateur($userTest);
+        $sortie->setOrganisateur($userTest);
         $sortie->setEtat($etat);
-
-
-
-
-
-
-
-
 
 
 
