@@ -11406,6 +11406,17 @@ pre {
   align-items: center;
 }
 
+.user-details{
+  top: 50%;
+  bottom: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 25vw;
+  align-items: center;
+  margin: auto;
+}
+
 .form-login{
   display: flex;
   flex-direction: column;
