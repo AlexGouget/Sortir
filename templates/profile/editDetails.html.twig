@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        main{
+            /*background: url({{ asset('assets/imgs/connected.jpg') }}) no-repeat center center fixed;*/
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url({{ asset('assets/imgs/connected.jpg') }});
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+
+    <div class="header">
+        <div class="user-details position-relative">
+            <p>E-mail: {{ user.email }}</p>
+            {{ form_start(editUserForm) }}
+            {{ form_widget(editUserForm) }}
+            <button>Submit</button>
+            {{ form_end(editUserForm) }}
+            <p><a href="{{ path('profile_editMdp') }}">Changer mon mot de passe</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
