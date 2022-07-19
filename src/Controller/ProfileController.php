@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Form\EditMdpType;
-use App\Form\UserEditFormType;
+use App\Form\EditUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +16,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
+    /**
+     * @Route("/profile/list", name="profile_list")
+     */
+    public function list(UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $hasher): Response
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('profile/listUtilisateur.html.twig', [
+            'users'=> $users
+        ]);
+    }
+
 
     /**
-     * @Route("/profile/details/mdp/{id}", name="profile_editMdp")
+     * @Route("/profile/editmdp/", name="profile_editMdp")
      */
-    public function editMdp(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $hasher): Response
+    public function editMdp(EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $hasher): Response
     {
-        $user = $userRepository->find($id);
+        $user = $this->getUser();
         $editMDPForm = $this->createForm(EditMdpType::class, $user);
         $editMDPForm->handleRequest($request);
         if ($editMDPForm->isSubmitted() && $editMDPForm->isValid()){
@@ -46,12 +59,14 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/details/{id}", name="profile_details")
+     * @Route("/profile/editdetails/", name="profile_edit_details")
      */
-    public function details(int $id, UserRepository $userRepository, EntityManagerInterface $em, Request $request): Response
+    public function editDetails(EntityManagerInterface $em, Request $request): Response
     {
-        $user = $userRepository->find($id);
-        $editUserForm = $this->createForm(UserEditFormType::class, $user);
+
+
+        $user = $this->getUser();
+        $editUserForm = $this->createForm(EditUserType::class, $user);
         $editUserForm->handleRequest($request);
 
         if ($editUserForm->isSubmitted() && $editUserForm->isValid()) {
@@ -63,11 +78,24 @@ class ProfileController extends AbstractController
             $this->redirectToRoute('profile_details', ['id'=> $user->getId()]);
         }
 
-        return $this->render('profile/details.html.twig', [
+
+        return $this->render('profile/editDetails.html.twig', [
             'user' => $user,
             'editUserForm'=> $editUserForm->createView()
         ]);
+
+
     }
 
+    /**
+     * @Route("/profile/details/{id}", name="profile_details")
+     */
+    public function details(int $id, UserRepository $userRepository, EntityManagerInterface $em, Request $request): Response
+    {
+        $user = $userRepository->find($id);
+        return $this->render('profile/details.html.twig', [
+            'user' => $user,
+            ]);
+    }
 
 }
