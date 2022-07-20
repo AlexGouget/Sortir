@@ -26,8 +26,18 @@
 
     <hr>
     {{ form_row(formulaireSortie.campus) }}
-    {{ form_row(formulaireLieu.ville) }}  <a href="#">Vous ne trouvez pas votre ville ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
+    {{ form_row(formulaireLieu.ville) }}
     {{ form_row(formulaireSortie.lieu) }}  <a href="#">Votre lieu preférer n'est pas encore inscrit ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
+    <br> Création d'un Lieu (a faire apparaitre en js au clic)
+    <br>
+
+    {{ form_row(formulaireLieu.nom) }}
+    {{ form_row(formulaireLieu.rue) }}
+
+
+
+
+
 
 
     <button>Enregistrer </button>

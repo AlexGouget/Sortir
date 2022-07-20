@@ -6,6 +6,7 @@ use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LieuRepository::class)
@@ -20,6 +21,7 @@ class Lieu
     private $id;
 
     /**
+     * @Assert\Unique(message="lieu.nom.unique")
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
@@ -30,12 +32,13 @@ class Lieu
     private $rue;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float",nullable=true)
      */
     private $latitude;
 
     /**
-     * @ORM\Column(type="float")
+     *
+     * @ORM\Column(type="float",nullable=true)
      */
     private $longitude;
 
