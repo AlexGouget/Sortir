@@ -84,9 +84,6 @@ class SortieController extends AbstractController
           return  $this->redirectToRoute('main_home');
         }
 
-
-
-
         return $this->render('sortie/index.html.twig', [
             'formulaireSortie' =>  $formulaireSortie->createView(),
             'formulaireLieu' =>  $formulaireLieu->createView(),
@@ -103,6 +100,25 @@ class SortieController extends AbstractController
         return $this-> render('sortie/detail.html.twig',['sortie' => $sortie]);
     }
 
+
+    /**
+     * @Route("/sortie/inscription/{id}", name="inscription")
+     */
+    public function inscriptionSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $user = $this->getUser();
+        if($sortie->getId() === $id){
+            $sortie->addParticipant($user);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('succes', 'Inscription à la sortie réussie!');
+        } else {
+            $this->addFlash('warning', "une erreur est survenue a l'incription");
+        }
+
+        return $this->redirectToRoute('sortie_detail',['id'=>$id]);
+    }
 
 
 }

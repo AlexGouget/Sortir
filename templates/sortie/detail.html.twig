@@ -29,7 +29,7 @@
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
         </div>
 
-         <a class="btn btn-primary" href="">S'inscrire</a>
+         <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
 
          {% if sortie.participant is not null %}
              <ul>
