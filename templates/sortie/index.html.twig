@@ -26,26 +26,20 @@
 
     <hr>
     {{ form_row(formulaireSortie.campus) }}
-    {{ form_row(formulaireLieu.ville) }}
-    {{ form_row(formulaireSortie.lieu) }}  <a href="#">Votre lieu preférer n'est pas encore inscrit ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
+    {{ form_row(formulaireSortie.lieu) }}  <a href="{{ path('lieu_cree') }}">Votre lieu preférer n'est pas encore inscrit ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
     {{ form_row(formulaireSortie.categorie) }}
 
 
+
     <br>
-
-    {# Formulaire de création du lieu à faire apparaitre en pop-up
-
-    {{ form_row(formulaireLieu.nom) }}
-    {{ form_row(formulaireLieu.rue) }}
-
-    #}
-
 
 
     {{ form_row(formulaireSortie.enregistrer) }}
     {{ form_row(formulaireSortie.publier) }}
     {{ form_row(formulaireSortie.annuler) }}
 
+
+    {{ form_end(formulaireSortie) }}
 
 
 

@@ -40,7 +40,6 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $lieu = new Lieu();
 
-        //TODO Recupérer l'instance de la personne connecté
 
 
         $userTest = $this->get('security.token_storage')->getToken()->getUser();
@@ -48,21 +47,14 @@ class SortieController extends AbstractController
 
 
 
-
-
-
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
         $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
 
 
-
-
-        //TODO Seter avec le nom de l'utilisateur courant
-
         $formulaireSortie->handleRequest($request);
         $formulaireLieu->handleRequest($request);
 
-        if($formulaireSortie->get('enregistrer')->isClicked())
+        if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
             {
                 $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
@@ -73,7 +65,7 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre sortie est enregistrée en brouillon !');
             }
 
-        if($formulaireSortie->get('publier')->isClicked())
+        if($formulaireSortie->get('publier')->isClicked()&&$formulaireSortie->isSubmitted()&&$formulaireSortie->isValid())
 
         {
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
@@ -91,8 +83,6 @@ class SortieController extends AbstractController
         {
           return  $this->redirectToRoute('main_home');
         }
-
-
 
 
 

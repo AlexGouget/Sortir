@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LieuController!{% endblock %}
+
+{% block body %}
+
+
+
+    <! BALISE TEMPORAIRE !>
+    <style>
+        form {
+            margin-top: 150px;
+        }
+    </style>
+
+
+
+    {{ form_start(formulaireLieu) }}
+    {{ form_widget(formulaireLieu) }}
+    {{ form_end(formulaireLieu) }}
+
+
+
+{% endblock %}
