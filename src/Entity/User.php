@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -24,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @Assert\Email(message="user.email.notvalid")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -40,16 +42,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
+     * @Assert\NotBlank(message="not_blank")
+     * @Assert\Length(min=2, max=25, minMessage="user.length25", maxMessage="user.length25")
      * @ORM\Column(type="string", length=25)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="not_blank")
+     * @Assert\Length(min=2, max=25, minMessage="user.length25", maxMessage="user.length25")
      * @ORM\Column(type="string", length=25)
      */
     private $prenom;
 
     /**
+     * @Assert\Length(max=10, maxMessage="user.tel")
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $telephone;
@@ -80,7 +87,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $Campus;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="not_blank")
+     * @Assert\Length(min=2, max=25, minMessage="user.length25", maxMessage="user.length25")
+     * @ORM\Column(type="string", length=25)
      */
     private $Pseudo;
 
