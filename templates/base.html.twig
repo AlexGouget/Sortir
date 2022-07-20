@@ -37,7 +37,7 @@
         {% block header %}{% endblock %}
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="flash flash-{{ label }}">
+                <div style="text-align: center" class="flash flash-{{ label }}">
                     {{ message }}
                 </div>
             {% endfor %}
