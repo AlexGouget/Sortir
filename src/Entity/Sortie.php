@@ -84,7 +84,7 @@ class Sortie
 
     /**
      * @Assert\NotBlank(message="sortie.campus.not_blank")
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrga")
      * @ORM\JoinColumn(nullable=false)
      */
     private $organisateur;
