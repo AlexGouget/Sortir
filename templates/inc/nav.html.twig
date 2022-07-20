@@ -13,28 +13,33 @@
             <li class="nav-item">
                 <a class="nav-link" href="#testmonial">Trouvez un évènement</a>
             </li>
-            <!--
+
+
+            {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link" href="#testmonial">Ville</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#testmonial">Campus</a>
             </li>
-            -->
+            {% endif %}
+
 
 
            {% if app.user %}
+               <li class="nav-item">
+                   <a class="nav-link" href="{{ path('profile_list') }}">Liste Utilisateurs</a>
+               </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('profile_edit_details') }}">Mon profil</a>
             </li>
-           <li class="nav-item">
-               <a class="nav-link" href="{{ path('profile_list') }}">Liste Utilisateurs</a>
-           </li>
+
             <li class="nav-item">
                 <a class="nav-link" href={{ path('security_logout') }}>Déconnection</a>
             </li>
             <li class="nav-item">
-                <a href="components.html" class="btn btn-primary ml-xl-4">Créer une évènement</a>
+                <a href="{{ path('sortie_cree') }}" class="btn btn-primary ml-xl-4">Créer une évènement</a>
             </li>
            {% else %}
                <li class="nav-item">

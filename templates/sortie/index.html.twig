@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SortieController!{% endblock %}
+{% block title %}Création sortie{% endblock %}
 
 {% block body %}
-    {{ form_start(formulaireSortie) }}
-    {{ form_widget(formulaireSortie) }}
-    <button>Envoyer</button>
-    <button>Envoyer</button>
-    <button>Envoyer</button>
-    <h1>dfrer</h1>
-    {{ form_end(formulaireSortie) }}
+
+    <div class="header">
+        {{ form_start(formulaireSortie) }}
+        {{ form_widget(formulaireSortie) }}
+        <button>Envoyer</button>
+        <button>Envoyer</button>
+        <button>Envoyer</button>
+        <h1>dfrer</h1>
+        {{ form_end(formulaireSortie) }}
+
+    </div>
+
 {% endblock %}
