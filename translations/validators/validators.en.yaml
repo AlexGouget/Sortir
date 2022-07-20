@@ -1,0 +1,23 @@
+
+#Sortie
+
+sortie.name.not_blank: Le nom de la sortie est obligatoire
+sortie.name.maxlenght: Votre nom d'activité est .... un peu trop long
+
+sortie.dateHeureDebut.GreaterThanOrEqual: La date de votre activité doit être supérieur ou égal à la date de fin d'inscription qui est :{{ compared_value }}.
+sortie.dateLimiteInscription.lessThan: La date de fin d'inscripiton doit être inférieur ou égale à la date de début de l'évenement  qui est :{{ compared_value }}.
+
+sortie.duree.not_blank: La durée de l'activité doit être positive
+
+sortie.dateLimiteInscription.not_blank: La date limite d'inscription est obligatoire
+
+sortie.nbInscriptionMax.not_blank : Le nombre d'inscription maximale est obligatoire, ou alors il faut que tu  loue une salle de cinéma entière :o
+sortie.nbInscriptionMax.positive : Le nombre d'inscription doit être positif, sinon tu risque de t'ennuyer
+sortie.nbInscriptionMax.lenght : Le nombre maximum d'inscrit est de 999, veuillez contacter l'administrateur pour des sorties avec plus de personnes
+sortie.infosSortie.lenght : Ecris au moins un petit message pour présenter l'activité ( 10 caractères )
+
+sortie.infosSortie.not_blank : Ecris au moins un petit message pour présenter l'activité
+sortie.etat.not_blank : L'état actuelle de votre sortie est obligatoire
+sortie.lieu.not_blank : Le lieu de votre sortie est obligatoire
+sortie.campus.not_blank : Votre campus de rattachement est obligatoire
+

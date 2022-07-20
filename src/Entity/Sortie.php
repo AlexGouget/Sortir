@@ -6,11 +6,12 @@ use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
  */
-class Sortie extends \App\Entity\Etat
+class Sortie
 {
     /**
      * @ORM\Id
@@ -20,31 +21,43 @@ class Sortie extends \App\Entity\Etat
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="sortie.name.not_blank")
+     * @Assert\Length(max=45 , maxMessage="sortie.name.not_blank")
+     * @ORM\Column(type="string", length=45)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="sortie.dateHeureDebut")
+     * @Assert\GreaterThanOrEqual(propertyPath="dateLimiteInscription", message="sortie.dateHeureDebut.lessThan")
      * @ORM\Column(type="datetime")
      */
     private $dateHeureDebut;
-
+//TODO voir pour limiter la durée à 24h
     /**
+     * @Assert\Positive(message="sortie.duree.not_blank")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $duree;
 
     /**
+     * @Assert\NotBlank(message="sortie.dateLimiteInscription.not_blank")
+     * @Assert\LessThan(propertyPath="dateHeureDebut",message="sortie.dateLimiteInscription.lessThan")
      * @ORM\Column(type="datetime")
      */
     private $dateLimiteInscription;
 
     /**
+     * @Assert\NotBlank(message="sortie.nbInscriptionMax.not_blank")
+     * @Assert\Positive(message="sortie.nbInscriptionMax.positive")
+     * @Assert\Length(max=3, maxMessage="sortie.nbInscriptionMax.lenght")
      * @ORM\Column(type="integer")
      */
     private $nbInscriptionMax;
 
     /**
+     * @Assert\NotBlank(message="sortie.infosSortie.not_blank")
+     * @Assert\Length(min=10,minMessage="sortie.infosSortie.lenght")
      * @ORM\Column(type="text")
      */
     private $infosSortie;
@@ -56,18 +69,21 @@ class Sortie extends \App\Entity\Etat
     private $etat;
 
     /**
+     * @Assert\NotBlank(message="sortie.etat.not_blank")
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $lieu;
 
     /**
+     * @Assert\NotBlank(message="sortie.lieu.not_blank")
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $campus;
 
     /**
+     * @Assert\NotBlank(message="sortie.campus.not_blank")
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
