@@ -28,39 +28,30 @@
     {{ form_row(formulaireSortie.campus) }}
     {{ form_row(formulaireLieu.ville) }}
     {{ form_row(formulaireSortie.lieu) }}  <a href="#">Votre lieu preférer n'est pas encore inscrit ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
-    <br> Création d'un Lieu (a faire apparaitre en js au clic)
+    {{ form_row(formulaireSortie.categorie) }}
+
+
     <br>
+
+    {# Formulaire de création du lieu à faire apparaitre en pop-up
 
     {{ form_row(formulaireLieu.nom) }}
     {{ form_row(formulaireLieu.rue) }}
 
+    #}
+
+
+
+    {{ form_row(formulaireSortie.enregistrer) }}
+    {{ form_row(formulaireSortie.publier) }}
+    {{ form_row(formulaireSortie.annuler) }}
 
 
 
 
 
 
-    <button>Enregistrer </button>
-    <button>Publier la sortie</button>
-    <button>Annuler</button>
 
-
-
-{#
-    <h1>Formulaire sortie</h1>
-    {{ form_start(formulaireSortie) }}
-    {{ form_widget(formulaireSortie) }}
-    <hr>
-    <h1>Formulaire lieu </h1>
-    {{ form_start(formulaireLieu) }}
-    {{ form_widget(formulaireLieu) }}
-
-    <button>Envoyer 2 </button>
-
-    {{ form_end(formulaireLieu) }}
-    {{ form_end(formulaireSortie) }}
-
-#}
 
 
 {% endblock %}

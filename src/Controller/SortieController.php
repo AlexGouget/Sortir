@@ -44,10 +44,8 @@ class SortieController extends AbstractController
 
 
         $userTest = $this->get('security.token_storage')->getToken()->getUser();
-        $etat = $etatRepository->find(1);
-
         $sortie->setOrganisateur($userTest);
-        $sortie->setEtat($etat);
+
 
 
 
@@ -64,20 +62,36 @@ class SortieController extends AbstractController
         $formulaireSortie->handleRequest($request);
         $formulaireLieu->handleRequest($request);
 
-        if($formulaireSortie->isSubmitted()&&$formulaireSortie->isValid()){
+        if($formulaireSortie->get('enregistrer')->isClicked())
+
+            {
+                $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
+            $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Sortie ajoutée !');
-        }
+            $this->addFlash('success', 'Votre sortie est enregistrée en brouillon !');
+            }
 
+        if($formulaireSortie->get('publier')->isClicked())
 
-        if($formulaireLieu->isSubmitted()&&$formulaireLieu->isValid()){
-            $entityManager->persist($lieu);
+        {
+            $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
+            $sortie->setEtat($etat);
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Lieu ajoutée !');
+            $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
         }
+
+
+
+        if($formulaireSortie->get('annuler')->isClicked())
+
+        {
+          return  $this->redirectToRoute('main_home');
+        }
+
 
 
 
