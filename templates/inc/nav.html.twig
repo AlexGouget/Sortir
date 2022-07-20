@@ -6,6 +6,9 @@
         <a class="navbar-brand m-auto" href="{{ path('main_home') }}">
             <img src="{{ asset('assets/imgs/logo.svg') }}" class="brand-img" alt="">
 
+
+
+
         </a>
         <ul class="navbar-nav">
 
@@ -15,7 +18,9 @@
             </li>
 
 
+
             {% if is_granted('ROLE_ADMIN') %}
+
             <li class="nav-item">
                 <a class="nav-link" href="#testmonial">Ville</a>
             </li>
