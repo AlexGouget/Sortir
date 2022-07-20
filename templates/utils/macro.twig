@@ -1,0 +1,20 @@
+{% macro MinutesToHour(minutes) %}
+
+    {# set hours minus minutes/seconds #}
+    {% set hours = minutes / 60 %}
+
+    {% if hours  < 1.1 %}
+
+        {% set hours = null %}
+        {% set minutes = minutes  ~ ' minutes' %}
+    {% else %}
+        {# output hours with a colon: #}
+        {% set heures = hours|number_format - 1 %}
+        {% set hours = (hours|number_format -1) ~ 'h' %}
+
+        {% set minutes = minutes - (heures*60) %}
+    {% endif %}
+
+    {{ hours }}{{ minutes}}
+
+{% endmacro %}
