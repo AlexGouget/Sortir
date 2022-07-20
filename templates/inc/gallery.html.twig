@@ -1,59 +1,34 @@
 <div id="gallary" class="text-center bg-dark text-light has-height-md middle-items wow fadeIn">
     <h2 class="section-title">LES PROCHAINS EVENEMENTS</h2>
 </div>
-
 <div class="gallary row">
-    <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-        <img src="assets/imgs/bg_museum.jpg" class="gallary-img">
-        <div class="gallary-info">
-            <img class="picto" src="assets/imgs/picto/learning.svg" alt="">
-            <h3>Visite du Louvre</h3>
-            <p>20/07/2022</p>
-            <p>10 places disponibles</p>
-            
-        </div>
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
-    <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-        <img src="assets/imgs/bg_sport.jpg" class="gallary-img">
-        <div class="gallary-info">
-            <img class="picto" src="assets/imgs/picto/sport.svg" alt="">
-            <h3>session crossfit</h3>
-            <p>10/08/2022</p>
-            <p>3 places disponibles</p>
+{% for sortie in listSortie %}
 
-        </div>
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
-    <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-        <img src="assets/imgs/bg_outdoor.jpg" class="gallary-img">
-        <div class="gallary-info">
-            <img class="picto" src="assets/imgs/picto/hiking.svg" alt="">
-            <h3>rando à fontainebleau</h3>
-            <p>15/09/2022</p>
-            <p>10 places disponibles</p>
+    {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
 
-        </div>
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
-    <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-        <img src="assets/imgs/bg_party.jpg" class="gallary-img">
-        <div class="gallary-info">
-            <img class="picto" src="assets/imgs/picto/party.svg" alt="">
-            <h3>soirée BDE</h3>
-            <p>30/09/2022</p>
-            <p>150 places disponibles</p>
 
-        </div>
-        <a href="#" class="gallary-overlay">
-            <i class="gallary-icon ti-plus"></i>
-        </a>
-    </div>
+        <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
+            <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
+            <div class="gallary-info">
+                <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
+                <h4 class="info-title">{{ sortie.nom }}</h4>
+                <p>{{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
+                <div class="info-ville">
 
+                    <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
+                </div>
+                <p> {{ placeDispo }} / {{ sortie.nbInscriptionMax }} places disponibles</p>
+
+            </div>
+            <a href="#" class="gallary-overlay">
+                <i class="gallary-icon ti-plus"></i>
+            </a>
+        </div>
+
+{% endfor %}
 </div>
+
+
+
+
+
