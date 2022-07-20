@@ -13,9 +13,10 @@
 <div class="header">
     <div class="user-details position-relative">
         <p>Email: {{ user.email }}</p>
+        <p>Pseudo: {{ user.pseudo }}</p>
         <p>Nom: {{ user.nom }}</p>
         <p>Prenom: {{ user.prenom }}</p>
-        <p>Campus: {{ user.campus }}</p>
+        <p>Campus: {{ user.campus.nom }}</p>
         <p>Sortie Organisées: //Todo recup bdd</p>
         <p>Sortie Particip. : //Todo recup bdd</p>
     </div>
