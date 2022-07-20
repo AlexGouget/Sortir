@@ -21,3 +21,8 @@ sortie.etat.not_blank : L'état actuelle de votre sortie est obligatoire
 sortie.lieu.not_blank : Le lieu de votre sortie est obligatoire
 sortie.campus.not_blank : Votre campus de rattachement est obligatoire
 
+
+
+#Lieu
+
+lieu.nom.unique : Ce lieu existe déja
