@@ -6,6 +6,7 @@ use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -240,7 +241,7 @@ class Sortie
         return $this->participant;
     }
 
-    public function addParticipant(User $participant): self
+    public function addParticipant(UserInterface $participant): self
     {
         if (!$this->participant->contains($participant)) {
             $this->participant[] = $participant;
