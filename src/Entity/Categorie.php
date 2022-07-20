@@ -29,6 +29,16 @@ class Categorie
      */
     private $sorties;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picto;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $backdrop;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -77,6 +87,30 @@ class Categorie
                 $sorty->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicto(): ?string
+    {
+        return $this->picto;
+    }
+
+    public function setPicto(string $picto): self
+    {
+        $this->picto = $picto;
+
+        return $this;
+    }
+
+    public function getBackdrop(): ?string
+    {
+        return $this->backdrop;
+    }
+
+    public function setBackdrop(string $backdrop): self
+    {
+        $this->backdrop = $backdrop;
 
         return $this;
     }

@@ -5058,10 +5058,7 @@ input[type="button"].btn-block {
           flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid #495057;
-  border-radius: 0.2rem;
+
 }
 
 .card > hr {
@@ -11018,8 +11015,7 @@ table, tr, td, th {
 }
 
 .card {
-  border-color: #495057;
-  overflow: hidden;
+   overflow: hidden;
 }
 
 .testmonial-card {
@@ -11329,6 +11325,7 @@ pre {
 .picto{
   height: 50px;
   width: 50px;
+  margin: auto;
 }
 
 
@@ -11403,7 +11400,18 @@ pre {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+  width: inherit;
+  padding: 5px;
+}
+
+.info-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
 .user-details{
@@ -11457,4 +11465,9 @@ pre {
 .gallary .gallary-item:hover .gallary-overlay {
   visibility: visible;
   opacity: 1;
+}
+
+
+.btnOption{
+  margin: 10px;
 }

@@ -38,6 +38,31 @@ class SortieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+/**
+ * @return Sortie[] toutes les sortie ouverte
+ */
+
+    public function findSortiesOuverte($pag){
+        return $this ->createQueryBuilder('s')
+            ->leftJoin('s.categorie', 'c')
+            ->leftJoin('s.organisateur', 'o')
+            ->leftJoin('s.participant', 'p')
+            ->leftJoin('s.lieu', 'l')
+            ->leftJoin('l.ville', 'v')
+            ->addSelect('v')
+            ->addSelect('l')
+            ->addSelect('p')
+            ->addSelect('c')
+            ->addSelect('o')
+            ->andWhere('s.etat= :val')
+            ->setParameter('val', 6)
+            ->orderBy('s.dateHeureDebut', 'ASC')
+            ->setMaxResults($pag)
+            ->getQuery()
+            ->getResult();
+
+    }
+
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
