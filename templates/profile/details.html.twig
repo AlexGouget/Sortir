@@ -14,7 +14,8 @@
     <div class="user-details position-relative">
         <p>Email: {{ user.email }}</p>
         <p>Nom: {{ user.nom }}</p>
-        <p>Prenom: {{ user.prenom }} </p>
+        <p>Prenom: {{ user.prenom }}</p>
+        <p>Campus: {{ user.campus }}</p>
         <p>Sortie Organisées: //Todo recup bdd</p>
         <p>Sortie Particip. : //Todo recup bdd</p>
     </div>
@@ -22,6 +23,6 @@
 {% endblock %}
 
 {% block title %}
-
+{{ user.pseudo }}
 {% endblock %}
 
