@@ -63,21 +63,15 @@ class ProfileController extends AbstractController
      */
     public function editDetails(EntityManagerInterface $em, Request $request): Response
     {
-
-
         $user = $this->getUser();
         $editUserForm = $this->createForm(EditUserType::class, $user);
         $editUserForm->handleRequest($request);
 
         if ($editUserForm->isSubmitted() && $editUserForm->isValid()) {
-            $user->setPrenom($editUserForm->get('prenom')->getData());
-            $user->setNom($editUserForm->get('nom')->getData());
-            $user->setTelephone($editUserForm->get('telephone')->getData());
             $em->flush();
             $this->addFlash('success','Informations modifiée(s) avec succes!');
             $this->redirectToRoute('profile_details', ['id'=> $user->getId()]);
         }
-
 
         return $this->render('profile/editDetails.html.twig', [
             'user' => $user,
