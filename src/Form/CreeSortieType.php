@@ -8,7 +8,6 @@ use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
-use ContainerFQfy3pB\getCampusRepositoryService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -25,24 +24,37 @@ class CreeSortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label'=>'Nom de la sortie :'
+                'label'=>'Nom de la sortie :',
+                'attr'=>array(
+                    'placeholder' => 'Sortie en boite de nuit..')
+
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label'=>'Date et heure de la sortie :',
                 'html5'=>true,
+
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
                 'label'=>'Date limite d\'inscription :',
                 'html5'=>true,
             ])
             ->add('duree' , IntegerType::class, [
-                'label'=>'Durée (en minutes) :'
+                'label'=>'Durée (en minutes) :',
+                     'attr'=>array(
+                         'placeholder' => ' 60 minutes'
+                     )
             ])
             ->add('nbInscriptionMax', IntegerType::class, [
-                'label'=>'Nombre de places :'
+                'label'=>'Nombre de places :',
+                    'attr'=>array(
+                         'placeholder' => '1,2,3....150 c\'est vous le chef !')
             ])
             ->add('infosSortie', TextareaType::class, [
-                'label'=>'Description et infos :'
+                'label'=>'Description et infos :',
+                'attr'=>array(
+                    'placeholder' => 'Decris ton activité en quelques mots pour donner envie aux autres étudiants')
+
+
             ])
             ->add('campus',EntityType::class, [
                 'class' => Campus::class,

@@ -21,7 +21,7 @@ class Lieu
     private $id;
 
     /**
-     * @Assert\Unique(message="lieu.nom.unique")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
