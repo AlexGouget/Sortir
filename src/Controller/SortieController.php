@@ -103,5 +103,16 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/detail/{id}", name="detail")
+     */
+    public function detailSortie(Request $request,Sortie $sortie,SortieRepository  $sortieRepo,EntityManagerInterface $em):Response{
+
+        $sortie = $sortieRepo->find($sortie);
+        if(!$sortie){throw  $this->createNotFoundException('Sortie introuvable');}
+        return $this-> render('sortie/detail.html.twig',['sortie' => $sortie]);
+    }
+
+
 
 }

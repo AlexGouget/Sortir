@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% import "utils/macro.twig" as macros %}
+{% block title %}Sortie : {{ sortie.nom }} {% endblock %}
+
+{% block body %}
+ <style>
+  main{
+   /*background: url({{ asset('assets/imgs/connected.jpg') }}) no-repeat center center fixed;*/
+   background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url({{ asset('assets/imgs/'~ sortie.categorie.backdrop )}});
+   background-size: cover;
+   background-attachment: fixed;
+  }
+ </style>
+
+ <div class="header ">
+     <div class="sortie-detail">
+        <div class="detail-info">
+            <h3>{{ sortie.nom }}</h3>
+            <span>organisé par le campus de {{ sortie.campus.nom }}</span>
+            <p>date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
+            <p>durée de l'évènement :      {{ macros.MinutesToHour(sortie.duree) }}</p>
+
+            <h4>description de la sortie : </h4>
+            <p>{{ sortie.infosSortie }}</p>
+
+            <h4>Où</h4>
+            <p>{{ sortie.lieu.nom }}</p>
+            <p>{{ sortie.lieu.rue }}</p>
+            <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
+        </div>
+
+         <a class="btn btn-primary" href="">S'inscrire</a>
+
+         {% if sortie.participant is not null %}
+             <ul>
+                 {% for participant in sortie.participant %}
+
+                     <li>{{ participant.nom|upper }} {{ participant.prenom }}</li>
+
+                 {% endfor %}
+             </ul>
+         {% else %}
+            <p>aucun participant pour le moment</p>
+         {% endif %}
+
+
+
+     </div>
+ </div>
+
+{% endblock %}
+
