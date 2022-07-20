@@ -94,6 +94,12 @@ class Sortie
      */
     private $participant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
 
 
     public function __construct()
@@ -246,6 +252,18 @@ class Sortie
     public function removeParticipant(User $participant): self
     {
         $this->participant->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
