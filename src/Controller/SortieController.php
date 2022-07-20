@@ -65,7 +65,7 @@ class SortieController extends AbstractController
         if($formulaireSortie->get('enregistrer')->isClicked())
 
             {
-                $etat = $etatRepository->find(1);
+                $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -76,7 +76,7 @@ class SortieController extends AbstractController
         if($formulaireSortie->get('publier')->isClicked())
 
         {
-            $etat = $etatRepository->find(6);
+            $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
