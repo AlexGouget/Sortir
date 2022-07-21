@@ -341,7 +341,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
+     * @Assert\File(maxSizeMessage="L'image est trop grande, maximun 2Mb", uploadIniSizeErrorMessage="L'image est trop grande, maximun 2Mb")
      * @Vich\UploadableField(mapping="user_img", fileNameProperty="imageName", size="imageSize")
      *
      * @var File|null
