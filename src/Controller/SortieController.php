@@ -84,17 +84,12 @@ class SortieController extends AbstractController
           return  $this->redirectToRoute('main_home');
         }
 
-
-
-
         return $this->render('sortie/index.html.twig', [
             'formulaireSortie' =>  $formulaireSortie->createView(),
             'formulaireLieu' =>  $formulaireLieu->createView(),
         ]);
     }
 
-<<<<<<< Updated upstream
-=======
     /**
      * @Route("/detail/{id}", name="detail")
      */
@@ -165,6 +160,7 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_detail',['id'=>$idSortie]);
     }
 
+
     /**
      * @Route("/annuler/{idUser}/{idSortie}", name="annuler")
      */
@@ -189,6 +185,5 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
->>>>>>> Stashed changes
 
 }

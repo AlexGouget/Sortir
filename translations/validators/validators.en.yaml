@@ -1,3 +1,11 @@
+#general
+not_blank: Ce champ est obligatoire
+
+#User
+
+user.email.notvalid: L'adresse email '{{ value }}'n'est pas valide.
+user.length25: Votre {{ label }} doit contenir entre 2 et 25 caractères.
+user.tel: Veuillez entrer un numéro à 10 chiffres!
 
 #Sortie
 

@@ -9,14 +9,16 @@
             background-attachment: fixed;
         }
     </style>
+
     <div class="header">
         <div class="user-details position-relative">
-            <a href="{{ path('app_register') }}" class="btn btn-primary ml-xl-4">Ajouter des utilisateurs</a>
-            <h2>Liste Utilisateurs:</h2>
-            {% for user in users  %}
-            <a href="{{ path('profile_details', {'id': user.id }) }}">{{ user.nom }}</a>
-            {% endfor %}
+            <h2>Nouvel utilisateur</h2>
+            {{ form_start(registrationForm) }}
+            {{ form_widget(registrationForm) }}
+            <button>Enregistrer</button>
+            {{ form_end(registrationForm) }}
         </div>
+
     </div>
 {% endblock %}
 

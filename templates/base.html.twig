@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %} Sortir.com {% endblock %}</title>
+    <link rel="icon" href="{{ asset('assets/imgs/fav.svg') }}">
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/vendors/themify-icons/css/themify-icons.css') }}">
@@ -37,7 +38,7 @@
         {% block header %}{% endblock %}
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="flash flash-{{ label }}">
+                <div style="text-align: center" class="flash flash-{{ label }}">
                     {{ message }}
                 </div>
             {% endfor %}

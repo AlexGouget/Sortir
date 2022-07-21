@@ -1,6 +1,3 @@
-<div id="gallary" class="text-center bg-dark text-light has-height-md middle-items wow fadeIn">
-    <h2 class="section-title">LES PROCHAINS EVENEMENTS</h2>
-</div>
 <div class="gallary row">
 {% for sortie in listSortie %}
 
@@ -12,15 +9,18 @@
             <div class="gallary-info">
                 <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
                 <h4 class="info-title">{{ sortie.nom }}</h4>
-                <p>{{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
+                <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
                 <div class="info-ville">
 
                     <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
                 </div>
                 <p> {{ placeDispo }} / {{ sortie.nbInscriptionMax }} places disponibles</p>
 
+                {% if app.user and sortie in app.user.sortiesParticipant %}
+                    <p class="btn btn-primary">inscrit</p>
+                {% endif %}
             </div>
-            <a href="#" class="gallary-overlay">
+            <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
                 <i class="gallary-icon ti-plus"></i>
             </a>
         </div>

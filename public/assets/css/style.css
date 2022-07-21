@@ -78,7 +78,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+
 }
 
 .customFont{
@@ -11229,6 +11229,12 @@ pre {
 
 }
 
+.header-find-page{
+  height: 65vh;
+  max-height: 900px;
+  background-size: cover !important;
+}
+
 .header .overlay {
   height: 100%;
   background: rgb(33 37 41 / 55%);
@@ -11470,4 +11476,14 @@ pre {
 
 .btnOption{
   margin: 10px;
+}
+.sortie-detail{
+  padding-top: 150px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-info{
+  width: 30vw;
 }
