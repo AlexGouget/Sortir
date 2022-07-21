@@ -28,17 +28,15 @@
             <p>{{ sortie.lieu.rue }}</p>
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
 
-
             <p>{{ sortie.organisateur.id }}</p>
             <p>{{ app.user.id }}</p>
 
         </div>
 
 
-
         </div>
 
-         {% if app.user %}
+
          {% if sortie in app.user.sortiesParticipant %}
              <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
          {% else %}
@@ -46,16 +44,13 @@
 
         {% endif %}
 
-
-
-
-         {% endif %}
+       
 
 
          {% if sortie.organisateur.id is same as app.user.id %}
 
          <a class="btn btn-primary" href="{{ path('sortie_annuler',{'idUser':app.user.id, 'idSortie': sortie.id}) }}">Annuler</a>
-         {% endif %}.
+         {% endif %}
 
 
          {% if sortie.participant|length > 0  %}
@@ -75,9 +70,6 @@
          {% else %}
             <p>aucun participant pour le moment</p>
          {% endif %}
-
-
-
 
 
      </div>

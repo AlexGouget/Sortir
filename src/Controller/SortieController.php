@@ -110,7 +110,6 @@ class SortieController extends AbstractController
         $user = $this->getUser();
         if($sortie->getId() === $id){
             $sortie->addParticipant($user);
-            $em->persist($sortie);
             $em->flush();
             $this->addFlash('succes', 'Inscription à la sortie réussie!');
         } else {
@@ -130,7 +129,6 @@ class SortieController extends AbstractController
         if($sortie->getId() === $id){
 
             $sortie->removeParticipant($user);
-            $em->persist($sortie);
             $em->flush();
             $this->addFlash('succes', 'Votre desistement a été pris en compte!');
         } else {
@@ -150,7 +148,6 @@ class SortieController extends AbstractController
         if($sortie->getId() === $idSortie){
 
             $sortie->removeParticipant($user);
-            $em->persist($sortie);
             $em->flush();
             $this->addFlash('succes', "Utilisateur retiré de l'évènement!");
         } else {
@@ -185,7 +182,6 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
-
 
 
 }
