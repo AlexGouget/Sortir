@@ -60,7 +60,7 @@
                          <li>
                              <a href="{{ path('profile_details', {'id':participant.id}) }}">{{ participant.nom|upper }} {{ participant.prenom }}</a>
 
-                             {% if is_granted('ROLE_ADMIN') %}
+                             {% if is_granted('ROLE_ADMIN') and sortie.organisateur.id is same as app.user.id  %}
                                  <a class="btn btn-outline-warning m-1 flex-end" href="{{ path('sortie_desinscrire', {'idUser':participant.id, 'idSortie': sortie.id}) }}"> <i class="ti-trash"></i> </a>
                              {% endif %}
                          </li>
