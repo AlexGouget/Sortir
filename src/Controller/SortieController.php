@@ -93,5 +93,102 @@ class SortieController extends AbstractController
         ]);
     }
 
+<<<<<<< Updated upstream
+=======
+    /**
+     * @Route("/detail/{id}", name="detail")
+     */
+    public function detailSortie(Request $request,Sortie $sortie,SortieRepository  $sortieRepo,EntityManagerInterface $em):Response{
+
+        $sortie = $sortieRepo->find($sortie);
+        if(!$sortie){throw  $this->createNotFoundException('Sortie introuvable');}
+        return $this-> render('sortie/detail.html.twig',['sortie' => $sortie]);
+    }
+
+
+    /**
+     * @Route("/sortie/inscription/{id}", name="inscription")
+     */
+    public function inscriptionSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $user = $this->getUser();
+        if($sortie->getId() === $id){
+            $sortie->addParticipant($user);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('succes', 'Inscription à la sortie réussie!');
+        } else {
+            $this->addFlash('warning', "une erreur est survenue a l'incription");
+        }
+
+        return $this->redirectToRoute('sortie_detail',['id'=>$id]);
+    }
+
+    /**
+     * @Route("/desister/{id}", name="desister")
+     */
+    public function desisterSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $user = $this->getUser();
+        if($sortie->getId() === $id){
+
+            $sortie->removeParticipant($user);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('succes', 'Votre desistement a été pris en compte!');
+        } else {
+            $this->addFlash('warning', "une erreur est survenue a l'incription");
+        }
+
+        return $this->redirectToRoute('sortie_detail',['id'=>$id]);
+    }
+
+    /**
+     * @Route("/admin/desinscrire/{idUser}/{idSortie}", name="desinscrire")
+     */
+    public function desinscrireSortie(int $idUser,int $idSortie, Request $request, SortieRepository $sortieRepository,UserRepository $userRepo, EntityManagerInterface $em ): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $user = $userRepo->find($idUser);
+        if($sortie->getId() === $idSortie){
+
+            $sortie->removeParticipant($user);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('succes', "Utilisateur retiré de l'évènement!");
+        } else {
+            $this->addFlash('warning', "une erreur est survenue de la désincription");
+        }
+
+        return $this->redirectToRoute('sortie_detail',['id'=>$idSortie]);
+    }
+
+    /**
+     * @Route("/annuler/{idUser}/{idSortie}", name="annuler")
+     */
+
+    public function annulerSortie(int $idUser,int $idSortie,Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $user = $userRepository->find($idUser);
+
+        if ($sortie->getOrganisateur()->getId() === $user->getId()){
+
+            $sortieRepository->remove($sortie);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('succes', "Votre évenement à été retiré !");
+        } else {
+            $this->addFlash('warning', "une erreur est survenue lors de la suppression de votre évenement");
+        }
+
+
+
+
+        return $this->redirectToRoute('main_home');
+    }
+>>>>>>> Stashed changes
 
 }
