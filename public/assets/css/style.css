@@ -483,6 +483,10 @@ mark,
   max-width: 100%;
   height: auto;
 }
+.img-profile{
+  max-width: 10vw;
+  height: auto;
+}
 
 .img-thumbnail {
   padding: 0.25rem;
