@@ -68,6 +68,7 @@ class ProfileController extends AbstractController
         $editUserForm->handleRequest($request);
 
         if ($editUserForm->isSubmitted() && $editUserForm->isValid()) {
+            //$user->setImageFile($editUserForm->get('imageFile')->getData()) ;
             $em->flush();
             $this->addFlash('success','Informations modifiée(s) avec succes!');
             $this->redirectToRoute('profile_details', ['id'=> $user->getId()]);

@@ -40,17 +40,14 @@
              <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
          {% else %}
                <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
-
-        {% endif %}
-
-       
+         {% endif %}
 
 
          {% if sortie.organisateur.id is same as app.user.id %}
 
          <a class="btn btn-primary" href="{{ path('sortie_annuler',{'idUser':app.user.id, 'idSortie': sortie.id}) }}">Annuler</a>
-         {% endif %}
 
+         {% endif %}.
 
          {% if sortie.participant|length > 0  %}
              <ul>
@@ -69,6 +66,7 @@
          {% else %}
             <p>aucun participant pour le moment</p>
          {% endif %}
+
         {% endif %}
 
      </div>
