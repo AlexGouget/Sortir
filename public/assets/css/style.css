@@ -78,7 +78,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+
 }
 
 .customFont{
@@ -11227,6 +11227,12 @@ pre {
   max-height: 900px;
   background-size: cover !important;
 
+}
+
+.header-find-page{
+  height: 65vh;
+  max-height: 900px;
+  background-size: cover !important;
 }
 
 .header .overlay {
