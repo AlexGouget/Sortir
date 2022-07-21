@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 class EditUserType extends AbstractType
@@ -17,6 +18,9 @@ class EditUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('imageFile', VichImageType::class, [
+                'label'=> 'Photo de profil: '
+            ])
             ->add('pseudo', TextType::class)
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
@@ -25,7 +29,6 @@ class EditUserType extends AbstractType
                 'class'=> Campus::class,
                 'choice_label'=>'nom',
             ])
-            //TODO: ajouter champ upload image profil
         ;
     }
 

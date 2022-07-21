@@ -22,6 +22,9 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('pseudo', TextType::class,[
+                'label' => 'pseudo :'
+            ])
             ->add('email', EmailType::class,[
                 'label' => 'email :'
             ])
@@ -32,11 +35,11 @@ class RegistrationFormType extends AbstractType
                 'label'=>'Prenom :'
             ])
             ->add('telephone', TelType::class,['label'=>'Téléphone'])
-            ->add('campus',EntityType::class, [
+            /*->add('campus',EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'nom',
                 'label'=>'Campus :'
-            ])
+            ])*/
 
         ;
     }
