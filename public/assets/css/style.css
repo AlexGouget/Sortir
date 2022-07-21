@@ -2157,7 +2157,7 @@ pre code {
 
 .form-control {
   display: block;
-  width: 100%;
+  width: 90%;
   height: calc(1.5em + 0.8rem + 2px);
   padding: 0.4rem 0.78rem;
   font-size: 1rem;
@@ -11486,4 +11486,18 @@ pre {
 
 .detail-info{
   width: 30vw;
+}
+
+.detail-option{
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.display-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
 }
