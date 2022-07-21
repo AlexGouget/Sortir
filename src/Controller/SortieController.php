@@ -161,4 +161,29 @@ class SortieController extends AbstractController
     }
 
 
+    /**
+     * @Route("/annuler/{idUser}/{idSortie}", name="annuler")
+     */
+
+    public function annulerSortie(int $idUser,int $idSortie,Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $user = $userRepository->find($idUser);
+
+        if ($sortie->getOrganisateur()->getId() === $user->getId()){
+
+            $sortieRepository->remove($sortie);
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('succes', "Votre évenement à été retiré !");
+        } else {
+            $this->addFlash('warning', "une erreur est survenue lors de la suppression de votre évenement");
+        }
+
+
+
+
+        return $this->redirectToRoute('main_home');
+    }
+
 }
