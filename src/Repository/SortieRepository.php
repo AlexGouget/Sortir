@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -61,6 +63,93 @@ class SortieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
+    }
+
+
+    /**
+     * @return Sortie[] La recherche de sortie
+     */
+
+    public function findSortiebyName(string $query,
+                                     UserInterface $user,
+                                     $campus = null,
+                                     $cat = null,
+                                     $dateDebut = null,
+                                     $dateFin = null,
+                                    $CBorga = null,
+                                    $CBinscrit = null,
+                                    $CBnonInscrit = null,
+                                    $CBfini = null
+
+    )
+    {
+
+
+        $qb = $this->createQueryBuilder('s');
+        $qb->leftJoin('s.categorie', 'c')
+        ->leftJoin('s.organisateur', 'o')
+            ->leftJoin('s.campus', 'camp')
+        ->leftJoin('s.participant', 'p')
+        ->leftJoin('s.lieu', 'l')
+        ->leftJoin('l.ville', 'v');
+        $qb ->addSelect('v')
+            ->addSelect('l')
+            ->addSelect('p')
+            ->addSelect('c')
+            ->addSelect('camp')
+            ->addSelect('o');
+        $qb->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('s.nom', ':query'),
+                        $qb->expr()->like('v.nom', ':query'),
+                        $qb->expr()->like('l.nom', ':query'),
+                    ),
+
+                )
+            )
+            ->setParameter('query', '%' . $query . '%');
+        if($cat){
+            $qb->andWhere('c = :val')
+                ->setParameter('val', $cat);
+        }
+        if($campus){
+            $qb->andWhere('camp = :val2')
+                ->setParameter('val2', $campus);
+        }
+
+        if($dateDebut){
+            $qb->andWhere('s.dateHeureDebut > :val3')
+                ->setParameter('val3', $dateDebut);
+        }
+        if($dateDebut){
+            $qb->andWhere('s.dateHeureDebut < :val4')
+                ->setParameter('val4', $dateFin);
+        }
+
+        if($CBinscrit){
+            $qb->andWhere('p = :val5')
+                ->setParameter('val5', $user);
+        }
+        if($CBorga){
+            $qb->andWhere('c = :val6')
+                ->setParameter('val6', $user);
+        }
+        if($CBnonInscrit){
+            $qb->andWhere('p != :val7')
+                ->setParameter('val7', $user);
+        }
+        if($CBfini){
+            $qb->andWhere('s.dateHeureDebut <  :val8')
+                ->setParameter('val8', new \DateTime());
+        }
+
+        $qb
+            ->getQuery();
+
+        return $qb
+            ->getQuery()
+            ->getResult();
     }
 
 
