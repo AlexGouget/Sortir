@@ -186,4 +186,5 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('main_home');
     }
 
+
 }
