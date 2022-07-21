@@ -36,7 +36,7 @@ class EventResearchController extends AbstractController
 
     //génération du formulaire de recherche
     public function searchForm(){
-        $formResearch = $this->createFormBuilder()
+        $formResearch = $this->createFormBuilder(['attr' => ['class' => 'task-form']])
             ->setAction($this->generateUrl('Search'))
             ->add('query', TextType::class, [
                 'label' => false,
@@ -74,7 +74,7 @@ class EventResearchController extends AbstractController
 
                 ],
                 'widget' => 'single_text',
-                'label'=>'Entre :',
+                'label'=>'Entre',
                 'required'=>false,
                 'input'=> 'datetime',
                 'input_format'=>'datetime'
@@ -86,7 +86,7 @@ class EventResearchController extends AbstractController
 
                 ],
                 'widget' => 'single_text',
-                'label'=>'et :',
+                'label'=>'et',
                 'required'=>false,
                 'html5'=>true,
 
