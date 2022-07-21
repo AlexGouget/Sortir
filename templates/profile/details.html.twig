@@ -12,7 +12,9 @@
 
 <div class="header">
     <div class="user-details position-relative">
+        {% if user.imageName %}
             <img class="img-profile" src="{{ asset('assets/imgs/profile/'~ user.imageName) }}" alt="imgProfile">
+        {% endif %}
         <p>Email: {{ user.email }}</p>
         <p>Pseudo: {{ user.pseudo }}</p>
         <p>Nom: {{ user.nom }}</p>

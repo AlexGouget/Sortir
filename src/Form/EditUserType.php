@@ -19,6 +19,7 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class, [
+                'required'=> false,
                 'label'=> 'Photo de profil: '
             ])
             ->add('pseudo', TextType::class)
