@@ -28,15 +28,14 @@
             <p>{{ sortie.lieu.rue }}</p>
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
 
-            <p>{{ sortie.organisateur.id }}</p>
-            <p>{{ app.user.id }}</p>
-
-        </div>
 
 
         </div>
 
 
+        </div>
+
+        {% if app.user %}
          {% if sortie in app.user.sortiesParticipant %}
              <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
          {% else %}
@@ -67,6 +66,8 @@
          {% else %}
             <p>aucun participant pour le moment</p>
          {% endif %}
+
+        {% endif %}
 
      </div>
  </div>

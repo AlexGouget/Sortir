@@ -42,30 +42,37 @@ class EventResearchController extends AbstractController
                 'label' => false,
                 'required'=>false,
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Entrez un mot-clé'
+                    'class' => 'form-control custom-form-control-lg custom-form-control-main',
+                    'placeholder' => 'évènement, lieu, ville...',
+                    'id'=>'research'
                 ]
             ])
-            ->add('recherche', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ])
+
             ->add('campus',EntityType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+
+                ],
                 'class' => Campus::class,
                 'required'=>false,
                 'choice_label' => 'nom',
-                'placeholder' => 'Selectionner un campus',
-                'label'=>'Campus :'
+                'placeholder' => 'Selectionner un campus'
             ])
             ->add('categorie',EntityType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+
+                ],
                 'class' => Categorie::class,
                 'required'=>false,
                 'choice_label' => 'libelleCat',
-                'placeholder' => 'Toutes les catégories',
-                'label'=>'Categorie :'
+                'placeholder' => 'Toutes les catégories'
             ])
             ->add('dateDebut', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+
+                ],
                 'widget' => 'single_text',
                 'label'=>'Entre :',
                 'required'=>false,
@@ -74,6 +81,10 @@ class EventResearchController extends AbstractController
 
             ])
             ->add('dateFin', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+
+                ],
                 'widget' => 'single_text',
                 'label'=>'et :',
                 'required'=>false,
