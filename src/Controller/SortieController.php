@@ -90,13 +90,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 4e9eac91501afe12878b013ba207681afe543c33
->>>>>>> Stashed changes
     /**
      * @Route("/detail/{id}", name="detail")
      */
@@ -189,13 +182,6 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 4e9eac91501afe12878b013ba207681afe543c33
->>>>>>> Stashed changes
 
 
 }

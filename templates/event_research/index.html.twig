@@ -34,8 +34,12 @@
             </div>
         </header>
 
-    </div>
 
+
+    </div>
+    {{ render(controller(
+        'App\\Controller\\EventResearchController::searchForm'
+    )) }}
 
     {% include('inc/gallery.html.twig') %}
 {% endblock %}
