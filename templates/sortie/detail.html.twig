@@ -29,7 +29,7 @@
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
         </div>
 
-
+         {% if app.user %}
          {% if sortie in app.user.sortiesParticipant %}
              <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
          {% else %}
@@ -38,23 +38,24 @@
 
 
 
-         {% if sortie.participant|length > 0  %}
-             <ul>
-                 {% for participant in sortie.participant %}
+             {% if sortie.participant|length > 0  %}
+                 <ul>
+                     {% for participant in sortie.participant %}
 
-                     <li>
-                         <a href="{{ path('profile_details', {'id':participant.id}) }}">{{ participant.nom|upper }} {{ participant.prenom }}</a>
+                         <li>
+                             <a href="{{ path('profile_details', {'id':participant.id}) }}">{{ participant.nom|upper }} {{ participant.prenom }}</a>
 
-                         {% if is_granted('ROLE_ADMIN') %}
-                         <a class="btn btn-outline-warning" href="{{ path('sortie_desinscrire', {'idUser':participant.id, 'idSortie': sortie.id}) }}"> désincrire le participant </a>
-                         {% endif %}
-                     </li>
+                             {% if is_granted('ROLE_ADMIN') %}
+                             <a class="btn btn-outline-warning" href="{{ path('sortie_desinscrire', {'idUser':participant.id, 'idSortie': sortie.id}) }}"> désincrire le participant </a>
+                             {% endif %}
+                         </li>
 
-                 {% endfor %}
-             </ul>
-         {% else %}
-            <p>aucun participant pour le moment</p>
-         {% endif %}
+                     {% endfor %}
+                 </ul>
+             {% else %}
+                <p>aucun participant pour le moment</p>
+             {% endif %}
+        {% endif %}
 
 
 
