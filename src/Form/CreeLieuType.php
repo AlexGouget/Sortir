@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Lieu;
 use App\Entity\Ville;
+use Doctrine\DBAL\Types\FloatType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,21 +20,46 @@ class CreeLieuType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label'=>'Nom du lieu :'
+                'attr' => [
+                    'class' => 'lieu-control form-control',
+                     'placeholder' => 'nom du lieu',
+                 ]
 
             ])
             ->add('rue', TextType::class, [
-                'label'=>'Nom de la rue :'
+                'attr' => [
+                    'class' => 'lieu-control form-control',
+                    'placeholder' => 'Adresse  du lieu',
+                ],
+                'required'=>false,
             ])
-            ->add('latitude')
-            ->add('longitude')
+            ->add('latitude', NumberType::class,[
+                'attr' => [
+                    'class' => 'lieu-control form-control',
+                    'placeholder' => 'lat...',
+                ],
+                'required'=>false
+            ])
+            ->add('longitude', NumberType::class,[
+                'attr' => [
+                    'class' => 'lieu-control form-control',
+                    'placeholder' => 'long',
+                ],
+                'required'=>false
+            ])
             ->add('ville', EntityType::class,[
                 'class'=>Ville::class,
                 'choice_label'=>'nom',
-                'label'=>'Ville :'
+                'placeholder'=>'choisissez une ville',
+                'label'=>'Ville :',
+                'required'=>false,
+                'attr' => [
+                    'class' => 'lieu-control form-control',
+                    'placeholder' => 'Ville',
+                ],
             ])
 
-            ->add('creeLieu', SubmitType::class,['label' => 'Cree un lieu'] )
+            //->add('creeLieu', SubmitType::class,['label' => 'Cree un lieu'] )
         ;
     }
 
