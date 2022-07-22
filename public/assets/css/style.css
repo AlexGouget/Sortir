@@ -11240,7 +11240,7 @@ pre {
 
 .header {
   height: 100vh;
-  max-height: 900px;
+  min-height: 900px;
   background-size: cover !important;
 
 }
@@ -11596,4 +11596,21 @@ header form{
   align-items: center;
 }
 
+.hidden_field{
+  visibility: hidden;
+}
+
+
+.header-sortie{
+  margin-top: 150px;
+  margin-bottom: 240px;
+  height: inherit;
+}
+
+.header-sortie form{
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  margin: auto;
+}
 

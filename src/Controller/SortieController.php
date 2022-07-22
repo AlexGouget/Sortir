@@ -44,11 +44,13 @@ class SortieController extends AbstractController
 
 
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
-        $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
+
 
 
         $formulaireSortie->handleRequest($request);
-        $formulaireLieu->handleRequest($request);
+
+
+
 
 
 
@@ -78,7 +80,7 @@ class SortieController extends AbstractController
             if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
             {
-                $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
+            $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -87,16 +89,22 @@ class SortieController extends AbstractController
                 return  $this->redirectToRoute('main_home');
             }
 
+
+
+
         if($formulaireSortie->get('publier')->isClicked()&&$formulaireSortie->isSubmitted()&&$formulaireSortie->isValid())
 
         {
+
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
-            return  $this->redirectToRoute('main_home');
+
+            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
+
         }
 
 
@@ -108,7 +116,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/index.html.twig', [
             'formulaireSortie' =>  $formulaireSortie->createView(),
-            'formulaireLieu' =>  $formulaireLieu->createView(),
+
         ]);
     }
 
