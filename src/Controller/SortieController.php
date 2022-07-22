@@ -8,6 +8,7 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Form\CreeLieuType;
 use App\Form\CreeSortieType;
+use App\Form\EditModifSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
@@ -24,8 +25,6 @@ use Symfony\Component\Security\Core\Security;
 
 class SortieController extends AbstractController
 {
-
-
     /**
      * @Route("/cree", name="cree")
      */
@@ -40,11 +39,8 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $lieu = new Lieu();
 
-
-
-        $userTest = $this->get('security.token_storage')->getToken()->getUser();
-        $sortie->setOrganisateur($userTest);
-
+        $user = $this->getUser();
+        $sortie->setOrganisateur($user);
 
 
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
@@ -56,7 +52,32 @@ class SortieController extends AbstractController
 
 
 
-        if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
+
+
+        $lieu = new Lieu();
+        $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
+        $formulaireLieu->handleRequest($request);
+
+        if($formulaireLieu->isSubmitted()&&$formulaireLieu->isValid()) {
+
+
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre lieu est bien enregistré !');
+
+        }
+
+
+
+
+
+
+
+
+
+
+            if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
             {
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
@@ -65,6 +86,7 @@ class SortieController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est enregistrée en brouillon !');
+                return  $this->redirectToRoute('main_home');
             }
 
 
@@ -80,9 +102,10 @@ class SortieController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
-            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
-        }
 
+            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
+
+        }
 
 
         if($formulaireSortie->get('annuler')->isClicked())
@@ -100,11 +123,35 @@ class SortieController extends AbstractController
     /**
      * @Route("/detail/{id}", name="detail")
      */
-    public function detailSortie(Request $request,Sortie $sortie,SortieRepository  $sortieRepo,EntityManagerInterface $em):Response{
+    public function detailSortie(EtatRepository $etatRepository,Request $request,Sortie $sortie,SortieRepository  $sortieRepo,EntityManagerInterface $em):Response{
 
         $sortie = $sortieRepo->find($sortie);
+
+        $formulaireMotif=$this->createForm(EditModifSortieType::class, $sortie);
+        $formulaireMotif->handleRequest($request);
+
+
+        //Suppression d'article via modales (voir pour le mettre dans un service)
+
+
+        if($formulaireMotif->isSubmitted()){
+
+            $etat = $etatRepository->findOneBy(array('libelle'=> 'Annule'));
+            $sortie->setEtat($etat);
+            $em->flush($sortie);
+
+            $this->addFlash('success', 'Votre sortie a était supprimer!');
+           return$this->redirectToRoute('main_home');
+
+
+
+        }
+
         if(!$sortie){throw  $this->createNotFoundException('Sortie introuvable');}
-        return $this-> render('sortie/detail.html.twig',['sortie' => $sortie]);
+        return $this-> render('sortie/detail.html.twig',['sortie' => $sortie,
+            'formulaireMotif' =>  $formulaireMotif->createView()]);
+
+
     }
 
 
@@ -164,31 +211,6 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_detail',['id'=>$idSortie]);
     }
 
-
-    /**
-     * @Route("/annuler/{idUser}/{idSortie}", name="annuler")
-     */
-
-    public function annulerSortie(int $idUser,int $idSortie,Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
-    {
-        $sortie = $sortieRepository->find($idSortie);
-        $user = $userRepository->find($idUser);
-
-        if ($sortie->getOrganisateur()->getId() === $user->getId()){
-
-            $sortieRepository->remove($sortie);
-            $em->persist($sortie);
-            $em->flush();
-            $this->addFlash('succes', "Votre évenement à été retiré !");
-        } else {
-            $this->addFlash('warning', "une erreur est survenue lors de la suppression de votre évenement");
-        }
-
-
-
-
-        return $this->redirectToRoute('main_home');
-    }
 
 
 }

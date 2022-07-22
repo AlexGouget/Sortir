@@ -54,9 +54,6 @@
     </div>
 
 
-
-
-
         {{ form_end(formulaireSortie, {'render_rest': false}) }}
 
 
@@ -104,6 +101,55 @@
 
 
     </script>
+
+
+
+
+
+
+    <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
+        <i class="glyphicon glyphicon-trash"></i>
+        Supprimer
+    </a>
+
+    <div class="modal fade" id="infos">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+
+                    {# A mettre dans fichier css
+                    #}
+
+                    <style>
+                        .modal-content{
+                            color: #1b1e21;
+                        }
+                    </style>
+
+
+                    Etes-vous sur de vouloir supprimer votre évenement ?
+                    <br>
+                    Indiquez nous le motif de suppresion
+                    <div class="aSupprimer">
+                        {{ form_start(formulaireLieu) }}
+                        {{ form_widget(formulaireLieu)}}
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">OUI</button>
+                    <button class="btn btn-info" data-dismiss="modal">NON</button>
+                    {{ form_end(formulaireLieu)}}
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 

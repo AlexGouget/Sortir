@@ -42,14 +42,17 @@ class CreeSortieType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
+
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
                 'label'=>'Date limite d\'inscription :',
                 'widget' => 'single_text',
+
                 'html5'=>true,
                 'attr' => [
                     'class' => 'form-control'
                 ]
+
             ])
             ->add('duree' , IntegerType::class, [
                 'label'=>'Durée (en minutes) :',
@@ -156,6 +159,7 @@ class CreeSortieType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Sortie::class,
             "allow_extra_fields" => true,
+
         ]);
     }
 }
