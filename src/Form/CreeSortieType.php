@@ -74,6 +74,8 @@ class CreeSortieType extends AbstractType
         'choice_label' => 'nom',
             'label'=>'Lieu :'
     ])
+
+
         ->add('enregistrer', SubmitType::class,['label' => 'Enregistrer'] )
         ->add('publier', SubmitType::class,['label' => 'Publier la sortie'] )
         ->add('annuler', SubmitType::class,['label' => 'Annuler'] );
@@ -88,6 +90,7 @@ class CreeSortieType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Sortie::class,
             "allow_extra_fields" => true,
+
         ]);
     }
 }
