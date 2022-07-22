@@ -12,7 +12,7 @@
   }
  </style>
 
- <div class="header ">
+ <div class="header-detail">
      <div class="sortie-detail">
         <div class="detail-info">
             <h3>{{ sortie.nom }}</h3>
@@ -28,45 +28,56 @@
             <p>{{ sortie.lieu.rue }}</p>
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
 
-            <p>{{ sortie.organisateur.id }}</p>
-            <p>{{ app.user.id }}</p>
-
-        </div>
 
 
         </div>
 
+         <div class="flex-row m-1">
+             {% if app.user %}
+                {% if sortie in app.user.sortiesParticipant %}
+                 <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
+                {% else %}
+                 <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
+             {% endif %}
 
-         {% if sortie in app.user.sortiesParticipant %}
-             <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
-         {% else %}
-               <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
+             {% if sortie.organisateur.id is same as app.user.id %}
+
+                 <a class="btn btn-primary" href="{{ path('sortie_annuler',{'idUser':app.user.id, 'idSortie': sortie.id}) }}">Annuler</a>
+
+             {% endif %}
+
+         </div>
+
+
+
+
+
+             {% if sortie.participant|length > 0  %}
+                 <h4>liste des participants</h4>
+                 <ul>
+                     {% for participant in sortie.participant %}
+
+                         <li style="list-style: none; margin-bottom: 5px;">
+                             <a href="{{ path('profile_details', {'id':participant.id}) }}"><img class="img-profile-mini" src="{{ asset('assets/imgs/profile/'~ participant.imageName) }}" alt=""> {{ participant.nom|upper }} {{ participant.prenom }}</a>
+
+                             {% if is_granted('ROLE_ADMIN') and sortie.organisateur.id is same as app.user.id  %}
+                                 <a class="btn btn-outline-warning m-1 flex-end" href="{{ path('sortie_desinscrire', {'idUser':participant.id, 'idSortie': sortie.id}) }}"> <i class="ti-trash"></i> </a>
+                             {% endif %}
+                         </li>
+
+                     {% endfor %}
+                 </ul>
+             {% else %}
+                 <p>aucun participant pour le moment</p>
+             {% endif %}
+
          {% endif %}
 
 
-         {% if sortie.organisateur.id is same as app.user.id %}
 
-         <a class="btn btn-primary" href="{{ path('sortie_annuler',{'idUser':app.user.id, 'idSortie': sortie.id}) }}">Annuler</a>
+        </div>
 
-         {% endif %}.
 
-         {% if sortie.participant|length > 0  %}
-             <ul>
-                 {% for participant in sortie.participant %}
-
-                     <li>
-                         <a href="{{ path('profile_details', {'id':participant.id}) }}">{{ participant.nom|upper }} {{ participant.prenom }}</a>
-
-                         {% if is_granted('ROLE_ADMIN') %}
-                         <a class="btn btn-outline-warning" href="{{ path('sortie_desinscrire', {'idUser':participant.id, 'idSortie': sortie.id}) }}"> désincrire le participant </a>
-                         {% endif %}
-                     </li>
-
-                 {% endfor %}
-             </ul>
-         {% else %}
-            <p>aucun participant pour le moment</p>
-         {% endif %}
 
      </div>
  </div>

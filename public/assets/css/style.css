@@ -486,6 +486,18 @@ mark,
 .img-profile{
   max-width: 10vw;
   height: auto;
+  border-radius: 200px;
+}
+
+.img-profile-mini{
+  max-width: 4vw;
+  height: auto;
+  border-radius: 200px;
+}
+.img-profile-extra-mini{
+  max-width: 2vw;
+  height: auto;
+  border-radius: 200px;
 }
 
 .img-thumbnail {
@@ -11233,6 +11245,23 @@ pre {
 
 }
 
+.header-detail {
+  height: 100%;
+  max-height: 900px;
+  background-size: cover !important;
+
+}
+
+.headerBis {
+  height: 70vh;
+  max-height: 900px;
+  background-size: cover !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+
+}
+
 .header-find-page{
   height: 65vh;
   max-height: 900px;
@@ -11241,7 +11270,7 @@ pre {
 
 .header .overlay {
   height: 100%;
-  background: rgb(33 37 41 / 55%);
+
   display: -webkit-flex;
   display: -ms-flex;
   display: -webkit-box;
@@ -11260,6 +11289,29 @@ pre {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.header .overlayBis {
+  height: 100%;
+  background: rgb(33 37 41 / 55%);
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: end;
+  -ms-flex-pack: end;
+  justify-content: end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .header-title {
@@ -11491,3 +11543,57 @@ pre {
 .detail-info{
   width: 30vw;
 }
+
+.detail-option{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.display-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.form-container form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option-elem{
+  display:flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.option-elem input{
+  margin-bottom: 5px;
+}
+.option-elem select{
+  margin-bottom: 5px;
+}
+
+.flex{
+  display:flex;
+}
+
+
+
+.flex-start{
+  align-items: flex-start;
+}
+
+.flex-end{
+  align-items: end;
+}
+
+header form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
