@@ -1,0 +1,75 @@
+{{ form_start(searchForm,{'id': 'formHeader'}) }}
+<div class="searchBox custom-form-control" >
+
+
+
+    {{ form_widget(searchForm.query) }}
+
+   <button type="submit" class="rounded btn btn-lg btn-primary">
+        <i class="ti-search"></i>
+    </button>
+
+</div>
+
+<button id="collapseButton" class="btn btn-primary btnOption" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Plus d'options <i class="ti-angle-down"></i>
+</button>
+
+<div class="collapse" id="collapseExample">
+    <div class="card card-body detail-option">
+
+        <div class="option-elem flex-start">
+            {{ form_widget(searchForm.campus) }}
+            {{ form_widget(searchForm.categorie) }}
+        </div>
+
+        <div class="option-elem flex-end">
+            <div class="display-row">
+                {{ form_label(searchForm.dateDebut) }}
+                {{ form_widget(searchForm.dateDebut) }}
+            </div>
+            <div class="display-row">
+                {{ form_label(searchForm.dateFin) }}
+                {{ form_widget(searchForm.dateFin) }}
+            </div>
+        </div>
+
+
+
+
+
+
+        {% if app.user %}
+            <div class="option-elem flex-start">
+                <div class="checkbox mb-3">
+                    <label>
+                        {{ form_widget(searchForm.CBorganisateur) }} {{ form_label(searchForm.CBorganisateur) }}
+                    </label>
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                        {{ form_widget(searchForm.CBinscrit) }} {{ form_label(searchForm.CBinscrit) }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="option-elem flex-start">
+                <div class="checkbox mb-3">
+                    <label>
+                        {{ form_widget(searchForm.CBnonInscrit) }} {{ form_label(searchForm.CBnonInscrit) }}
+                    </label>
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                        {{ form_widget(searchForm.CBarchive) }} {{ form_label(searchForm.CBarchive) }}
+                    </label>
+                </div>
+            </div>
+
+
+        {% endif %}
+    </div>
+</div>
+
+{{ form_end(searchForm, {'render_rest': false}) }}
+

@@ -3,39 +3,25 @@
 {% block title %}Trouvez une sortie !{% endblock %}
 
 {% block body %}
-    <div class="header">
-        <header style="background: url({{ asset('assets/imgs/bg_meeting.jpg') }}) no-repeat center center fixed;" id="home" class="header">
-            <div class="overlay text-white text-center">
-                <form  action="">
-
-                    <div class="searchBox custom-form-control" >
-                        <input type="text" id="research" class="form-control custom-form-control-lg custom-form-control-main" placeholder="évènement, lieu, ville...">
-
-                        <button type="submit" class="rounded btn btn-lg btn-primary">
-                            <i class="ti-search"></i>
-                        </button>
-
-                    </div>
-
-                    <button class="btn btn-primary btnOption" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Plus d'options <i class="ti-angle-down"></i>
-                    </button>
-
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            //todo affichage des options de recherches
-                        </div>
-                    </div>
-
-
-                </form>
-
-
+    <div >
+        <header style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url({{ asset('assets/imgs/bg_meeting.jpg') }}); background-position: center;" id="home" class="headerBis">
+            <div class="overlayBis text-white text-center">
+                {{ render(controller(
+                    'App\\Controller\\EventResearchController::searchForm'
+                )) }}
             </div>
         </header>
+
+
 
     </div>
 
 
     {% include('inc/gallery.html.twig') %}
+    <script>
+        document.getElementById('collapseButton').style.display= 'none';
+        document.getElementById('collapseExample').style.display ='block';
+
+    </script>
+
 {% endblock %}
