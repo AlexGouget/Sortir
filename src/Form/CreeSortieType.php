@@ -31,12 +31,12 @@ class CreeSortieType extends AbstractType
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label'=>'Date et heure de la sortie :',
-                'html5'=>true,
+                'widget' => 'single_text',
 
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
                 'label'=>'Date limite d\'inscription :',
-                'html5'=>true,
+                'widget' => 'single_text',
             ])
             ->add('duree' , IntegerType::class, [
                 'label'=>'Durée (en minutes) :',
