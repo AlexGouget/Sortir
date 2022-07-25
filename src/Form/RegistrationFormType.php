@@ -40,7 +40,6 @@ class RegistrationFormType extends AbstractType
                 'choice_label' => 'nom',
                 'label'=>'Campus :'
             ])*/
-
         ;
     }
 

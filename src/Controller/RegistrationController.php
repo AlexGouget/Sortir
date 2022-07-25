@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("admin/register", name="app_register")
      * @throws TransportExceptionInterface
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppUserAuthenticator $authenticator, EntityManagerInterface $entityManager, MailerInterface $mailer, TranslatorInterface $translator): Response
@@ -39,11 +39,12 @@ class RegistrationController extends AbstractController
 
         $form = $this->createForm(RegistrationFormType::class, $user);
 
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
             $user->setActif(true);
-            $user->setRoles(["ROLE_ADMIN"]);
+            $user->setRoles(["ROLE_USER"]);
             // encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(
@@ -52,14 +53,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
+
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $this->addFlash('confirmation', "Utilisateur crée, un mail de confirmation a été envoyé" );
             // generate a signed url and email it to the user
 
-
-
-            /*
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@sortir.com', "l'équipe de sortir.com"))
@@ -67,18 +66,17 @@ class RegistrationController extends AbstractController
                     ->subject('Votre compte a été crée')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            */
+
             // do anything else you need here, like send an email
-            /*
-              return $userAuthenticator->authenticateUser(
+
+             /* return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
-            );
-            */
-            $this->addFlash('confirmation', "Utilisateur créer, un mail de confirmation a été envoyé" );
+            );*/
+
         }
-       //
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
