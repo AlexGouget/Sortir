@@ -69,6 +69,8 @@ class RegistrationController extends AbstractController
             );
 
 
+            $this->addFlash('confirmation', "Utilisateur créer, un mail de confirmation a été envoyé" );
+
             // do anything else you need here, like send an email
 
              /* return $userAuthenticator->authenticateUser(
@@ -76,6 +78,7 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 $request
             );*/
+
 
         }
 
