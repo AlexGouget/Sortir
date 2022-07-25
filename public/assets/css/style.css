@@ -11477,6 +11477,7 @@ pre {
 }
 
 .user-details{
+  position: relative;
   top: 30%;
   bottom: 50%;
   display: flex;
@@ -11614,3 +11615,9 @@ header form{
   margin: auto;
 }
 
+.header-profile {
+  padding-top: 11%;
+  height: auto;
+  min-height: auto;
+  background-size: cover !important;
+}
