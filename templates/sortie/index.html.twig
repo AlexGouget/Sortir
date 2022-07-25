@@ -146,7 +146,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" onclick="functiontest()">Crée un lieu</button>
+                    <button type="submit" class="btn btn-primary">Crée un lieu</button>
                     <button class="btn btn-info" data-dismiss="modal">Non j'ai changer d'avis</button>
                     {{ form_end(formulaireLieu)}}
                 </div>
@@ -155,34 +155,5 @@
     </div>
 
 
-    <script>
-
-       function functiontest(){
-           alert('test')
-
-                $(document).ready(function(){
-                form = $('formulaireLieu');
-
-                $(form[0]).submit(function(e){
-                e.preventDefault();
-                $.ajax({
-                method: "post",
-                url: '{{ path('lieu_cree') }}',
-                dataType: "json",
-            }).done( function(response) {
-                console.log(response.send);
-
-            }).fail(function(jxh,textmsg,errorThrown){
-                console.log(textmsg);
-                console.log(errorThrown);
-            });
-
-            });
-
-            })
-                console.log('test');
-           }
-
-    </script>
 
 {% endblock %}
