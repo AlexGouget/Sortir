@@ -36,10 +36,12 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppUserAuthenticator $authenticator, EntityManagerInterface $entityManager, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $user = new User();
+
         $form = $this->createForm(RegistrationFormType::class, $user);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($user);
             $user->setActif(true);
             $user->setRoles(["ROLE_ADMIN"]);
             // encode the plain password
