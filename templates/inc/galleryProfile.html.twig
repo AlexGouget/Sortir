@@ -1,9 +1,6 @@
-<div class="gallary row">
-{% for sortie in listSortie %}
-
-    {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
-
-
+<div class="gallary row position-relative pt-4">
+    {% for sortie in user.sortiesParticipant %}
+        {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
         <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
             <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
             <div class="gallary-info">
@@ -25,9 +22,8 @@
             </a>
         </div>
 
-{% endfor %}
+    {% endfor %}
 </div>
-
 
 
 
