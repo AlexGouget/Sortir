@@ -36,6 +36,8 @@ sortie.lieu.not_blank : Le lieu de votre sortie est obligatoire
 
 sortie.campus.not_blank : Votre campus de rattachement est obligatoire
 
+sortie.categorie.not_blank: Veuillez choisir une categorie
+
 
 
 #Lieu

@@ -3,26 +3,61 @@
 {% block title %}Création sortie{% endblock %}
 
 {% block body %}
+<div id="home" class="header-sortie">
+    <header class="header">
+
+        {{ form_start(formulaireSortie.nom) }}
+        <h1>Création d'une sortie</h1>
+
+        {{ form_row(formulaireSortie.nom) }}
+        {{ form_row(formulaireSortie.dateHeureDebut) }}
+        {{ form_row(formulaireSortie.dateLimiteInscription) }}
+        {{ form_row(formulaireSortie.nbInscriptionMax) }}
+        {{ form_row(formulaireSortie.duree) }}
+        {{ form_row(formulaireSortie.infosSortie) }}
 
 
-    <! BALISE TEMPORAIRE !>
-    <style>
-        form {
-            margin-top: 150px;
-        }
-    </style>
+        {{ form_row(formulaireSortie.campus) }}
+
+
+        {{ form_row(formulaireSortie.lieu) }}
 
 
 
-    {{ form_start(formulaireSortie.nom) }}
-    <h1>Formulaire sortie</h1>
 
-    {{ form_row(formulaireSortie.nom) }}
-    {{ form_row(formulaireSortie.dateHeureDebut) }}
-    {{ form_row(formulaireSortie.dateLimiteInscription) }}
-    {{ form_row(formulaireSortie.nbInscriptionMax) }}
-    {{ form_row(formulaireSortie.duree) }}
-    {{ form_row(formulaireSortie.infosSortie) }}
+        <button id="collapseButton" class="btn btn-primary btnOption" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Plus d'options <i class="ti-plus"></i>
+        </button>
+
+
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body detail-option">
+                {{ form_widget(formulaireSortie.newLieu.nom) }}
+                {{ form_widget(formulaireSortie.newLieu.rue) }}
+                {{ form_widget(formulaireSortie.newLieu.ville) }}
+                {{ form_widget(formulaireSortie.newLieu.latitude,{'attr': {'class': 'hidden_field'}}) }}
+                {{ form_widget(formulaireSortie.newLieu.longitude,{'attr': {'class': 'hidden_field'}}) }}
+            </div>
+        </div>
+
+        {{ form_row(formulaireSortie.categorie) }}
+
+
+
+
+
+    <div class="flex flex-row m-2">
+        {{ form_row(formulaireSortie.enregistrer) }}
+        {{ form_row(formulaireSortie.publier) }}
+        {{ form_row(formulaireSortie.annuler) }}
+
+    </div>
+
+
+        {{ form_end(formulaireSortie, {'render_rest': false}) }}
+
+
+
 
     <hr>
     {{ form_row(formulaireSortie.campus) }}
@@ -30,18 +65,45 @@
     {{ form_row(formulaireSortie.categorie) }}
 
 
-    <br>
+
+    <script>
+        const choixLieu = document.getElementById('cree_sortie_lieu');
+        const inputsLieux = document.getElementsByClassName('lieu-control');
+        //on enlève tous les champs required des inputs
+            setRequired(false,inputsLieux);
+        const btnAjouterLieu = document.getElementById('collapseButton');
+        btnAjouterLieu.addEventListener('click', function(){
+            if (choixLieu.style.display === "none") {
+                choixLieu.style.display = "block";
+                choixLieu.setAttribute("required", "");
+                setRequired(false, inputsLieux)
+            } else {
+                choixLieu.style.display = "none";
+                choixLieu.removeAttribute("required");
+                choixLieu.setAttribute('value', "null");
+                setRequired(true, inputsLieux);
+            }
+
+        });
+
+        function setRequired(bool,input){
+
+            if(bool){
+                for(let i=0; i<input.length; i++){
+                    input[i].setAttribute("required","");
+                }
+            }else{
+                for(let i=0; i<input.length; i++){
+                    input[i].removeAttribute("required");
+
+                }
+            }
+
+        }
 
 
-    {{ form_row(formulaireSortie.enregistrer) }}
-    {{ form_row(formulaireSortie.publier) }}
-    {{ form_row(formulaireSortie.annuler) }}
 
-
-    {{ form_end(formulaireSortie) }}
-
-
-
+    </script>
 
 
 
