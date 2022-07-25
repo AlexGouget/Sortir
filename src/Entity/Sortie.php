@@ -73,7 +73,7 @@ class Sortie
 
     /**
      * @Assert\NotBlank(message="sortie.etat.not_blank")
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $lieu;
@@ -98,6 +98,7 @@ class Sortie
     private $participant;
 
     /**
+     * @Assert\NotBlank(message="sortie.categorie.not_blank")
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
