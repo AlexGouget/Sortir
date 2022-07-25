@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
-                    '1234'
+                    '123456'
                 )
             );
 
