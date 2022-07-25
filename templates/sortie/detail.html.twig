@@ -18,6 +18,7 @@
             <h3>{{ sortie.nom }}</h3>
             <span>organisé par {{  sortie.organisateur.pseudo}} du campus : {{ sortie.campus.nom }}</span>
             <p>date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
+            <p>date limite d'inscription {{ sortie.dateLimiteInscription|date("d/m/y", "Europe/Paris") }}</p>
             <p>durée de l'évènement :      {{ macros.MinutesToHour(sortie.duree) }}</p>
 
             <h4>description de la sortie : </h4>
@@ -32,58 +33,70 @@
         </div>
 
          <div class="flex-row m-1">
+
+         {% if sortie.etat.id not in [2,4,5]%}
              {% if app.user %}
-                {% if sortie in app.user.sortiesParticipant %}
-                 <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
-                {% else %}
-                 <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
-             {% endif %}
+                 {% if sortie in app.user.sortiesParticipant %}
+                     <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
+                 {% else %}
+
+                     {% if sortie.etat.id == 7 %}
+                         <p class="btn btn-primary" > Inscription Cloturé</p>
+                     {% else %}
+                         <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
+                     {% endif %}
+                 {% endif %}
 
 
-         {% if sortie.organisateur.id is same as app.user.id %}
+                 {% if sortie.organisateur.id is same as app.user.id %}
 
-             <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
-                 <i class="glyphicon glyphicon-trash"></i>
-                 Supprimer
-             </a>
+                     <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
+                         <i class="glyphicon glyphicon-trash"></i>
+                         Supprimer
+                     </a>
 
-             <div class="modal fade" id="infos">
-                 <div class="modal-dialog">
-                     <div class="modal-content">
-                         <div class="modal-header">
-                             <button type="button" class="close" data-dismiss="modal">x</button>
-                             <h4 class="modal-title">Confirmation</h4>
-                         </div>
-                         <div class="modal-body">
+                     <div class="modal fade" id="infos">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <button type="button" class="close" data-dismiss="modal">x</button>
+                                     <h4 class="modal-title">Confirmation</h4>
+                                 </div>
+                                 <div class="modal-body">
 
-                         {# A mettre dans fichier css
-                             #}
+                                     {# A mettre dans fichier css
+                                     #}
 
-                             <style>
-                                 .modal-content{
-                                     color: #1b1e21;
-                                 }
-                             </style>
+                                     <style>
+                                         .modal-content{
+                                             color: #1b1e21;
+                                         }
+                                     </style>
 
 
-                             Etes-vous sur de vouloir supprimer votre évenement ?
-                             <br>
-                             Indiquez nous le motif de suppresion
-                             <div class="aSupprimer">
-                                 {{ form_start(formulaireMotif) }}
-                                 {{ form_widget(formulaireMotif)}}
+                                     Etes-vous sur de vouloir supprimer votre évenement ?
+                                     <br>
+                                     Indiquez nous le motif de suppresion
+                                     <div class="aSupprimer">
+                                         {{ form_start(formulaireMotif) }}
+                                         {{ form_widget(formulaireMotif)}}
+                                     </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="submit" class="btn btn-primary">OUI</button>
+                                     <button class="btn btn-info" data-dismiss="modal">NON</button>
+                                     {{ form_end(formulaireMotif) }}
+                                 </div>
                              </div>
                          </div>
-                         <div class="modal-footer">
-                             <button type="submit" class="btn btn-primary">OUI</button>
-                             <button class="btn btn-info" data-dismiss="modal">NON</button>
-                             {{ form_end(formulaireMotif) }}
-                         </div>
                      </div>
-                 </div>
-             </div>
-             <a class="btn btn-primary" href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</a>
+                     <a class="btn btn-primary" href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</a>
+                 {% endif %}
+
+
+
          {% endif %}
+
 
 
 
