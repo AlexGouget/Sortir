@@ -57,6 +57,8 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->addSelect('o')
             ->andWhere('s.etat= :val')
+            ->andWhere('s.dateHeureDebut <= current_date()')
+            ->andWhere('s.dateLimiteInscription >= current_date()')
             ->setParameter('val', 6)
             ->orderBy('s.dateHeureDebut', 'ASC')
             ->setMaxResults($pag)
