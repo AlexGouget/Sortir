@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\CreeLieuType;
 use App\Form\CreeSortieType;
 use App\Form\EditModifSortieType;
+use App\Form\SupprSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
@@ -161,6 +162,7 @@ class SortieController extends AbstractController
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('success','Sortie modifiée(s) avec succes!');
+
             return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
         }
 
@@ -187,8 +189,11 @@ class SortieController extends AbstractController
         $formulaireMotif=$this->createForm(EditModifSortieType::class, $sortie);
         $formulaireMotif->handleRequest($request);
 
+        $supprSortie = $this->createForm(SupprSortieType::class,$sortie);
+        $supprSortie->handleRequest($request);
 
-        //Suppression d'article via modales (voir pour le mettre dans un service)
+
+        //Annulation d'article via modales (voir pour le mettre dans un service)
 
 
         if($formulaireMotif->isSubmitted()){
@@ -197,7 +202,7 @@ class SortieController extends AbstractController
             $sortie->setEtat($etat);
             $em->flush($sortie);
 
-            $this->addFlash('success', 'Votre sortie a était supprimer!');
+            $this->addFlash('success', 'Votre sortie a était annuler!');
            return$this->redirectToRoute('main_home');
 
 
@@ -205,11 +210,28 @@ class SortieController extends AbstractController
         }
 
         if(!$sortie){throw  $this->createNotFoundException('Sortie introuvable');}
+
+        if($supprSortie->isSubmitted()){
+            $sortieRepo->remove($sortie);
+            $em->flush();
+
+            $this->addFlash('success', 'Votre sortie a était supprimer!');
+
+            return  $this->redirectToRoute('main_home');
+
+        }
+
+
+
+
+
         return $this-> render('sortie/detail.html.twig',['sortie' => $sortie,
-            'formulaireMotif' =>  $formulaireMotif->createView()]);
+            'formulaireMotif' =>  $formulaireMotif->createView(),
+            'supprSortie' => $supprSortie->createView(), ]);
 
 
     }
+
 
 
     /**
