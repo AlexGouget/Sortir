@@ -45,6 +45,8 @@ class SortieRepository extends ServiceEntityRepository
  */
 
     public function findSortiesOuverte($pag){
+
+        $date = new \DateTime();
         return $this ->createQueryBuilder('s')
             ->leftJoin('s.categorie', 'c')
             ->leftJoin('s.organisateur', 'o')
@@ -57,8 +59,7 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->addSelect('o')
             ->andWhere('s.etat= :val')
-            ->andWhere('s.dateHeureDebut <= current_date()')
-            ->andWhere('s.dateLimiteInscription >= current_date()')
+
             ->setParameter('val', 6)
             ->orderBy('s.dateHeureDebut', 'ASC')
             ->setMaxResults($pag)

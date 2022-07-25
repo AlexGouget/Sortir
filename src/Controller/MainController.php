@@ -19,6 +19,24 @@ class MainController extends AbstractController
     {
         $sorties = $sortieRepo->findSortiesOuverte(16);
 
+        $etatFini = $etatRepository->findOneBy(array('libelle'=> 'Fini'));
+        $etatArchive = $etatRepository->findOneBy(array('libelle'=> 'Archive'));
+
+        foreach ($sorties as $sortie){
+
+            if($sortie->getDateHeureDebut() >= new \DateTime('now')){
+                $sortie->setEtat($etatFini);
+                $em->flush();
+            }
+            if($sortie->getDateHeureDebut() >= new \DateTime('now'."30 days")){
+                $sortie->setEtat($etatArchive);
+                $em->flush();
+            }
+
+
+        }
+
+
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'listSortie' => $sorties
