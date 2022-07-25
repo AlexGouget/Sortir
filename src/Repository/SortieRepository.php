@@ -132,7 +132,7 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('val5', $user);
         }
         if($CBorga){
-            $qb->andWhere('c = :val6')
+            $qb->andWhere('o = :val6')
                 ->setParameter('val6', $user);
         }
         if($CBnonInscrit){

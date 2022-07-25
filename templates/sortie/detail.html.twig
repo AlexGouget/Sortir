@@ -16,7 +16,7 @@
      <div class="sortie-detail">
         <div class="detail-info">
             <h3>{{ sortie.nom }}</h3>
-            <span>organisé par le campus de {{ sortie.campus.nom }}</span>
+            <span>organisé par {{  sortie.organisateur.pseudo}} du campus : {{ sortie.campus.nom }}</span>
             <p>date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
             <p>durée de l'évènement :      {{ macros.MinutesToHour(sortie.duree) }}</p>
 
@@ -39,16 +39,8 @@
                  <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
              {% endif %}
 
-         {% if sortie in app.user.sortiesParticipant %}
-             <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
-         {% else %}
-               <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
-        {% endif %}
 
-
-         {% if sortie.organisateur.id is same as app.user.id or is_granted('ROLE_ADMIN' )%}
-
-
+         {% if sortie.organisateur.id is same as app.user.id %}
 
              <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
                  <i class="glyphicon glyphicon-trash"></i>
@@ -90,11 +82,11 @@
                      </div>
                  </div>
              </div>
-
+             <a class="btn btn-primary" href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</a>
          {% endif %}
 
 
-                 <button href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</button>
+
 
 
                  {% if sortie.participant|length > 0  %}

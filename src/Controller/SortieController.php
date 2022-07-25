@@ -63,14 +63,6 @@ class SortieController extends AbstractController
 
         }
 
-
-
-
-
-
-
-
-
             if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
             {
@@ -89,9 +81,14 @@ class SortieController extends AbstractController
         if($formulaireSortie->get('publier')->isClicked()&&$formulaireSortie->isSubmitted()&&$formulaireSortie->isValid())
 
         {
+            $newlieu =$formulaireSortie->get('newLieu')->getData();
+            if($newlieu){
+                $sortie->setLieu($newlieu);
+            }
 
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
             $sortie->setEtat($etat);
+
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -125,13 +122,18 @@ class SortieController extends AbstractController
         $formulaireSortie->handleRequest($request);
 
 
-        if ($formulaireSortie->isSubmitted() && $formulaireSortie->isValid()) {
+        if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid()){
+           $newlieu =$formulaireSortie->get('newLieu')->getData();
+            if($newlieu){
+                $sortie->setLieu($newlieu);
+            }
+            $em->persist($sortie);
             $em->flush();
             $this->addFlash('success','Sortie modifiée(s) avec succes!');
-            $this->redirectToRoute('main_home');
+            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
         }
 
-        return $this->render('sortie/index.html.twig', [
+        return $this->render('sortie/editSortie.html.twig', [
             'formulaireSortie'=> $formulaireSortie->createView()
         ]);
 

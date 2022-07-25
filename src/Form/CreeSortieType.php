@@ -105,7 +105,8 @@ class CreeSortieType extends AbstractType
                 'id'=>'choixLieu'
             ]
 
-    ])->add('newLieu', CreeLieuType::class,[
+    ])
+            ->add('newLieu', CreeLieuType::class,[
                 'required' => FALSE,
                 'mapped' => FALSE,
                 'property_path' => 'lieu',
@@ -131,26 +132,6 @@ class CreeSortieType extends AbstractType
                 'class' => 'btn btn-primary',
             ]
         ] );
-
-        $builder->addEventListener(
-            FormEvents::PRE_SUBMIT,
-                function(FormEvent $events)
-                {
-                    $form = $events->getForm();
-                    $data = $events->getData();
-                    if (!empty($data['newLieu']['nom'])) {
-                        $form->remove('lieu');
-
-                        $form->add('newLieu', CreeLieuType::class, array(
-                            'required' => TRUE,
-                            'mapped' => TRUE,
-                            'property_path' => 'lieu',
-                        ));
-                    }
-
-                }
-        );
-
 
     }
 

@@ -7,7 +7,7 @@
     <header class="header">
 
         {{ form_start(formulaireSortie) }}
-        <h1>Création d'une sortie</h1>
+        <h1>Modification d'une sortie</h1>
 
         {{ form_row(formulaireSortie.nom) }}
         {{ form_row(formulaireSortie.dateHeureDebut) }}
@@ -48,16 +48,14 @@
 
     <div class="flex flex-row m-2">
         {{ form_row(formulaireSortie.enregistrer) }}
-        {{ form_row(formulaireSortie.publier) }}
-        {{ form_row(formulaireSortie.annuler) }}
 
     </div>
 
-
-        {{ form_end(formulaireSortie) }}
-
+        {{ form_widget(formulaireSortie._token) }}
+        {{ form_end(formulaireSortie, {'render_rest': false}) }}
 
     <hr>
+
 
 
     <script>
@@ -101,16 +99,8 @@
 
 
 
-
     </header>
 </div>
-
-
-
-
-
-
-
 
 {% endblock %}
 

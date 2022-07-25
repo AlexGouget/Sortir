@@ -39,6 +39,7 @@ class RegistrationController extends AbstractController
 
         $form = $this->createForm(RegistrationFormType::class, $user);
 
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             dd($user);
@@ -59,7 +60,7 @@ class RegistrationController extends AbstractController
 
 
 
-            /*
+
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@sortir.com', "l'équipe de sortir.com"))
@@ -67,8 +68,9 @@ class RegistrationController extends AbstractController
                     ->subject('Votre compte a été crée')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            */
+
             // do anything else you need here, like send an email
+
             /*
               return $userAuthenticator->authenticateUser(
                 $user,
@@ -76,6 +78,7 @@ class RegistrationController extends AbstractController
                 $request
             );
             */
+
             $this->addFlash('confirmation', "Utilisateur créer, un mail de confirmation a été envoyé" );
         }
        //
