@@ -92,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private $Campus;
 
     /**
+     *
      * @Assert\NotBlank(message="not_blank")
      * @Assert\Length(min=2, max=25, minMessage="user.length25", maxMessage="user.length25")
      * @ORM\Column(type="string", length=25, unique = true, nullable = true)

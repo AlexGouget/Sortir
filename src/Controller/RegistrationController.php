@@ -59,6 +59,7 @@ class RegistrationController extends AbstractController
             $this->addFlash('confirmation', "Utilisateur crée, un mail de confirmation a été envoyé" );
             // generate a signed url and email it to the user
 
+
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@sortir.com', "l'équipe de sortir.com"))
@@ -66,6 +67,7 @@ class RegistrationController extends AbstractController
                     ->subject('Votre compte a été crée')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
+
 
             // do anything else you need here, like send an email
 
