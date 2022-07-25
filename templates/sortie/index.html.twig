@@ -26,7 +26,7 @@
 
     <hr>
     {{ form_row(formulaireSortie.campus) }}
-    {{ form_row(formulaireSortie.lieu) }}  <a href="{{ path('lieu_cree') }}">Votre lieu preférer n'est pas encore inscrit ? Cliquez ici</a> {# Generer dynamiquement le formulaire en js #}
+    {{ form_row(formulaireSortie.lieu) }}  <a href="{{ path('lieu_cree') }}">
     {{ form_row(formulaireSortie.categorie) }}
 
 
@@ -50,7 +50,7 @@
 
     <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
         <i class="glyphicon glyphicon-trash"></i>
-        Supprimer
+       Crée votre lieu de rencontre
     </a>
 
     <div class="modal fade" id="infos">
@@ -58,7 +58,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">x</button>
-                    <h4 class="modal-title">Confirmation</h4>
+                    <h4 class="modal-title">Création de lieu de rencontre</h4>
                 </div>
                 <div class="modal-body">
 
@@ -72,19 +72,20 @@
                     </style>
 
 
-                    Etes-vous sur de vouloir supprimer votre évenement ?
-                    <br>
-                    Indiquez nous le motif de suppresion
-                    <div class="aSupprimer">
+                   Votre lieu favori n'apparaît pas ?
+                 Crée le !
+
+
+
                         {{ form_start(formulaireLieu) }}
                         {{ form_widget(formulaireLieu)}}
 
 
-                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">OUI</button>
-                    <button class="btn btn-info" data-dismiss="modal">NON</button>
+                    <button type="submit" class="btn btn-primary" onclick="functiontest()">Crée un lieu</button>
+                    <button class="btn btn-info" data-dismiss="modal">Non j'ai changer d'avis</button>
                     {{ form_end(formulaireLieu)}}
                 </div>
             </div>
@@ -92,8 +93,34 @@
     </div>
 
 
+    <script>
 
+       function functiontest(){
+           alert('test')
 
+                $(document).ready(function(){
+                form = $('formulaireLieu');
 
+                $(form[0]).submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                method: "post",
+                url: '{{ path('lieu_cree') }}',
+                dataType: "json",
+            }).done( function(response) {
+                console.log(response.send);
+
+            }).fail(function(jxh,textmsg,errorThrown){
+                console.log(textmsg);
+                console.log(errorThrown);
+            });
+
+            });
+
+            })
+                console.log('test');
+           }
+
+    </script>
 
 {% endblock %}

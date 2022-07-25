@@ -30,10 +30,7 @@ class CreeLieuType extends AbstractType
                 'class'=>Ville::class,
                 'choice_label'=>'nom',
                 'label'=>'Ville :'
-            ])
-
-            ->add('creeLieu', SubmitType::class,['label' => 'Cree un lieu'] )
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

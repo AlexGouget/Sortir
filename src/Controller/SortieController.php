@@ -34,6 +34,7 @@ class SortieController extends AbstractController
                          EtatRepository $etatRepository,
                          SortieRepository $sortieRepository,
                          Security $security
+
                           ): Response
     {
         $sortie = new Sortie();
@@ -65,7 +66,6 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre lieu est bien enregistré !');
 
         }
-
 
 
 
