@@ -128,7 +128,8 @@ class SortieController extends AbstractController
         if ($formulaireSortie->isSubmitted() && $formulaireSortie->isValid()) {
             $em->flush();
             $this->addFlash('success','Sortie modifiée(s) avec succes!');
-            $this->redirectToRoute('main_home');
+
+            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
         }
 
         return $this->render('sortie/index.html.twig', [

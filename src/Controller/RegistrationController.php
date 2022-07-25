@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
 
-
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setActif(true);
             $user->setRoles(["ROLE_ADMIN"]);
@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController
 
 
 
-            /*
+
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@sortir.com', "l'équipe de sortir.com"))
@@ -65,7 +65,8 @@ class RegistrationController extends AbstractController
                     ->subject('Votre compte a été crée')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            */
+
+
             // do anything else you need here, like send an email
             /*
               return $userAuthenticator->authenticateUser(
