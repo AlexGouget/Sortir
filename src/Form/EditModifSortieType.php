@@ -18,7 +18,6 @@ class EditModifSortieType extends AbstractType
                 'label'=>'Motif :',
             'required' => 'true',
                 'constraints' => new Length(['min' => 10]),]);
-
         ;
     }
 
