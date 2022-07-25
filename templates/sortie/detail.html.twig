@@ -94,9 +94,10 @@
          {% endif %}
 
 
+                 <button href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</button>
 
 
-             {% if sortie.participant|length > 0  %}
+                 {% if sortie.participant|length > 0  %}
                  <h4>liste des participants</h4>
                  <ul>
                      {% for participant in sortie.participant %}
