@@ -38,7 +38,7 @@
                 {% else %}
                  <a class="btn btn-primary" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
              {% endif %}
-             
+
          {% if sortie in app.user.sortiesParticipant %}
              <a class="btn btn-primary" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
          {% else %}
@@ -46,11 +46,9 @@
         {% endif %}
 
 
-         {% if sortie.organisateur.id is same as app.user.id %}
+         {% if sortie.organisateur.id is same as app.user.id or is_granted('ROLE_ADMIN' )%}
 
 
-
-                 <a class="btn btn-primary" href="{{ path('sortie_annuler',{'idUser':app.user.id, 'idSortie': sortie.id}) }}">Annuler</a>
 
              <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
                  <i class="glyphicon glyphicon-trash"></i>

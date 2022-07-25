@@ -25,8 +25,6 @@ use Symfony\Component\Security\Core\Security;
 
 class SortieController extends AbstractController
 {
-
-
     /**
      * @Route("/cree", name="cree")
      */
@@ -36,32 +34,53 @@ class SortieController extends AbstractController
                          EtatRepository $etatRepository,
                          SortieRepository $sortieRepository,
                          Security $security
+
                           ): Response
     {
         $sortie = new Sortie();
         $lieu = new Lieu();
 
-
-
-        $userTest = $this->get('security.token_storage')->getToken()->getUser();
-        $sortie->setOrganisateur($userTest);
-
+        $user = $this->getUser();
+        $sortie->setOrganisateur($user);
 
 
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
-        $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
+
 
 
         $formulaireSortie->handleRequest($request);
+
+
+
+
+
+
+        $lieu = new Lieu();
+        $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
         $formulaireLieu->handleRequest($request);
 
+        if($formulaireLieu->isSubmitted()&&$formulaireLieu->isValid()) {
+
+
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre lieu est bien enregistré !');
+
+        }
 
 
 
-        if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
+
+
+
+
+
+
+            if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
             {
-                $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
+            $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -70,20 +89,23 @@ class SortieController extends AbstractController
                 return  $this->redirectToRoute('main_home');
             }
 
+
+
+
         if($formulaireSortie->get('publier')->isClicked()&&$formulaireSortie->isSubmitted()&&$formulaireSortie->isValid())
 
         {
+
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
-            return  $this->redirectToRoute('main_home');
+
+            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
+
         }
-
-
-
 
 
         if($formulaireSortie->get('annuler')->isClicked())
@@ -94,14 +116,10 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/index.html.twig', [
             'formulaireSortie' =>  $formulaireSortie->createView(),
-            'formulaireLieu' =>  $formulaireLieu->createView(),
+
         ]);
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     /**
      * @Route("/detail/{id}", name="detail")
      */
@@ -128,12 +146,6 @@ class SortieController extends AbstractController
 
 
         }
-
-
-
-
-
-
 
         if(!$sortie){throw  $this->createNotFoundException('Sortie introuvable');}
         return $this-> render('sortie/detail.html.twig',['sortie' => $sortie,
@@ -199,35 +211,6 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_detail',['id'=>$idSortie]);
     }
 
-
-    /**
-     * @Route("/annuler/{idUser}/{idSortie}/{motif}", name="annuler")
-     */
-
-    public function annulerSortie(int $idUser,int $idSortie,string $motif,Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em, UserRepository $userRepository): Response
-    {
-        $sortie = $sortieRepository->find($idSortie);
-        $user = $userRepository->find($idUser);
-
-
-        if ($sortie->getOrganisateur()->getId() === $user->getId()){
-
-            $sortieRepository->remove($sortie);
-            $em->flush();
-            $this->addFlash('succes', "Votre évenement à été retiré !");
-        } else {
-            $this->addFlash('warning', "une erreur est survenue lors de la suppression de votre évenement");
-        }
-
-
-
-
-        return $this->redirectToRoute('main_home');
-    }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 
 }

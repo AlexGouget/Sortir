@@ -5,10 +5,10 @@
                 <div class="col-sm-6 col-md-3 item">
                     <h3>Services</h3>
                     <ul>
-                        <li><a href="#">Accueil</a></li>
-                        <li><a href="#">Trouvez un évènement</a></li>
-                        <li><a href="#">Connexion</a></li>
-                        <li><a href="#">Inscription</a></li>
+                        <li><a href="{{ path('main_home') }}">Accueil</a></li>
+                        <li><a href="{{path('app_event_research')}}">Trouvez un évènement</a></li>
+                        <li><a href="{{ path('security_login') }}">Connexion</a></li>
+                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-3 item">
@@ -29,3 +29,4 @@
         </div>
     </footer>
 </div>
+
