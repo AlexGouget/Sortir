@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("admin/register", name="app_register")
      * @throws TransportExceptionInterface
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppUserAuthenticator $authenticator, EntityManagerInterface $entityManager, MailerInterface $mailer, TranslatorInterface $translator): Response
@@ -41,7 +41,8 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setActif(true);
-            $user->setRoles(["ROLE_ADMIN"]);
+            $user->setRoles(["ROLE_USER"]);
+            $pPassword = $form->get('plainPassword')->getData();
             // encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(

@@ -98,10 +98,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     /**
      * @Route("/detail/{id}", name="detail")
      */
@@ -224,10 +220,6 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 
 }
