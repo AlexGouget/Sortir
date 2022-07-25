@@ -6,7 +6,7 @@
 <div id="home" class="header-sortie">
     <header class="header">
 
-        {{ form_start(formulaireSortie.nom) }}
+        {{ form_start(formulaireSortie) }}
         <h1>Création d'une sortie</h1>
 
         {{ form_row(formulaireSortie.nom) }}
@@ -35,8 +35,8 @@
                 {{ form_widget(formulaireSortie.newLieu.nom) }}
                 {{ form_widget(formulaireSortie.newLieu.rue) }}
                 {{ form_widget(formulaireSortie.newLieu.ville) }}
-                {{ form_widget(formulaireSortie.newLieu.latitude,{'attr': {'class': 'hidden_field'}}) }}
-                {{ form_widget(formulaireSortie.newLieu.longitude,{'attr': {'class': 'hidden_field'}}) }}
+                {{ form_widget(formulaireSortie.newLieu.latitude) }}
+                {{ form_widget(formulaireSortie.newLieu.longitude)}}
             </div>
         </div>
 
@@ -57,16 +57,8 @@
         {{ form_end(formulaireSortie) }}
 
 
-
-<<<<<<< Updated upstream
-    </header>
-</div>
-
-
-=======
-
     <hr>
->>>>>>> Stashed changes
+
 
     <script>
         const choixLieu = document.getElementById('cree_sortie_lieu');
@@ -109,56 +101,11 @@
 
 
 
-<<<<<<< Updated upstream
 
-
-
-    <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
-        <i class="glyphicon glyphicon-trash"></i>
-        Supprimer
-    </a>
-
-    <div class="modal fade" id="infos">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">x</button>
-                    <h4 class="modal-title">Confirmation</h4>
-                </div>
-                <div class="modal-body">
-
-                    {# A mettre dans fichier css
-                    #}
-
-                    <style>
-                        .modal-content{
-                            color: #1b1e21;
-                        }
-                    </style>
-
-
-                    Etes-vous sur de vouloir supprimer votre évenement ?
-                    <br>
-                    Indiquez nous le motif de suppresion
-                    <div class="aSupprimer">
-                        {{ form_start(formulaireLieu) }}
-                        {{ form_widget(formulaireLieu)}}
-
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">OUI</button>
-                    <button class="btn btn-info" data-dismiss="modal">NON</button>
-                    {{ form_end(formulaireLieu)}}
-                </div>
-            </div>
-        </div>
-    </div>
-=======
     </header>
 </div>
->>>>>>> Stashed changes
+
+
 
 
 

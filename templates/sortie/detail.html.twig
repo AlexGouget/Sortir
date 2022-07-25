@@ -60,7 +60,7 @@
                      <div class="modal-content">
                          <div class="modal-header">
                              <button type="button" class="close" data-dismiss="modal">x</button>
-                             <h4 class="modal-title">Création de lieu</h4>
+                             <h4 class="modal-title">Confirmation</h4>
                          </div>
                          <div class="modal-body">
 
@@ -74,11 +74,13 @@
                              </style>
 
 
-                            Voulez-vous créé un nouveau lieu ?
-
+                             Etes-vous sur de vouloir supprimer votre évenement ?
                              <br>
+                             Indiquez nous le motif de suppresion
+                             <div class="aSupprimer">
                                  {{ form_start(formulaireMotif) }}
                                  {{ form_widget(formulaireMotif)}}
+                             </div>
                          </div>
                          <div class="modal-footer">
                              <button type="submit" class="btn btn-primary">OUI</button>
@@ -92,9 +94,10 @@
          {% endif %}
 
 
+                 <button href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</button>
 
 
-             {% if sortie.participant|length > 0  %}
+                 {% if sortie.participant|length > 0  %}
                  <h4>liste des participants</h4>
                  <ul>
                      {% for participant in sortie.participant %}

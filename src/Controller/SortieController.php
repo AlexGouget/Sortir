@@ -34,22 +34,17 @@ class SortieController extends AbstractController
                          EtatRepository $etatRepository,
                          SortieRepository $sortieRepository,
                          Security $security
+
                           ): Response
     {
         $sortie = new Sortie();
-        $lieu = new Lieu();
 
         $user = $this->getUser();
         $sortie->setOrganisateur($user);
 
 
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
-
-
-
         $formulaireSortie->handleRequest($request);
-
-
 
 
 
@@ -67,7 +62,6 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Votre lieu est bien enregistré !');
 
         }
-
 
 
 
@@ -119,6 +113,36 @@ class SortieController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route ("/editSortie/{id}", name="edit")
+     */
+
+    public function editSortie(SortieRepository $sortieRepository,Sortie  $sortie,EntityManagerInterface $em, Request $request): Response
+    {
+        $sortie = $sortieRepository->find($sortie);
+        $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
+        $formulaireSortie->handleRequest($request);
+
+
+        if ($formulaireSortie->isSubmitted() && $formulaireSortie->isValid()) {
+            $em->flush();
+            $this->addFlash('success','Sortie modifiée(s) avec succes!');
+            $this->redirectToRoute('main_home');
+        }
+
+        return $this->render('sortie/index.html.twig', [
+            'formulaireSortie'=> $formulaireSortie->createView()
+        ]);
+
+
+    }
+
+
+
+
+
+
 
     /**
      * @Route("/detail/{id}", name="detail")
