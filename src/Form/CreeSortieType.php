@@ -140,7 +140,7 @@ class CreeSortieType extends AbstractType
                     $form = $events->getForm();
                     $data = $events->getData();
                    // dd($data);
-                    if (!empty($data['newLieu'])) {
+                    if (!empty($data['newLieu']['nom'])) {
 
 
                         $form->remove('lieu');

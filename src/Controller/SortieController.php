@@ -51,18 +51,7 @@ class SortieController extends AbstractController
 
 
         $lieu = new Lieu();
-        $formulaireLieu=$this->createForm(CreeLieuType::class,$lieu );
-        $formulaireLieu->handleRequest($request);
 
-        if($formulaireLieu->isSubmitted()&&$formulaireLieu->isValid()) {
-
-
-            $entityManager->persist($lieu);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Votre lieu est bien enregistré !');
-
-        }
 
             if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
