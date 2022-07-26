@@ -1,83 +1,54 @@
 <div class="gallary row">
+{% for sortie in listSortie %}
 
-{% if listSortie|length != 0%}
-
-    {% for sortie in listSortie %}
-
-        {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
+    {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
 
 
-            <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-                <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
-                <div class="gallary-info">
-                    <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
-                    <h4 class="info-title">{{ sortie.nom }}</h4>
-                    <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
-                    <div class="info-ville">
+        <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
+            <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
+            <div class="gallary-info">
+                <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
+                <h4 class="info-title">{{ sortie.nom }}</h4>
+                <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
+                <div class="info-ville">
 
-                        <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
-                    </div>
-                    <p> {{ placeDispo }} places disponibles</p>
-
-
-
-
-                    {% if sortie.etat.id in [2,4]  %}
-                        <p class="btn btn-primary">Sortie terminée</p>
-
-                    {% elseif sortie.etat.id == 3 %}
-                        <p class="btn btn-primary">événement en cour</p>
-                    {% elseif sortie.etat.id == 5 %}
-                        <p class="btn btn-primary">Sortie Annulée</p>
-                    {% elseif sortie.etat.id == 6 %}
-                        {% if app.user and sortie in app.user.sortiesParticipant %}
-                            <p class="btn btn-primary">inscrit</p>
-                         {% else %}
-                             <p class="btn btn-primary">inscription Ouverte</p>
-                        {% endif %}
-                    {% elseif sortie.etat.id == 7 %}
-
-                        {% if app.user and sortie in app.user.sortiesParticipant %}
-                            <p class="btn btn-primary">inscrit/inscription cloturée</p>
-                        {% else %}
-                            <p class="btn btn-primary">inscription cloturée</p>
-                        {% endif %}
-                     {% endif %}
-
-
+                    <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
                 </div>
+                <p> {{ placeDispo }} places disponibles</p>
 
 
-                <div class="gallary-overlay " >
-                    <a class="flex flex-column zindexTop">
-                        <a class="btn btn-primary m-1" href="{{ path('sortie_detail', { 'id': sortie.id}) }}"> Plus d'infos</a>
-
-                       {% if sortie.etat.id not in[2,4,5]%}
-                            {% if app.user %}
-                                {% if sortie in app.user.sortiesParticipant %}
-                                    <a class="btn btn-primary m-1" href="{{ path('sortie_desister',{ 'id': sortie.id}) }}">se désister</a>
-                                {% else %}
-
-                                    {% if sortie.etat.id == 7 %}
-                                        <p class="btn btn-primary m-1 disabled" > Inscription Cloturé</p>
-                                    {% else %}
-                                        <a class="btn btn-primary m-1" href="{{ path('sortie_inscription',{ 'id': sortie.id}) }}">S'inscrire</a>
-                                    {% endif %}
-                                {% endif %}
-
-                            {% endif %}
-                        {% endif %}
-                    </a>
 
 
-                </div>
+                {% if sortie.etat.id in [2,4]  %}
+                    <p class="btn btn-primary">Sortie terminée</p>
+
+                {% elseif sortie.etat.id == 3 %}
+                    <p class="btn btn-primary">événement en cour</p>
+                {% elseif sortie.etat.id == 5 %}
+                    <p class="btn btn-primary">Sortie Annulée</p>
+                {% elseif sortie.etat.id == 6 %}
+                    {% if app.user and sortie in app.user.sortiesParticipant %}
+                        <p class="btn btn-primary">inscrit</p>
+                     {% else %}
+                         <p class="btn btn-primary">inscription Ouverte</p>
+                    {% endif %}
+                {% elseif sortie.etat.id == 7 %}
+
+                    {% if app.user and sortie in app.user.sortiesParticipant %}
+                        <p class="btn btn-primary">inscrit/inscription cloturée</p>
+                    {% else %}
+                        <p class="btn btn-primary">inscription cloturée</p>
+                    {% endif %}
+                 {% endif %}
+
 
             </div>
+            <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
+                <i class="gallary-icon ti-plus"></i>
+            </a>
+        </div>
 
-    {% endfor %}
-    {% else %}
-        <h3 style="margin:auto">Aucun évènement trouvé</h3>
-    {% endif %}
+{% endfor %}
 </div>
 
 

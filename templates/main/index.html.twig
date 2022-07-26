@@ -9,10 +9,14 @@
 
                 <h2 class="display-4 mb-5 customFont">PRENEZ UNE PAUSE !</h2>
 
+                {#
 
                 {{ render(controller(
-                    'App\\Controller\\EventResearchController::searchForm'
-                )) }}
+                  'App\\Controller\\EventResearchController::searchForm'
+              )) }}
+
+                #}
+              {% include('event_research/searchBar.html.twig') %}
 
             </div>
         </header>
