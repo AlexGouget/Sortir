@@ -27,7 +27,9 @@ class EtatSortie
         $this->etatRepo = $etatRepo;
         $this->sortieRepo = $sortieRepository;
         $this->em = $em;
+        date_default_timezone_set("Europe/Paris");
 
+        //on initialise chaque Etat avec son objet correspondant
         $etat = $this->etatRepo->findAll();
         $index = 0;
         $this->ETAT_BROUILLON = $etat[$index++];
@@ -41,17 +43,24 @@ class EtatSortie
     }
 
 
-    public function checkAndUpdateEtatByOne(Sortie $sortie){
+    /**
+     * @throws \Exception
+     */
+    public function checkAndUpdateEtatByOne(Sortie $sortie):void{
 
-
-
+        $this->checkAndUpdateSortieCloture($sortie);
+        $this->checkAndUpdateEndEvent($sortie);
+       $this->checkAndUpdateSortieArchive($sortie);
     }
 
-    public function checkAndUpdateEtatAll()
+    /**
+     * @throws \Exception
+     */
+    public function checkAndUpdateEtatAll():void
     {
         $this->checkAndUpdateSortiesOuverteCloture();
         $this->checkAndUpdateSortiesOuverteTermine();
-        $this->checkAndUpdateSortieArchive();
+        $this->checkAndUpdateSortiesArchive();
 
         $this->em->flush();
     }
@@ -94,8 +103,6 @@ class EtatSortie
 
         foreach ($sorties as $sortie) {
             $this->checkAndUpdateSortieCloture($sortie);
-
-
         }}
 
     /**
@@ -109,6 +116,12 @@ class EtatSortie
             $sortie->setEtat($this->ETAT_CLOTURE);
             $this->em->persist($sortie);
         }
+
+        if ($sortie->getDateLimiteInscription() >= new \DateTime('now') ||
+            count($sortie->getParticipant()) != $sortie->getNbInscriptionMax()) {
+            $sortie->setEtat($this->ETAT_OUVERTE);
+            $this->em->persist($sortie);
+        }
     }
 
 
@@ -118,7 +131,7 @@ class EtatSortie
      *
      * @throws \Exception
      */
-    public function checkAndUpdateSortieArchive(): void
+    public function checkAndUpdateSortiesArchive(): void
     {
 
 
@@ -126,13 +139,22 @@ class EtatSortie
 
         $sortiesFini = $this->sortieRepo->findBy(['etat' => $this->ETAT_FINI]);
         foreach ($sortiesFini as $sortie) {
-            if ($sortie->getDateHeureDebut() < new \DateTime('now' . "-30 days")) {
-                $sortie->setEtat($this->ETAT_ARCHIVE);
-                $this->em->persist($sortie);
-            }
+            $this->checkAndUpdateSortieArchive($sortie);
         }
     }
 
+    /**
+     * @param Sortie $sortie
+     * @return void
+     * @throws \Exception
+     */
+    public function checkAndUpdateSortieArchive(Sortie $sortie): void
+    {
+        if ($sortie->getDateHeureDebut() < new \DateTime('now' . "-30 days")) {
+            $sortie->setEtat($this->ETAT_ARCHIVE);
+            $this->em->persist($sortie);
+        }
+    }
 
 
 }

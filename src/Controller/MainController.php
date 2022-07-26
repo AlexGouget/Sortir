@@ -23,13 +23,16 @@ class MainController extends AbstractController
      */
     public function home(Request $request,SortieRepository $sortieRepo, EtatSortie $etatSortie): Response
     {
+        //On check les sorties afin de modifier leurs etat si besoin
         $etatSortie->checkAndUpdateEtatAll();
+
         $sorties = $sortieRepo->findSortiesOuverte(16);
 
         $formulaireRecherche=$this->createForm(FormulaireRecherche::class);
         $formulaireRecherche->handleRequest($request);
 
         if($formulaireRecherche->isSubmitted()&&$formulaireRecherche->isValid()){
+            // on redirige la requete vers la page trouvez un évènement
             return $this->redirectToRoute('app_event_research', [
                 'request' => $request
             ], 307);

@@ -14,17 +14,10 @@ class RechercheService
 
         private SortieRepository $sortieRepository;
 
-
-
-
     public function __construct( SortieRepository $sortieRepository)
     {
-
        $this->sortieRepository = $sortieRepository;
-
-
     }
-
 
     public function recherche($query, $user, $campus , $cat , $dateDebut , $dateFin , $CBorga, $CBinscrit, $CBnonInscrit, $CBfini): array
     {
