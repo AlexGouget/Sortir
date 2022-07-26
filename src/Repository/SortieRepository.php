@@ -45,6 +45,8 @@ class SortieRepository extends ServiceEntityRepository
  */
 
     public function findSortiesOuverte($pag){
+
+        $date = new \DateTime();
         return $this ->createQueryBuilder('s')
             ->leftJoin('s.categorie', 'c')
             ->leftJoin('s.organisateur', 'o')
@@ -57,6 +59,7 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->addSelect('o')
             ->andWhere('s.etat= :val')
+
             ->setParameter('val', 6)
             ->orderBy('s.dateHeureDebut', 'ASC')
             ->andWhere('s.etat != 4')
