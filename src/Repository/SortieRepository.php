@@ -60,7 +60,6 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('o')
            // ->andWhere('s.etat= :val')
             //->setParameter('val', 6)
-            ->orderBy('s.dateHeureDebut', 'ASC')
             ->andWhere('s.etat != 4')
             ->andWhere('s.etat != 1')
             //->andWhere('s.dateHeureDebut <= current_date()')
@@ -157,6 +156,8 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('val8', new \DateTime());
         }
 
+        $qb->andWhere('s.etat not in (4,5) ');
+        $qb->orderBy('s.dateHeureDebut', 'DESC');
 
 
         return $qb

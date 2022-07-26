@@ -36,7 +36,7 @@ class MainController extends AbstractController
             // on redirige la requete vers la page trouvez un évènement
             return $this->redirectToRoute('app_event_research', [
                 'request' => $request
-            ], 307);
+            ]);
         }
 
 
