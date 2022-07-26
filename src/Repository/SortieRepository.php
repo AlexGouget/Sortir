@@ -58,9 +58,8 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('p')
             ->addSelect('c')
             ->addSelect('o')
-            ->andWhere('s.etat= :val')
-
-            ->setParameter('val', 6)
+           // ->andWhere('s.etat= :val')
+            //->setParameter('val', 6)
             ->orderBy('s.dateHeureDebut', 'ASC')
             ->andWhere('s.etat != 4')
             ->andWhere('s.etat != 1')

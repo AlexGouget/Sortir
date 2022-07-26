@@ -28,6 +28,7 @@ class MainController extends AbstractController
 
         $sorties = $sortieRepo->findSortiesOuverte(16);
 
+
         $formulaireRecherche=$this->createForm(FormulaireRecherche::class);
         $formulaireRecherche->handleRequest($request);
 
