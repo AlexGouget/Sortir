@@ -135,29 +135,34 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('val4', $dateFin);
         }
 
-        if($CBinscrit){
-            $qb->andWhere('p = :val5')
+
+        if($CBnonInscrit){
+            $qb->andWhere(':val5 not member of s.participant')
                 ->setParameter('val5', $user);
         }
+
+        if($CBinscrit){
+            $qb->andWhere(':val7 member of s.participant')
+                ->setParameter('val7', $user);
+        }
+
+
         if($CBorga){
             $qb->andWhere('o = :val6')
                 ->setParameter('val6', $user);
         }
-        if($CBnonInscrit){
-            $qb->andWhere('p != :val7')
-                ->setParameter('val7', $user);
-        }
+
         if($CBfini){
             $qb->andWhere('s.dateHeureDebut <  :val8')
                 ->setParameter('val8', new \DateTime());
         }
 
-        $qb
-            ->getQuery();
+
 
         return $qb
             ->getQuery()
             ->getResult();
+
     }
 
 

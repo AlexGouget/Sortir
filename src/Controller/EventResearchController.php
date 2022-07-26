@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Campus;
 use App\Entity\Categorie;
+use App\Entity\User;
 use App\Form\CreeSortieType;
 use App\Form\FormulaireRecherche;
 use App\Form\RegistrationFormType;
@@ -39,8 +40,14 @@ class EventResearchController extends AbstractController
 
         if($formulaireRecherche->isSubmitted()&&$formulaireRecherche->isValid()){
 
+            if(!$this->getUser()){
+                $user = new User();
+            }else{
+                $user = $this->getUser();
+            }
+
             $sorties = $recherche->recherche($formulaireRecherche->get('query')->getData(),
-                                             $this->getUser(),
+                                             $user,
                                             $formulaireRecherche->get('campus')->getData(),
                                             $formulaireRecherche->get('categorie')->getData(),
                                             $formulaireRecherche->get('dateDebut')->getData(),
