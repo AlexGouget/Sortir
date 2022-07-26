@@ -64,41 +64,56 @@ class SortieController extends AbstractController
 
         }
 
-
-
-
-
-
-
-
-
             if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid())
 
             {
-            $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
-            $sortie->setEtat($etat);
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+                $newlieu =$formulaireSortie->get('newLieu')->getData();
 
-            $this->addFlash('success', 'Votre sortie est enregistrée en brouillon !');
-                return  $this->redirectToRoute('main_home');
+                if($newlieu){
+                    $sortie->setLieu($newlieu);
+                }
+
+                if($formulaireSortie->isValid()){
+
+                    $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
+                    $sortie->setEtat($etat);
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Votre sortie est enregistrée en brouillon !');
+                    return  $this->redirectToRoute('main_home');
+                }
+
+
             }
 
 
 
 
-        if($formulaireSortie->get('publier')->isClicked()&&$formulaireSortie->isSubmitted()&&$formulaireSortie->isValid())
+        if($formulaireSortie->get('publier')->isClicked()&&$formulaireSortie->isSubmitted())
 
         {
 
-            $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
-            $sortie->setEtat($etat);
-            $entityManager->persist($sortie);
-            $entityManager->flush();
 
-            $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
+            $newlieu =$formulaireSortie->get('newLieu')->getData();
 
-            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
+            if($newlieu){
+                $sortie->setLieu($newlieu);
+            }
+
+            if($formulaireSortie->isValid()){
+
+                $etat = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
+                $sortie->setEtat($etat);
+
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
+
+                return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
+            }
+
 
         }
 
@@ -126,14 +141,32 @@ class SortieController extends AbstractController
         $formulaireSortie->handleRequest($request);
 
 
-        if ($formulaireSortie->isSubmitted() && $formulaireSortie->isValid()) {
+        if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid()){
+
+           $lieu =$formulaireSortie->get('newLieu')->getData();
+           if($lieu){
+                $newlieu = new Lieu();
+
+                $newlieu->setNom($lieu->getNom());
+                $newlieu->setRue($lieu->getRue());
+                $newlieu->setVille($lieu->getVille());
+                $newlieu->setLatitude($lieu->getLatitude());
+                $newlieu->setLongitude($lieu->getLongitude());
+
+               $em->refresh($sortie->getLieu());
+               
+                $sortie->setLieu($newlieu);
+
+            }
+
+            $em->persist($sortie);
             $em->flush();
             $this->addFlash('success','Sortie modifiée(s) avec succes!');
 
             return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
         }
 
-        return $this->render('sortie/index.html.twig', [
+        return $this->render('sortie/editSortie.html.twig', [
             'formulaireSortie'=> $formulaireSortie->createView()
         ]);
 

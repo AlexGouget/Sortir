@@ -132,13 +132,17 @@ class CreeSortieType extends AbstractType
             ]
         ] );
 
+
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
                 function(FormEvent $events)
                 {
                     $form = $events->getForm();
                     $data = $events->getData();
-                    if (!empty($data['newLieu']['nom'])) {
+                   // dd($data);
+                    if (!empty($data['newLieu'])) {
+
+
                         $form->remove('lieu');
 
                         $form->add('newLieu', CreeLieuType::class, array(
@@ -146,6 +150,7 @@ class CreeSortieType extends AbstractType
                             'mapped' => TRUE,
                             'property_path' => 'lieu',
                         ));
+
                     }
 
                 }

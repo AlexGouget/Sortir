@@ -63,6 +63,14 @@ class Lieu
         return $this->id;
     }
 
+    public function newId(): self
+    {
+        $this->id = null;
+        return $this;
+    }
+
+
+
     public function getNom(): ?string
     {
         return $this->nom;

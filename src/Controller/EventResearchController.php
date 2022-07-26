@@ -123,7 +123,7 @@ class EventResearchController extends AbstractController
      */
     public function handleSearch(Request $request, SortieRepository $repo): Response
     {
-        //dd($request->request->get('form'));
+
         $formRequest = $request->request->get('form');
 
         $query = $request->request->get('form')['query'];

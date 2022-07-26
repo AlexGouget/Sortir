@@ -14,11 +14,34 @@
 
                     <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
                 </div>
-                <p> {{ placeDispo }} / {{ sortie.nbInscriptionMax }} places disponibles</p>
+                <p> {{ placeDispo }} places disponibles</p>
 
-                {% if app.user and sortie in app.user.sortiesParticipant %}
-                    <p class="btn btn-primary">inscrit</p>
-                {% endif %}
+
+
+
+                {% if sortie.etat.id == 2  %}
+                    <p class="btn btn-primary">Sortie terminée</p>
+
+                {% elseif sortie.etat.id == 3 %}
+                    <p class="btn btn-primary">événement en cour</p>
+                {% elseif sortie.etat.id == 5 %}
+                    <p class="btn btn-primary">Sortie Annulée</p>
+                {% elseif sortie.etat.id == 6 %}
+                    {% if app.user and sortie in app.user.sortiesParticipant %}
+                        <p class="btn btn-primary">inscrit</p>
+                     {% else %}
+                         <p class="btn btn-primary">inscription Ouverte</p>
+                    {% endif %}
+                {% elseif sortie.etat.id == 7 %}
+
+                    {% if app.user and sortie in app.user.sortiesParticipant %}
+                        <p class="btn btn-primary">inscrit/inscription cloturée</p>
+                    {% else %}
+                        <p class="btn btn-primary">inscription cloturée</p>
+                    {% endif %}
+                 {% endif %}
+
+
             </div>
             <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
                 <i class="gallary-icon ti-plus"></i>
