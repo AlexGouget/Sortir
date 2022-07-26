@@ -37,7 +37,7 @@ class EtatSortie
         $this->ETAT_ANNULE = $etat[$index++];
         $this->ETAT_OUVERTE = $etat[$index++];
         $this->ETAT_CLOTURE = $etat[$index++];
-
+        date_default_timezone_set("Europe/Paris");
     }
 
 

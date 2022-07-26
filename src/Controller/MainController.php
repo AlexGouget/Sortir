@@ -23,6 +23,7 @@ class MainController extends AbstractController
         $etatSortie->checkAndUpdateEtatAll();
         $sorties = $sortieRepo->findSortiesOuverte(16);
 
+
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'listSortie' => $sorties
