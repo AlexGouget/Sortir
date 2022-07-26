@@ -57,6 +57,11 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->addSelect('o')
             ->andWhere('s.etat= :val')
+<<<<<<< Updated upstream
+=======
+          //  ->andWhere('s.dateHeureDebut <= current_date()')
+           // ->andWhere('s.dateLimiteInscription >= current_date()')
+>>>>>>> Stashed changes
             ->setParameter('val', 6)
             ->orderBy('s.dateHeureDebut', 'ASC')
             ->setMaxResults($pag)

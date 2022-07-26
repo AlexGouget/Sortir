@@ -30,11 +30,12 @@ class Sortie
 
     /**
      * @Assert\NotBlank(message="sortie.dateHeureDebut.not_blank")
+     * @Assert\GreaterThanOrEqual(value="today",message="sortie.dateHeureDebut.greaterThanOrEqualNow")
      * @Assert\GreaterThanOrEqual(propertyPath="dateLimiteInscription", message="sortie.dateHeureDebut.greaterThanOrEqual")
      * @ORM\Column(type="datetime")
      */
     private $dateHeureDebut;
-//TODO voir pour limiter la durée à 24h
+
     /**
      * @Assert\Range(min="0",max="1440", notInRangeMessage="sortie.duree.range")
      * @Assert\Positive(message="sortie.duree.positivee.")
@@ -44,6 +45,7 @@ class Sortie
     private $duree;
 
     /**
+     * @Assert\GreaterThanOrEqual(value="today",message="sortie.dateHeureDebut.greaterThanOrEqualNow")
      * @Assert\NotBlank(message="sortie.dateLimiteInscription.not_blank")
      * @Assert\LessThan(propertyPath="dateHeureDebut",message="sortie.dateLimiteInscription.lessThan")
      * @ORM\Column(type="datetime")
