@@ -13,6 +13,7 @@ sortie.name.not_blank: Le nom de la sortie est obligatoire
 sortie.name.maxlenght: Votre nom d'activité est .... un peu trop long
 
 sortie.dateHeureDebut.greaterThanOrEqual: La date de votre activité doit être supérieur ou égal à la date de fin d'inscription qui est :{{ compared_value }}.
+sortie.dateHeureDebut.greaterThanOrEqualNow : La date de début doit être supérieur à aujourd'hui
 sortie.dateHeureDebut.not_blank : La date de votre activité doit être renseignée
 
 sortie.dateLimiteInscription.lessThan: La date de fin d'inscripiton doit être inférieur ou égale à la date de début de l'évenement  qui est :{{ compared_value }}.
