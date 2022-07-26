@@ -19,7 +19,7 @@
 
 
 
-                {% if sortie.etat.id == 2  %}
+                {% if sortie.etat.id in [2,4]  %}
                     <p class="btn btn-primary">Sortie terminée</p>
 
                 {% elseif sortie.etat.id == 3 %}

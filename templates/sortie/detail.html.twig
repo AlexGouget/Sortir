@@ -102,7 +102,11 @@
 
 
 
-                 {% if sortie.participant|length > 0  %}
+
+         {% endif %}
+
+
+             {% if sortie.participant|length > 0  %}
                  <h4>liste des participants</h4>
                  <ul>
                      {% for participant in sortie.participant %}
@@ -120,10 +124,6 @@
              {% else %}
                  <p>aucun participant pour le moment</p>
              {% endif %}
-
-         {% endif %}
-
-
 
         </div>
 
