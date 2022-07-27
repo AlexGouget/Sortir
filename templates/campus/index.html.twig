@@ -4,12 +4,6 @@
 
 {% block body %}
 
-    <div class="header">
-    {% for camp in listCampus%}
-        <li>{{ camp.nom }}</li>
-    {% endfor %}
-    </div>
-
     <table class="table table-striped">
         <thead>
         <tr>
@@ -20,114 +14,74 @@
         </thead>
         <tbody>
 
+
+
         {% for camp in listCampus%}
         <tr>
             <td>{{ camp.nom }}</td>
-            <td>    <a data-toggle="modal"  data-target="#modifier" class="btn btn-danger">Modifier
-                    <i class="glyphicon glyphicon-trash"></i>
-                    {{ camp. }}
-                </a>
-
-
-                <a data-toggle="modal"  data-target="#suppr" class="btn btn-danger">Supprimer
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
-
+            <td>    <a href="{{path('campus_supprimer', {'id':camp.id}) }}" class="btn btn-danger" onclick="alerteSupression()">Supprimer</a>
+                    <a href="{{ path('campus_edit', {'id':camp.id}) }}"class="btn btn-danger">Modifier</a>
             </td>
         </tr>
         {% endfor %}
+        <tr>
+            <td> {{form_start(formulaireCampus.nom) }}
+                {{ form_widget(formulaireCampus) }}
+
+                </td>
+
+            <td></td>
+
+        </tr>
+
+
+
+
+        <div class="modal fade" id="modifier">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Modifier</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        {# A mettre dans fichier css
+                        #}
+
+                        <style>
+                            .modal-content{
+                                color: #1b1e21;
+                            }
+                        </style>
+
+
+                        Etes-vous sur de vouloir supprimer votre évenement ?
+                        <br>
+                        Indiquez nous le motif de suppresion
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">OUI</button>
+                        <button class="btn btn-info" data-dismiss="modal">NON</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         </tbody>
     </table>
+    <div class="test">
 
-
-
-
-
-    <div class="modal fade" id="modifier">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">x</button>
-                    <h4 class="modal-title">Confirmation</h4>
-                </div>
-                <div class="modal-body">
-
-                    {# A mettre dans fichier css
-                    #}
-
-                    <style>
-                        .modal-content{
-                            color: #1b1e21;
-                        }
-                    </style>
-
-
-                    Etes-vous sur de vouloir supprimer votre évenement ?
-                    <br>
-                    Indiquez nous le motif de suppresion
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">OUI</button>
-                    <button class="btn btn-info" data-dismiss="modal">NON</button>
-
-                </div>
-            </div>
-        </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="modal fade" id="suppr">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">x</button>
-                    <h4 class="modal-title">Confirmation</h4>
-                </div>
-                <div class="modal-body">
-
-                    {# A mettre dans fichier css
-                    #}
-
-                    <style>
-                        .modal-content{
-                            color: #1b1e21;
-                        }
-                    </style>
-
-
-                    Etes-vous sur de vouloir supprimer votre évenement ?
-                    <br>
-                    Indiquez nous le motif de suppresion
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="lol">OUI</button>
-                    <button class="btn btn-info" data-dismiss="modal">NON</button>
-
-                </div>
-            </div>
-        </div>
     </div>
-
-
-
-
-
-
+    <script>
+        function alerteSupression() {
+            alert("Etes vous sûr de vouloir supprimer ce campus? Toutes les sorties liées à ce campus seront supprimées")
+        }
+    </script>
 
 
 
