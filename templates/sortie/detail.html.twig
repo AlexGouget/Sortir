@@ -17,17 +17,40 @@
         <div class="detail-info">
             <h3>{{ sortie.nom }}</h3>
             <span>organisé par {{  sortie.organisateur.pseudo}} du campus : {{ sortie.campus.nom }}</span>
-            <p>date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
-            <p>date limite d'inscription {{ sortie.dateLimiteInscription|date("d/m/y", "Europe/Paris") }}</p>
-            <p>durée de l'évènement :      {{ macros.MinutesToHour(sortie.duree) }}</p>
+            <p>Date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
+            <p>Date limite d'inscription {{ sortie.dateLimiteInscription|date("d/m/y", "Europe/Paris") }}</p>
+            <p>Durée de l'évènement :      {{ macros.MinutesToHour(sortie.duree) }}</p>
 
-            <h4>description de la sortie : </h4>
+            <h4>Description de la sortie : </h4>
             <p>{{ sortie.infosSortie }}</p>
 
             <h4>Où</h4>
             <p>{{ sortie.lieu.nom }}</p>
             <p>{{ sortie.lieu.rue }}</p>
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
+
+            {% if sortie.motif or sortie.organisateur.actif is same as 1 %}
+                <h4>Motif d'annulation :</h4>
+                {% if sortie.organisateur.actif is same as 1 %}
+                    <h4>Utilisateur suspensu</h4>
+                    {% else %}
+                    <h4>{{ sortie.motif }}</h4>
+            {% endif %}
+                {% endif %}
+             
+
+
+
+
+
+            {% if sortie.motif %}
+            <h4>Motif d'annulation :</h4>
+            <p>{{ sortie.motif }}</p>
+{% endif%}
+
+            {% if sortie.organisateur.actif is same as 1 %}
+            <h1>Utilisateur suspendu</h1>
+            {% endif %}
 
 
         </div>
@@ -90,23 +113,12 @@
                              </div>
                          </div>
                      </div>
-                     <a class="btn btn-primary" href="{{ path('sortie_edit',{'id':sortie.id}) }}">Edit</a>
+                     <a class="btn btn-primary" href="{{ path('sortie_edit',{'id':sortie.id}) }}">Modifier</a>
                  {% endif %}
+                    {% endif %}
+                        {% endif %}
 
-
-
-         {% endif %}
-
-
-
-
-
-
-
-         {% endif %}
-
-
-             {% if sortie.participant|length > 0  %}
+             {% if sortie.participant|length > 0 and sortie.motif is empty %}
                  <h4>liste des participants</h4>
                  <ul>
                      {% for participant in sortie.participant %}
@@ -122,8 +134,10 @@
                      {% endfor %}
                  </ul>
              {% else %}
-                 <p>aucun participant pour le moment</p>
+                 {% if sortie.motif is empty %}
+                     <p>Aucun participant pour le moment</p>
              {% endif %}
+                {% endif %}
 
         </div>
 
