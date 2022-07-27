@@ -6,6 +6,7 @@ use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
@@ -24,7 +25,7 @@ class Ville
      */
     private $nom;
 
-    /**
+    /** @Assert\Regex(pattern="/^(([0-8][0-9])|(9[0-5]))[0-9]{3}$/", message="ville.codePostal.regex", match=true)
      * @ORM\Column(type="integer")
      */
     private $codePostal;
