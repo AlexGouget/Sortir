@@ -44,3 +44,7 @@ sortie.categorie.not_blank: Veuillez choisir une categorie
 #Lieu
 
 lieu.nom.not_blank : Le nom du lieu doit être renseigné
+
+#Ville
+
+ville.codePostal.regex : Le format de code postal doit être sous format français

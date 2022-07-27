@@ -39,7 +39,7 @@ class EtatSortie
         $this->ETAT_ANNULE = $etat[$index++];
         $this->ETAT_OUVERTE = $etat[$index++];
         $this->ETAT_CLOTURE = $etat[$index++];
-        date_default_timezone_set("Europe/Paris");
+
     }
 
 
@@ -53,11 +53,13 @@ class EtatSortie
        $this->checkAndUpdateSortieArchive($sortie);
     }
 
+
     /**
      * @throws \Exception
      */
     public function checkAndUpdateEtatAll():void
     {
+
         $this->checkAndUpdateSortiesOuverteCloture();
         $this->checkAndUpdateSortiesOuverteTermine();
         $this->checkAndUpdateSortiesArchive();
@@ -65,13 +67,14 @@ class EtatSortie
         $this->em->flush();
     }
 
+
     /**
      * @return \App\Entity\Sortie
      */
     public function checkAndUpdateSortiesOuverteTermine(): void
     {
         //on cherche les sorties encore ouverte pour les cloturer
-        $sorties = $this->sortieRepo->findBy(['etat' => $this->ETAT_OUVERTE]);
+        $sorties = $this->sortieRepo->findCloseAndOpen();
 
 
         foreach ($sorties as $sortie){
@@ -96,14 +99,16 @@ class EtatSortie
 
     public function checkAndUpdateSortiesOuverteCloture() :void
     {
-        $sorties = $this->sortieRepo->findBy(['etat' => $this->ETAT_OUVERTE]);
+        $sorties = $this->sortieRepo->findCloseAndOpen();
 
 
         //on regarde si l'inscription est encore possible
 
         foreach ($sorties as $sortie) {
             $this->checkAndUpdateSortieCloture($sortie);
-        }}
+        }
+
+    }
 
     /**
      * @param Sortie $sortie
@@ -111,17 +116,18 @@ class EtatSortie
      */
     public function checkAndUpdateSortieCloture(Sortie $sortie): void
     {
-        if ($sortie->getDateLimiteInscription() <= new \DateTime('now') ||
-            count($sortie->getParticipant()) == $sortie->getNbInscriptionMax()) {
-            $sortie->setEtat($this->ETAT_CLOTURE);
-            $this->em->persist($sortie);
-        }
-
-        if ($sortie->getDateLimiteInscription() >= new \DateTime('now') ||
-            count($sortie->getParticipant()) != $sortie->getNbInscriptionMax()) {
+        if ($sortie->getDateLimiteInscription() > new \DateTime('now')) {
             $sortie->setEtat($this->ETAT_OUVERTE);
-            $this->em->persist($sortie);
+            if( count($sortie->getParticipant()) != $sortie->getNbInscriptionMax()) {
+                $sortie->setEtat($this->ETAT_OUVERTE);
+            }else{
+                $sortie->setEtat($this->ETAT_CLOTURE);
+            }
+        }else{
+            $sortie->setEtat($this->ETAT_CLOTURE);
         }
+        $this->em->persist($sortie);
+
     }
 
 

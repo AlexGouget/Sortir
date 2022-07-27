@@ -73,7 +73,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private $actif;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur",cascade={"remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private  $sortiesOrga;
 
@@ -149,7 +150,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        //$roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }

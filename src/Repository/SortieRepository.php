@@ -166,6 +166,36 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
+    public function findEventForDisableUser(UserInterface $user){
+        $qb = $this->createQueryBuilder('s');
+        $qb->leftJoin('s.etat','e')->addSelect('e');
+        $qb->andWhere('s.organisateur = :val1')->setParameter('val1',$user);
+        $qb->andWhere('s.motif IS NULL');
+        $qb->andWhere('s.etat not in (1,2,4)');
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findForUnableUser(UserInterface $user){
+        $qb = $this->createQueryBuilder('s');
+        $qb->leftJoin('s.etat','e')->addSelect('e');
+        $qb->andWhere('s.organisateur = :val1')->setParameter('val1',$user);
+        $qb->andWhere('s.motif = :val2')->setParameter('val2', 'Organisateur suspendu');
+        $qb->andWhere('s.etat not in (1,2,4)');
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+public function findCloseAndOpen(){
+        $qb = $this->createQueryBuilder('s');
+        $qb->andWhere('s.etat in (6,7)');
+        return $qb
+            ->getQuery()
+            ->getResult();
+
+}
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects

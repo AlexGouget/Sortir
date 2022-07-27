@@ -1,8 +1,9 @@
 <div class="gallary row">
-{% for sortie in listSortie %}
+
+{% if listSortie|length > 0 %}
+    {% for sortie in listSortie %}
 
     {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
-
 
         <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
             <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
@@ -20,12 +21,12 @@
 
 
                 {% if sortie.etat.id in [2,4]  %}
-                    <p class="btn btn-primary">Sortie terminée</p>
+                    <p class="btn btn-dark">Sortie terminée</p>
 
                 {% elseif sortie.etat.id == 3 %}
                     <p class="btn btn-primary">événement en cour</p>
                 {% elseif sortie.etat.id == 5 %}
-                    <p class="btn btn-primary">Sortie Annulée</p>
+                    <p class="btn btn-dark">Sortie Annulée</p>
                 {% elseif sortie.etat.id == 6 %}
                     {% if app.user and sortie in app.user.sortiesParticipant %}
                         <p class="btn btn-info">inscrit</p>
@@ -66,6 +67,9 @@
         </div>
 
 {% endfor %}
+{% else %}
+  <h3 style="margin:auto;" >Aucun évènement trouvé</h3>
+{% endif %}
 </div>
 
 

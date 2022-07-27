@@ -10,21 +10,44 @@
         }
     </style>
 
-    <div class="header-profile">
-        <div class="user-details position-relative">
-            <p>E-mail: {{ user.email }}</p>
-            {% if user.imageName %}
-                <img class="img-profile" src="{{ asset('assets/imgs/profile/'~user.imageName)}}" alt="imgProfile">
-            {% endif %}
-            
+    <div class="header-profile mb-5 pb-5">
+        <div class="user-details position-relative flex flex-column">
             {{ form_start(editUserForm) }}
-            {{ form_widget(editUserForm) }}
-            <button>Submit</button>
+                <div class="flex flex-row">
+                    {% if user.imageName %}
+                        <img class="img-profile" src="{{ asset('assets/imgs/profile/'~user.imageName)}}" alt="imgProfile">
+                    {% endif %}
+                    {{ form_widget(editUserForm.imageFile) }}
+                </div>
+
+                <div class="flex flex-column align-items-center justify-content-center">
+
+                        <p>E-mail: {{ user.email }}</p>
+                        {{ form_row(editUserForm.pseudo) }}
+                        {{ form_row(editUserForm.nom) }}
+                        {{ form_row(editUserForm.prenom) }}
+
+                        {{ form_row(editUserForm.telephone) }}
+                        {{ form_row(editUserForm.campus) }}
+
+                        <button class="btn btn-primary m-1">Enregistrer</button>
+                        <a class="btn btn-primary m-1" href="{{ path('profile_editMdp') }}">Modifier mon mot de passe</a>
+
+
+                </div>
+
+
             {{ form_end(editUserForm) }}
-            <a href="{{ path('profile_editMdp') }}">Modifier mon mot de passe</a>
+
         </div>
     </div>
+    {% include('inc/galleryProfile.html.twig') %}
 {% endblock %}
+
+
+
+
+
 
 {% block title %}
 Mon profil

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Se connecter{% endblock %}
 
 {% block header %}
 
@@ -16,7 +16,7 @@
  }
  </style>
 <div class="header login">
-    <form class="form-login" method="post">
+    <form class="form-login flex flex-column align-items-center" method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -25,23 +25,33 @@
                 You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+        <div class="basicInputBox vw30 custom-form-control m-2" >
+                <i class="ti-user m-2"></i>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control custom-form-control-main" autocomplete="email" required autofocus>
+        </div>
+
+        <div class="basicInputBox vw30 custom-form-control m-2" >
+            <i class="ti-lock m-2"></i>
+            <input type="password" name="password" id="inputPassword" class="form-control custom-form-control-main" autocomplete="current-password" required>
+
+        </div>
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}"
         >
-            <div class="checkbox mb-3">
+
+
+            <div class="form-check mb-3 flex flex-row ">
+
                 <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
+                    Se rappeler de moi
                 </label>
+                <input class="form-check-input" type="checkbox" name="_remember_me">
             </div>
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
+        <button class="btn btn-primary vw10" type="submit">
+            Se connecter
         </button>
     </form>
-    <a href="{{ path('app_register') }}">Creer un Compte</a>
+
 </div>
 {% endblock %}

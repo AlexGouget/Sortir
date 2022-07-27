@@ -14,10 +14,10 @@
             {% if is_granted('ROLE_ADMIN') %}
 
             <li class="nav-item">
-                <a class="nav-link" href="#testmonial">Ville</a>
+                <a class="nav-link" href="{{ path('ville_') }}">Ville</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#testmonial">Campus</a>
+                <a class="nav-link" href="{{ path('campus_') }}">Campus</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('profile_list') }}">Liste utilisateurs</a>

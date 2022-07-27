@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+    {% block title %}Hello villeController!{% endblock %}
+
+    {% block body %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ville</th>
+                <th scope="col">Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            
+
+            {% for ville in listville%}
+                <tr>
+                    <td>{{ ville.nom }}</td>
+                    <td>    <a href="{{path('ville_supprimer', {'id':ville.id}) }}" class="btn btn-danger" onclick="alerteSupression()">Supprimer</a>
+                        <a href="{{ path('ville_edit', {'id':ville.id}) }}"class="btn btn-danger">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td> {{form_start(formulaireville.nom) }}
+                    {{ form_widget(formulaireville) }}
+
+                </td>
+
+                <td></td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+        <div class="test">
+
+        </div>
+        <script>
+            function alerteSupression() {
+              confirm("Etes vous sûr de vouloir supprimer ce campus? Tous les LIEUX et toutes les SORTIES liées à ce campus seront supprimées");
+            }
+        </script>
+
+    {% endblock %}

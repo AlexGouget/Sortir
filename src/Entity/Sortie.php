@@ -76,7 +76,7 @@ class Sortie
     /**
      * @Assert\NotBlank(message="sortie.etat.not_blank")
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $lieu;
 
