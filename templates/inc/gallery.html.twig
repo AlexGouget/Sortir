@@ -1,5 +1,7 @@
 <div class="gallary row">
-{% for sortie in listSortie %}
+
+{% if listSortie|length > 0 %}
+    {% for sortie in listSortie %}
 
     {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
 
@@ -65,6 +67,9 @@
         </div>
 
 {% endfor %}
+{% else %}
+  <h3 style="margin:auto;" >Aucun évènement trouvé</h3>
+{% endif %}
 </div>
 
 
