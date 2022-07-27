@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
-use App\Entity\User;
 use App\Form\CreeLieuType;
 use App\Form\CreeSortieType;
 use App\Form\EditModifSortieType;
@@ -115,6 +113,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/index.html.twig', [
             'formulaireSortie' =>  $formulaireSortie->createView(),
+
 
         ]);
     }
