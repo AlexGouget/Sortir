@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Campus;
 
 use App\Entity\Campus;
-use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

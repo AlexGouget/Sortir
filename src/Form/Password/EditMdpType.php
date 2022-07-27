@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Password;
 
 use App\Entity\User;
-use phpDocumentor\Reflection\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;

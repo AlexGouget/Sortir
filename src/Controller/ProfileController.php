@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
+<<<<<<< Updated upstream
 use App\Form\EditMdpType;
 use App\Form\EditUserType;
+=======
+use App\Form\Password\EditMdpType;
+use App\Form\User\EditUserType;
+use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
+>>>>>>> Stashed changes
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 

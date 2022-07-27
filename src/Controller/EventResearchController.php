@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
+<<<<<<< Updated upstream
 use App\Entity\Campus;
 use App\Entity\Categorie;
 use App\Form\RegistrationFormType;
+=======
+use App\Entity\User;
+use App\Form\FormulaireRecherche;
+>>>>>>> Stashed changes
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

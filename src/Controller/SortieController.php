@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Lieu;
 use App\Entity\Sortie;
-use App\Form\CreeLieuType;
-use App\Form\CreeSortieType;
-use App\Form\EditModifSortieType;
-use App\Form\SupprSortieType;
+use App\Form\Sortie\CreeSortieType;
+use App\Form\Sortie\EditModifSortieType;
+use App\Form\Sortie\SupprSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;

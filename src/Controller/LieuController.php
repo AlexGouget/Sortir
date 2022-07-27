@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
-use App\Form\CreeLieuType;
+use App\Form\Lieu\CreeLieuType;
 use App\Repository\LieuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

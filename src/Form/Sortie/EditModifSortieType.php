@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Sortie;
 
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
