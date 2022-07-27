@@ -10,12 +10,14 @@ use App\Repository\UserRepository;
 use App\Services\EtatSortie;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class ProfileController extends AbstractController
 {
@@ -54,6 +56,7 @@ class ProfileController extends AbstractController
         //on suspend l'utilisateur
         $user = $userRepository->find($id);
         $user->setActif(false);
+        $user->setRoles(["ROLE_VISITOR"]);
         $em->persist($user);
         //on recherche toutes les sortie organisé par ce dernier
         $etatAnnule = $etatRepo->find(5);
@@ -82,6 +85,7 @@ class ProfileController extends AbstractController
         //on suspend l'utilisateur
         $user = $userRepository->find($id);
         $user->setActif(true);
+        $user->setRoles(["ROLE_USER"]);
         $em->persist($user);
         //on recherche toutes les sortie organisé par ce dernier
         $etatOuverte = $etatRepo->find(6);
@@ -137,6 +141,7 @@ class ProfileController extends AbstractController
      */
     public function editDetails(EntityManagerInterface $em, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
         $editUserForm = $this->createForm(EditUserType::class, $user);
         $editUserForm->handleRequest($request);

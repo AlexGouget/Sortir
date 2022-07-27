@@ -12,6 +12,7 @@ use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ use Symfony\Component\Security\Core\Security;
 class SortieController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
      * @Route("/cree", name="cree")
      */
     public function cree(Request $request,
@@ -119,6 +121,7 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
      * @Route ("/editSortie/{id}", name="edit")
      */
 
@@ -185,7 +188,7 @@ class SortieController extends AbstractController
 
 
         if($formulaireMotif->isSubmitted()){
-
+            $this->denyAccessUnlessGranted("ROLE_USER");
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Annule'));
             $sortie->setEtat($etat);
             $em->flush($sortie);
@@ -223,6 +226,7 @@ class SortieController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
      * @Route("/sortie/inscription/{id}", name="inscription")
      */
     public function inscriptionSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
@@ -241,6 +245,7 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
      * @Route("/desister/{id}", name="desister")
      */
     public function desisterSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
@@ -260,6 +265,7 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
      * @Route("/admin/desinscrire/{idUser}/{idSortie}", name="desinscrire")
      */
     public function desinscrireSortie(int $idUser,int $idSortie, Request $request, SortieRepository $sortieRepository,UserRepository $userRepo, EntityManagerInterface $em ): Response
