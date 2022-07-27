@@ -32,7 +32,7 @@ class VilleController extends AbstractController
         $formulaireville=$this->createForm(CreevilleType::class,$ville);
         $formulaireville->handleRequest($request);
 
-        if($formulaireville->isSubmitted()) {
+        if($formulaireville->isSubmitted()&&$formulaireville->isValid()) {
             $em->persist($ville);
             $em->flush();
 
@@ -80,7 +80,7 @@ class VilleController extends AbstractController
         $formulaireville=$this->createForm(CreevilleType::class,$ville);
         $formulaireville->handleRequest($request);
 
-        if($formulaireville->isSubmitted()) {
+        if($formulaireville->isSubmitted()&&$formulaireville->isValid()){
             $em->persist($ville);
             $em->flush();
 
