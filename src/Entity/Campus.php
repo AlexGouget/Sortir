@@ -26,6 +26,7 @@ class Campus
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $sorties;
 

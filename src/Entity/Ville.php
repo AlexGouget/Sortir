@@ -31,6 +31,7 @@ class Ville
 
     /**
      * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $lieus;
 
