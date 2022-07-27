@@ -73,7 +73,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private $actif;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur",cascade={"remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private  $sortiesOrga;
 

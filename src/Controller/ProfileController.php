@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Form\EditMdpType;
 use App\Form\EditUserType;
+use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
+use App\Services\EtatSortie;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,9 +27,80 @@ class ProfileController extends AbstractController
         $users = $userRepository->findAll();
 
         return $this->render('profile/listUtilisateur.html.twig', [
-            'users'=> $users
+            'users' => $users
         ]);
     }
+
+
+    /**
+     * @Route("/admin/profile/suppression/{id}", name="profile_suppression")
+     */
+    public function suppUser(int $id, UserRepository $userRepository, EntityManagerInterface $em, Request $request): Response
+    {
+        $user = $userRepository->find($id);
+        $userRepository->remove($user, true);
+
+        $this->addFlash('success', 'utilisateur supprimé!');
+        return $this->redirectToRoute('profile_list');
+
+    }
+
+    /**
+     * @Route("/admin/profile/suspendre/{id}", name="profile_suspendre")
+     */
+    public function suspendreUser(int $id,EtatRepository $etatRepo,SortieRepository $sortieRepo, UserRepository $userRepository, EntityManagerInterface $em, Request $request): Response
+    {
+
+        //on suspend l'utilisateur
+        $user = $userRepository->find($id);
+        $user->setActif(false);
+        $em->persist($user);
+        //on recherche toutes les sortie organisé par ce dernier
+        $etatAnnule = $etatRepo->find(5);
+        $sorties = $sortieRepo->findEventForDisableUser($user);
+
+        foreach ($sorties as $sortie){
+
+                $sortie->setEtat($etatAnnule);
+                $sortie->setMotif("Organisateur suspendu");
+                $em->persist($sortie);
+
+        }
+        $em->flush();
+
+        $this->addFlash('success', 'utilisateur suspendu!');
+        return $this->redirectToRoute('profile_list');
+
+    }
+
+    /**
+     * @Route("/admin/profile/enlever-suspension/{id}", name="profile_enleverSuspendre")
+     */
+    public function EnleverSuspendreUser(int $id,EtatSortie $etatSortie,EtatRepository $etatRepo,SortieRepository $sortieRepo, UserRepository $userRepository, EntityManagerInterface $em, Request $request): Response
+    {
+
+        //on suspend l'utilisateur
+        $user = $userRepository->find($id);
+        $user->setActif(true);
+        $em->persist($user);
+        //on recherche toutes les sortie organisé par ce dernier
+        $etatOuverte = $etatRepo->find(6);
+        $sorties = $sortieRepo->findForUnableUser($user);
+        foreach ($sorties as $sortie){
+                $sortie->setEtat($etatOuverte);
+                $sortie->setMotif(null);
+                $em->persist($sortie);
+
+
+
+        }
+        $em->flush();
+
+        $this->addFlash('success', 'utilisateur et sortie retablie!');
+        return $this->redirectToRoute('profile_list');
+
+    }
+
 
 
     /**

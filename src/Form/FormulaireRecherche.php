@@ -87,6 +87,7 @@ class FormulaireRecherche extends AbstractType
                 'label'=>"Sorties passées",
                 'required'=>false,
             ])->add('submit', SubmitType::class,[
+                'label'=>' ',
                 'attr'=>[
                     'class'=>'rounded btn btn-lg btn-primary ti-search'
                 ]
