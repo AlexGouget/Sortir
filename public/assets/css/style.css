@@ -11089,6 +11089,35 @@ pre {
   border-radius: 50px;
 }
 
+.basicInputBox{
+  display: flex;
+  flex-direction: row;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.vw30{
+  width: 30vw;
+}
+
+.vw40{
+  width: 40vw;
+}
+
+.vw50{
+  width: 50vw;
+}
+
+vw10{
+  width: 10vw;
+}
+
+.basicInputBox:focus-within{
+  border-color: #ff214f;
+  color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(255, 33, 79, 0.25);
+}
+
 .searchBox:focus-within{
   border-color: #ff214f;
   color: #fff;
@@ -11101,8 +11130,8 @@ pre {
 }
 
 .custom-form-control-main {
-  background: transparent;
-  color: #fff;
+  background: transparent !important;
+  color: #fff!important;
   border: none;
 
 }
@@ -11398,6 +11427,7 @@ pre {
   max-width: 25vw;
   align-items: center;
   margin: auto;
+  min-height: 600px !important;
 }
 
 .middle-items {

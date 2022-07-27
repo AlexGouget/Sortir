@@ -20,16 +20,36 @@ class EditUserType extends AbstractType
         $builder
             ->add('imageFile', VichImageType::class, [
                 'download_label' => false,
+                'allow_delete'=> false,
                 'required'=> false,
                 'label'=> 'Photo de profil: '
             ])
-            ->add('pseudo', TextType::class)
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('telephone', TelType::class)
+            ->add('pseudo', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('nom', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('prenom', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('telephone', TelType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('campus', EntityType::class, [
                 'class'=> Campus::class,
                 'choice_label'=>'nom',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
         ;
     }
