@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <style>
+        form{
+            margin-top: 150px;
+        }
+
+    </style>
+
+    {{ form_start(formulaireCampus) }}
+    {{ form_widget(formulaireCampus) }}
+    {{ form_end(formulaireCampus) }}
+
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
