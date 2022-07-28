@@ -166,6 +166,13 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
+    public function findEventByUserRegistred(UserInterface $user){
+        $qb = $this->createQueryBuilder('s');
+        $qb->andWhere(':user member of s.participant')->setParameter(':user', $user);
+        return $qb->getQuery()->getResult();
+
+    }
+
     public function findEventForDisableUser(UserInterface $user){
         $qb = $this->createQueryBuilder('s');
         $qb->leftJoin('s.etat','e')->addSelect('e');
