@@ -58,17 +58,25 @@ class ProfileController extends AbstractController
         $user->setActif(false);
         $user->setRoles(["ROLE_VISITOR"]);
         $em->persist($user);
+
         //on recherche toutes les sortie organisé par ce dernier
         $etatAnnule = $etatRepo->find(5);
         $sorties = $sortieRepo->findEventForDisableUser($user);
 
         foreach ($sorties as $sortie){
-
                 $sortie->setEtat($etatAnnule);
                 $sortie->setMotif("Organisateur suspendu");
                 $em->persist($sortie);
-
         }
+
+        //on recherche toutesles sorties avec une inscription de l'utilisateur
+        $sortiesInscrit = $sortieRepo->findEventByUserRegistred($user);
+
+
+        foreach ($sortiesInscrit as $sortieI){
+            $sortieI->removeParticipant($user);
+        }
+
         $em->flush();
 
         $this->addFlash('success', 'utilisateur suspendu!');
