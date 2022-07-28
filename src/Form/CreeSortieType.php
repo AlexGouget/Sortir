@@ -66,7 +66,7 @@ class CreeSortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label'=>'Description et infos :',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control vw40',
                     'placeholder'=> 'Decris ton activité en quelques mots pour donner envie aux autres étudiants'
                 ]
             ])
@@ -112,19 +112,19 @@ class CreeSortieType extends AbstractType
         ->add('enregistrer', SubmitType::class,[
             'label' => 'Enregistrer',
             'attr' => [
-                'class' => 'btn btn-primary',
+                'class' => 'btn btn-primary m-1',
             ]
         ] )
         ->add('publier', SubmitType::class,[
             'label' => 'Publier la sortie',
             'attr' => [
-                'class' => 'btn btn-primary',
+                'class' => 'btn btn-primary m-1',
             ]
         ] )
         ->add('annuler', SubmitType::class,[
             'label' => 'Annuler',
             'attr' => [
-                'class' => 'btn btn-primary',
+                'class' => 'btn btn-primary m-1',
             ]
         ] );
 

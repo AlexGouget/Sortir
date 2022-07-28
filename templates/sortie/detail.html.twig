@@ -16,17 +16,21 @@
      <div class="sortie-detail">
         <div class="detail-info">
             <h3>{{ sortie.nom }}</h3>
-            <span>organisé par {{  sortie.organisateur.pseudo}} du campus : {{ sortie.campus.nom }}</span>
+            <span>organisé
+                <a href="{{ path('profile_details', {'id': sortie.organisateur.id }) }}">{{  sortie.organisateur.pseudo}} </a>
+                du campus : {{ sortie.campus.nom }}</span>
             <p>Date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
             <p>Date limite d'inscription {{ sortie.dateLimiteInscription|date("d/m/y", "Europe/Paris") }}</p>
             <p>Durée de l'évènement : {{ macros.MinutesToHour(sortie.duree) }}</p>
 
             <h4>Description de la sortie : </h4>
             <p>{{ sortie.infosSortie }}</p>
-
+        {% if app.user %}
             <h4>Où</h4>
             <p>{{ sortie.lieu.nom }}</p>
             <p>{{ sortie.lieu.rue }}</p>
+
+
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
 
 
@@ -38,7 +42,7 @@
                     {% endif %}</h4>
 
                 {% endif %}
-
+        {% endif %}
 
 
 
@@ -61,7 +65,7 @@
                  {% endif %}
 
 
-                 {% if sortie.organisateur.id is same as app.user.id %}
+                 {% if (sortie.organisateur.id is same as app.user.id) or is_granted('ROLE_ADMIN') %}
 
                      <a data-toggle="modal"  data-target="#modifier" class="btn btn-danger">
                          <i class="glyphicon glyphicon-trash"></i>
@@ -131,7 +135,7 @@
                                          </style>
 
 
-                                         Etes-vous sur de vouloir annuler votre évenement ?
+                                         Etes-vous sur de vouloir supprimer votre évenement ?
                                          <br>
                                              {{ form_start(supprSortie) }}
                                              {{ form_widget(supprSortie)}}

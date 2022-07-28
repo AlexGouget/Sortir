@@ -4,13 +4,13 @@
 
 {% block body %}
 
-    <div class="header flex flex-column justify-content-center">
+    <div class="header-find-page flex flex-column justify-content-center">
         <header class="flex flex-column justify-content-center align-items-center header">
-            <h1>Créer un nouveau mot de passe</h1>
+            <h2 >Créer un nouveau mot de passe</h2>
 
             {{ form_start(resetForm) }}
             {{ form_row(resetForm.plainPassword) }}
-            <button class="btn btn-primary">Reset password</button>
+            <button class="btn btn-primary m-1">Valider</button>
             {{ form_end(resetForm) }}
 
         </header>

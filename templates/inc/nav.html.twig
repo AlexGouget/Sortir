@@ -28,17 +28,20 @@
 
            {% if app.user %}
 
-
+            {% if is_granted('ROLE_USER') %}
             <li class="nav-item">
                  <a class="nav-link" href="{{ path('profile_edit_details') }}">Mon profil</a>
             </li>
+             {% endif%}
 
             <li class="nav-item">
                 <a class="nav-link" href={{ path('security_logout') }}>Déconnection</a>
             </li>
+            {% if is_granted('ROLE_USER') %}
             <li class="nav-item">
                 <a href="{{ path('sortie_cree') }}" class="btn btn-primary ml-xl-4">Créer un évènement</a>
             </li>
+             {% endif%}
            {% else %}
                <li class="nav-item">
                    <a class="btn btn-primary ml-xl-4" href="{{ path('security_login') }}">Connexion</a>
@@ -47,4 +50,8 @@
 
         </ul>
     </div>
+
 </nav>
+{% if app.user %}
+    <p style="padding-right: 50px; width: 100%;text-align: right">Bonjour {{ app.user.pseudo }}</p>
+{% endif %}
