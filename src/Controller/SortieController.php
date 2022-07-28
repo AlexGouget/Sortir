@@ -12,6 +12,7 @@ use App\Form\SupprSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
+use App\Services\EtatSortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,6 +69,7 @@ class SortieController extends AbstractController
                     $etat = $etatRepository->findOneBy(array('libelle'=> 'Brouillon'));
                     $sortie->setEtat($etat);
                     $entityManager->persist($sortie);
+                    $sortie->addParticipant($this->getUser());
                     $entityManager->flush();
 
                     $this->addFlash('successs', 'Votre sortie est enregistrée en brouillon !');
@@ -97,6 +99,7 @@ class SortieController extends AbstractController
                 $sortie->setEtat($etat);
 
                 $entityManager->persist($sortie);
+                $sortie->addParticipant($this->getUser());
                 $entityManager->flush();
 
                 $this->addFlash('successs', 'Votre sortie est visible par les autres utilisateurs  !');
@@ -174,8 +177,8 @@ class SortieController extends AbstractController
     /**
      * @Route("/detail/{id}", name="detail")
      */
-    public function detailSortie(EtatRepository $etatRepository,Request $request,Sortie $sortie,SortieRepository  $sortieRepo,EntityManagerInterface $em):Response{
-
+    public function detailSortie(EtatSortie $etatSortie,EtatRepository $etatRepository,Request $request,Sortie $sortie,SortieRepository  $sortieRepo,EntityManagerInterface $em):Response{
+        $etatSortie->checkAndUpdateEtatAll();
         $sortie = $sortieRepo->find($sortie);
 
         $formulaireMotif=$this->createForm(EditModifSortieType::class, $sortie);

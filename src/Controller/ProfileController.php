@@ -95,17 +95,16 @@ class ProfileController extends AbstractController
         $user->setActif(true);
         $user->setRoles(["ROLE_USER"]);
         $em->persist($user);
-        //on recherche toutes les sortie organisé par ce dernier
+        //on recherche toutes les sorties organisé par ce dernier
         $etatOuverte = $etatRepo->find(6);
         $sorties = $sortieRepo->findForUnableUser($user);
+
         foreach ($sorties as $sortie){
                 $sortie->setEtat($etatOuverte);
                 $sortie->setMotif(null);
                 $em->persist($sortie);
-
-
-
         }
+
         $em->flush();
 
         $this->addFlash('success', 'utilisateur et sortie retablie!');
