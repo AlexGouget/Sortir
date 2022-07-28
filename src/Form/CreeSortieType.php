@@ -82,6 +82,7 @@ class CreeSortieType extends AbstractType
             ->add('categorie',EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'libelle_cat',
+                'placeholder'=>'choissisez une catégorie',
                 'label'=>'Categorie :',
                 'attr' => [
                     'class' => 'form-control',

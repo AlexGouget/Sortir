@@ -23,23 +23,45 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class,[
-                'label' => 'Pseudo :'
+                'label' => 'Pseudo :',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
             ->add('email', EmailType::class,[
-                'label' => 'Email :'
+                'label' => 'Email :',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
             ->add('nom', TextType::class, [
-                'label'=>'Nom :'
+                'label'=>'Nom :',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
             ->add('prenom', TextType::class, [
-                'label'=>'Prenom :'
+                'label'=>'Prenom :',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
-            ->add('telephone', TelType::class,['label'=>'Téléphone'])
-            /*->add('campus',EntityType::class, [
+            ->add('telephone', TelType::class,[
+                'label'=>'Téléphone',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
+
+            ->add('campus',EntityType::class, [
                 'class' => Campus::class,
+                'placeholder'=>'choissisez un campus',
                 'choice_label' => 'nom',
-                'label'=>'Campus :'
-            ])*/
+                'label'=>'Campus :',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
         ;
     }
 

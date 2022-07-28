@@ -33,7 +33,14 @@ class RegistrationController extends AbstractController
      * @Route("admin/register", name="app_register")
      * @throws TransportExceptionInterface
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppUserAuthenticator $authenticator, EntityManagerInterface $entityManager, MailerInterface $mailer, TranslatorInterface $translator): Response
+    public function register(Request $request,
+                             UserPasswordHasherInterface $userPasswordHasher,
+                             UserAuthenticatorInterface $userAuthenticator,
+                             AppUserAuthenticator $authenticator,
+                             EntityManagerInterface $entityManager,
+                             MailerInterface $mailer,
+                             TranslatorInterface $translator,
+                             ResetPasswordController $resetPassword): Response
     {
         $user = new User();
 
@@ -57,9 +64,18 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('confirmation', "Utilisateur crée, un mail de confirmation a été envoyé" );
-            // generate a signed url and email it to the user
 
 
+            // generate a reset Password url and email it to the user
+
+            return $resetPassword->processSendingPasswordResetEmailForSubscription(
+                $form->get('email')->getData(),
+                $mailer,
+                $translator
+            );
+
+
+            /*
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@sortir.com', "l'équipe de sortir.com"))
@@ -67,7 +83,7 @@ class RegistrationController extends AbstractController
                     ->subject('Votre compte a été crée')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-
+            /*
 
             $this->addFlash('confirmation', "Utilisateur créer, un mail de confirmation a été envoyé" );
 
