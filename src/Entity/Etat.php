@@ -26,6 +26,7 @@ class Etat
     private $libelle;
 
     /**
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="etat")
      */
     private $sorties;

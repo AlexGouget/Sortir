@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Form\AnnulerSortieType;
 use App\Form\CreeLieuType;
 use App\Form\CreeSortieType;
 use App\Form\EditModifSortieType;
@@ -183,11 +184,15 @@ class SortieController extends AbstractController
         $supprSortie = $this->createForm(SupprSortieType::class,$sortie);
         $supprSortie->handleRequest($request);
 
+        $formulaireAnnulationSortie=$this->createForm(AnnulerSortieType::class, $sortie);
+        $formulaireAnnulationSortie->handleRequest($request);
+
+
 
         //Annulation d'article via modales (voir pour le mettre dans un service)
 
 
-        if($formulaireMotif->isSubmitted()){
+        if($formulaireAnnulationSortie->isSubmitted()){
             $this->denyAccessUnlessGranted("ROLE_USER");
             $etat = $etatRepository->findOneBy(array('libelle'=> 'Annule'));
             $sortie->setEtat($etat);
@@ -215,10 +220,12 @@ class SortieController extends AbstractController
 
 
 
-
-        return $this-> render('sortie/detail.html.twig',['sortie' => $sortie,
+return $this-> render('sortie/detail.html.twig',['sortie' => $sortie,
             'formulaireMotif' =>  $formulaireMotif->createView(),
-            'supprSortie' => $supprSortie->createView(), ]);
+            'supprSortie' => $supprSortie->createView(),
+    'annulationSortie' => $formulaireAnnulationSortie->createView()
+]);
+
 
 
     }
@@ -315,5 +322,33 @@ class SortieController extends AbstractController
 
 
     }
+
+    /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
+     * @Route("/annuler/{id}", name="annuler")
+     */
+    public function annulerSortie(EtatRepository $etatRepository,int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
+    {
+
+
+        $sortie = $sortieRepository->find($id);
+        $etatAnnuler = $etatRepository->findOneBy(array('libelle'=> 'Annuler'));
+        $user = $this->getUser();
+
+        $formulaireAnnulationSortie=$this->createForm(AnnulerSortieType::class, $sortie);
+        $formulaireAnnulationSortie->handleRequest($request);
+
+        if($sortie->getId() === $id){
+
+            $sortie->setEtat($etatAnnuler);
+            $em->flush();
+            $this->addFlash('success', 'Votre annulation a été pris en compte!');
+        } else {
+            $this->addFlash('warning', "une erreur est survenue a l'annulation");
+        }
+
+        return $this->redirectToRoute('sortie_detail',['id'=>$id]);
+    }
+
 
 }

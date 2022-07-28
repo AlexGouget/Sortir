@@ -63,12 +63,12 @@
 
                  {% if sortie.organisateur.id is same as app.user.id %}
 
-                     <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
+                     <a data-toggle="modal"  data-target="#modifier" class="btn btn-danger">
                          <i class="glyphicon glyphicon-trash"></i>
-                         Supprimer
+                         Annuler
                      </a>
 
-                     <div class="modal fade" id="infos">
+                     <div class="modal fade" id="modifier">
                          <div class="modal-dialog">
                              <div class="modal-content">
                                  <div class="modal-header">
@@ -87,22 +87,63 @@
                                      </style>
 
 
-                                     Etes-vous sur de vouloir supprimer votre évenement ?
+                                     Etes-vous sur de vouloir annuler votre évenement ?
                                      <br>
-                                     Indiquez nous le motif de suppresion
                                      <div class="aSupprimer">
-                                         {{ form_start(formulaireMotif) }}
-                                         {{ form_widget(formulaireMotif)}}
+                                         {{ form_start(annulationSortie) }}
+                                         {{ form_widget(annulationSortie)}}
                                      </div>
                                  </div>
                                  <div class="modal-footer">
                                      <button type="submit" class="btn btn-primary">OUI</button>
                                      <button class="btn btn-info" data-dismiss="modal">NON</button>
-                                     {{ form_end(formulaireMotif) }}
+                                     {{ form_end(annulationSortie) }}
                                  </div>
                              </div>
                          </div>
                      </div>
+
+
+
+
+
+
+                         <a data-toggle="modal"  data-target="#supprimer" class="btn btn-danger">
+                             <i class="glyphicon glyphicon-trash"></i>
+                            Supprimer
+                         </a>
+                         <div class="modal fade" id="supprimer">
+                             <div class="modal-dialog">
+                                 <div class="modal-content">
+                                     <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal">x</button>
+                                         <h4 class="modal-title">Confirmation</h4>
+                                     </div>
+                                     <div class="modal-body">
+
+                                         {# A mettre dans fichier css
+                                         #}
+
+                                         <style>
+                                             .modal-content{
+                                                 color: #1b1e21;
+                                             }
+                                         </style>
+
+
+                                         Etes-vous sur de vouloir annuler votre évenement ?
+                                         <br>
+                                             {{ form_start(supprSortie) }}
+                                             {{ form_widget(supprSortie)}}
+                                     </div>
+                                     <div class="modal-footer">
+                                         <button type="submit" class="btn btn-primary">OUI</button>
+                                         <button class="btn btn-info" data-dismiss="modal">NON</button>
+                                         {{ form_end(supprSortie) }}
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
                      <a class="btn btn-primary" href="{{ path('sortie_edit',{'id':sortie.id}) }}">Modifier</a>
                  {% endif %}
                     {% endif %}
