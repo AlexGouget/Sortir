@@ -29,6 +29,30 @@
             <p>{{ sortie.lieu.rue }}</p>
             <p>{{ sortie.lieu.ville.nom }} {{ sortie.lieu.ville.codePostal }}</p>
 
+<<<<<<< Updated upstream
+=======
+            {% if sortie.motif or sortie.organisateur.actif is same as 1 %}
+                <h4>Motif d'annulation :</h4>
+                {% if sortie.organisateur.actif is same as 1 %}
+                    <h4>Utilisateur suspensu</h4>
+                    {% else %}
+                    <h4>{{ sortie.motif }}</h4>
+            {% endif %}
+                {% endif %}
+
+
+
+
+            {% if sortie.motif %}
+            <h4>Motif d'annulation :</h4>
+            <p>{{ sortie.motif }}</p>
+{% endif%}
+
+            {% if sortie.organisateur.actif is same as 1 %}
+            <h1>Utilisateur suspendu</h1>
+            {% endif %}
+
+>>>>>>> Stashed changes
 
         </div>
 

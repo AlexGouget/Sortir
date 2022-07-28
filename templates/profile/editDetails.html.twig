@@ -18,8 +18,34 @@
             {% endif %}
             
             {{ form_start(editUserForm) }}
+<<<<<<< Updated upstream
             {{ form_widget(editUserForm) }}
             <button>Submit</button>
+=======
+                <div class="flex flex-row">
+                    {% if user.imageName %}
+                        <img class="img-profile" src="{{ asset('assets/imgs/profile/'~user.imageName)}}" alt="imgProfile">
+                    {% endif %}
+                    {{ form_widget(editUserForm.imageFile) }}
+                </div>
+
+                <div class="flex flex-column align-items-center justify-content-center">
+
+                        <p>E-mail: {{ user.email }}</p>
+                        {{ form_row(editUserForm.pseudo) }}
+                        {{ form_row(editUserForm.nom) }}
+                        {{ form_row(editUserForm.prenom) }}
+
+                        {{ form_row(editUserForm.telephone) }}
+                        {{ form_row(editUserForm.campus) }}
+
+                        <button class="btn btn-primary m-1">Enregistrer</button>
+                        <a class="btn btn-primary m-1" href="{{ path('profile_editMdp') }}">Modifier mon mot de passe</a>
+
+
+                </div>
+
+>>>>>>> Stashed changes
             {{ form_end(editUserForm) }}
             <a href="{{ path('profile_editMdp') }}">Modifier mon mot de passe</a>
         </div>
