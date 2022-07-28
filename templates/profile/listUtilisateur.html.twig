@@ -10,36 +10,56 @@
         }
     </style>
     <div class="header-profile">
-        <div class="user-details position-relative">
+        <div class="user-list position-relative">
             <h2>Liste Utilisateurs:</h2>
             <a href="{{ path('app_register') }}" class="btn btn-primary ml-xl-4 mb-5">Ajouter des utilisateurs</a>
-            <div>
-                {% for user in users  %}
-                    <div class="flex flex-row m-1 justify-content-between">
-                        {% if user.imageName is not null %}
-                            <img class="img-profile-extra-mini" src="{{ asset('assets/imgs/profile/'~user.imageName)}}" alt="imgProfile">
-                        {% endif %}
-                        <a href="{{ path('profile_details', {'id': user.id }) }}">{{ user.nom }}  {{ user.prenom }} {{ user.campus.nom }}</a>
 
-                        {# Gestion des utilisateurs #}
-                        {% if app.user %}
-                                {% if is_granted('ROLE_ADMIN') and app.user.campus == user.campus %}
-                                    {% if user.actif %}
-                                        <a alt="suspendre utilisateur" class="btn btn-primary" href="{{ path('profile_suspendre', {'id':user.id}) }}">suspendre utilisateur</a>
-                                     {% else %}
 
-                                         <a alt="suspendre utilisateur" class="btn btn-primary" href="{{ path('profile_enleverSuspendre', {'id':user.id}) }}">Retirer suspension</a>
-                                         <a alt="supprimer utilisateur" class="ti-trash" href="{{ path('profile_suppression', {'id':user.id}) }}"></a>
 
-                                    {% endif%}
+                      <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Utilisateur</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for user in users%}
+                        <tr>
+                            <td>
+                                {% if user.imageName is not null %}
+                                    <img class="img-profile-extra-mini" src="{{ asset('assets/imgs/profile/'~user.imageName)}}" alt="imgProfile">
+                                {% endif %}
+                                <a href="{{ path('profile_details', {'id': user.id }) }}">{{ user.nom }}  {{ user.prenom }} {{ user.campus.nom }}</a>
+                            </td>
+                            <td>
+
+                                {# Gestion des utilisateurs #}
+                                {% if app.user %}
+                                    {% if is_granted('ROLE_ADMIN') and app.user.campus == user.campus %}
+                                        {% if user.actif %}
+                                            <a alt="suspendre utilisateur" class="btn btn-primary" href="{{ path('profile_suspendre', {'id':user.id}) }}" onclick="return confirm('Voulez vous suspendre cet utilisateur? Cela annulera toutes ses sorties')">suspendre utilisateur</a>
+                                        {% else %}
+
+                                            <a alt="suspendre utilisateur" class="btn btn-primary" href="{{ path('profile_enleverSuspendre', {'id':user.id}) }}">Retirer suspension</a>
+                                            <a alt="supprimer utilisateur" class="ti-trash" href="{{ path('profile_suppression', {'id':user.id}) }}" onclick="return confirm('Voulez vous supprimer cet utilisateur? Toutes ses sorties seront supprimées' )"></a>
+
+                                        {% endif%}
+
+                                    {% endif %}
+
 
                                 {% endif %}
 
+                               </td>
+                        </tr>
+                    {% endfor %}
+                             </tbody>
 
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
+                      </table>
+
 
 
         </div>
