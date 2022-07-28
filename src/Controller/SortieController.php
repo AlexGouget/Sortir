@@ -69,7 +69,7 @@ class SortieController extends AbstractController
                     $entityManager->persist($sortie);
                     $entityManager->flush();
 
-                    $this->addFlash('success', 'Votre sortie est enregistrée en brouillon !');
+                    $this->addFlash('successs', 'Votre sortie est enregistrée en brouillon !');
                     return  $this->redirectToRoute('main_home');
                 }
 
@@ -98,7 +98,7 @@ class SortieController extends AbstractController
                 $entityManager->persist($sortie);
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Votre sortie est visible par les autres utilisateurs  !');
+                $this->addFlash('successs', 'Votre sortie est visible par les autres utilisateurs  !');
 
                 return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
             }
@@ -152,7 +152,7 @@ class SortieController extends AbstractController
 
             $em->persist($sortie);
             $em->flush();
-            $this->addFlash('success','Sortie modifiée(s) avec succes!');
+            $this->addFlash('success','Sortie modifiée(s) avec succés!');
 
             return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
         }
@@ -193,7 +193,7 @@ class SortieController extends AbstractController
             $sortie->setEtat($etat);
             $em->flush($sortie);
 
-            $this->addFlash('success', 'Votre sortie a était annuler!');
+            $this->addFlash('successs', 'Votre sortie a était annuler!');
            return$this->redirectToRoute('main_home');
 
 
@@ -206,7 +206,7 @@ class SortieController extends AbstractController
             $sortieRepo->remove($sortie);
             $em->flush();
 
-            $this->addFlash('success', 'Votre sortie a était supprimer!');
+            $this->addFlash('successs', 'Votre sortie a était supprimer!');
 
             return  $this->redirectToRoute('main_home');
 
@@ -236,7 +236,7 @@ class SortieController extends AbstractController
         if($sortie->getId() === $id){
             $sortie->addParticipant($user);
             $em->flush();
-            $this->addFlash('succes', 'Inscription à la sortie réussie!');
+            $this->addFlash('success', 'Inscription à la sortie réussie!');
         } else {
             $this->addFlash('warning', "une erreur est survenue a l'incription");
         }
@@ -256,7 +256,7 @@ class SortieController extends AbstractController
 
             $sortie->removeParticipant($user);
             $em->flush();
-            $this->addFlash('succes', 'Votre desistement a été pris en compte!');
+            $this->addFlash('successs', 'Votre desistement a été pris en compte!');
         } else {
             $this->addFlash('warning', "une erreur est survenue a l'incription");
         }
@@ -276,7 +276,7 @@ class SortieController extends AbstractController
 
             $sortie->removeParticipant($user);
             $em->flush();
-            $this->addFlash('succes', "Utilisateur retiré de l'évènement!");
+            $this->addFlash('success', "Utilisateur retiré de l'évènement!");
         } else {
             $this->addFlash('warning', "une erreur est survenue de la désincription");
         }
@@ -284,6 +284,35 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_detail',['id'=>$idSortie]);
     }
 
+    /**
+     * @Route("/publier/{id}", name="publier")
+     */
+    public function publierSortie(int $id,EtatRepository $etatRepository,Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $etatOuvert = $etatRepository->findOneBy(array('libelle'=> 'Ouverte'));
 
+        if($sortie->getDateHeureDebut() >= new \DateTime('now')){
+
+            if($sortie->getId() === $id){
+                $sortie->setEtat($etatOuvert);
+                $em->flush();
+                $this->addFlash('success', 'Votre sortie a été publié!');
+            } else {
+                $this->addFlash('warning', "une erreur est survenue au moment de la publication");
+            }
+            return $this->redirectToRoute('main_home');
+
+        }
+        else {
+
+            $this->addFlash('warning', 'La date de votre sortie est déjà passé ! Veuillez la modifier pour la publier');
+            return $this->redirectToRoute('sortie_edit',['id'=>$id]);
+
+        }
+
+
+
+    }
 
 }
