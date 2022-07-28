@@ -285,6 +285,7 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER", message="accés refusé")
      * @Route("/publier/{id}", name="publier")
      */
     public function publierSortie(int $id,EtatRepository $etatRepository,Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em ): Response
