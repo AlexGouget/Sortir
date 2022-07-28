@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private $prenom;
 
     /**
-     * @Assert\Length(max=10, maxMessage="user.tel")
+     * @Assert\Length(max=10, min=10,minMessage="user.tel", maxMessage="user.tel")
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $telephone;
