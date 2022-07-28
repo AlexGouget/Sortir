@@ -100,6 +100,7 @@ class ProfileController extends AbstractController
         $sorties = $sortieRepo->findForUnableUser($user);
 
         foreach ($sorties as $sortie){
+                $sortie->addParticipant($user);
                 $sortie->setEtat($etatOuverte);
                 $sortie->setMotif(null);
                 $em->persist($sortie);

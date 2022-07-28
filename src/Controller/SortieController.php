@@ -73,7 +73,7 @@ class SortieController extends AbstractController
                     $entityManager->flush();
 
                     $this->addFlash('successs', 'Votre sortie est enregistrée en brouillon !');
-                    return  $this->redirectToRoute('main_home');
+                    return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
                 }
 
 
@@ -131,40 +131,45 @@ class SortieController extends AbstractController
 
     public function editSortie(SortieRepository $sortieRepository,Sortie  $sortie,EntityManagerInterface $em, Request $request): Response
     {
+
         $sortie = $sortieRepository->find($sortie);
+        if($sortie->getOrganisateur() == $this->getUser() || $this->isGranted('ROLE_ADMIN')) {
         $formulaireSortie=$this->createForm(CreeSortieType::class, $sortie);
         $formulaireSortie->handleRequest($request);
 
 
-        if($formulaireSortie->get('enregistrer')->isClicked()&&$formulaireSortie->isValid()){
+            if ($formulaireSortie->get('enregistrer')->isClicked() && $formulaireSortie->isValid()) {
 
-           $lieu =$formulaireSortie->get('newLieu')->getData();
-           if($lieu){
-                $newlieu = new Lieu();
+                $lieu = $formulaireSortie->get('newLieu')->getData();
+                if ($lieu) {
+                    $newlieu = new Lieu();
 
-                $newlieu->setNom($lieu->getNom());
-                $newlieu->setRue($lieu->getRue());
-                $newlieu->setVille($lieu->getVille());
-                $newlieu->setLatitude($lieu->getLatitude());
-                $newlieu->setLongitude($lieu->getLongitude());
+                    $newlieu->setNom($lieu->getNom());
+                    $newlieu->setRue($lieu->getRue());
+                    $newlieu->setVille($lieu->getVille());
+                    $newlieu->setLatitude($lieu->getLatitude());
+                    $newlieu->setLongitude($lieu->getLongitude());
 
-               $em->refresh($sortie->getLieu());
-               
-                $sortie->setLieu($newlieu);
+                    $em->refresh($sortie->getLieu());
 
+                    $sortie->setLieu($newlieu);
+
+                }
+
+                $em->persist($sortie);
+                $em->flush();
+                $this->addFlash('success', 'Sortie modifiée(s) avec succés!');
+
+                return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
             }
-
-            $em->persist($sortie);
-            $em->flush();
-            $this->addFlash('success','Sortie modifiée(s) avec succés!');
-
-            return  $this->redirectToRoute('sortie_detail',['id'=>$sortie->getId()]);
-        }
 
         return $this->render('sortie/editSortie.html.twig', [
             'formulaireSortie'=> $formulaireSortie->createView()
         ]);
-
+        }else{
+            $this->addFlash('success', 'Vous ne pouvez pas modifier cette sortie!');
+            return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+        }
 
     }
 
@@ -214,7 +219,7 @@ class SortieController extends AbstractController
             $sortieRepo->remove($sortie);
             $em->flush();
 
-            $this->addFlash('successs', 'Votre sortie a était supprimer!');
+            $this->addFlash('successs', 'Votre sortie a été supprimé!');
 
             return  $this->redirectToRoute('main_home');
 

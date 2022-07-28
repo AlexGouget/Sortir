@@ -64,9 +64,9 @@
 
 
 
-
+    {% if user == app.user  %}
             <div class="gallary row position-relative pt-4 flex flex-column justify-content-center align-items-center">
-                <h1>Sortie non publié :</h1>
+                <h2>Sortie non publié :</h2>
                 <div class="flex flex- justify-content-center flex-wrap">
                     {% for sortie in user.sortiesOrga %}
                         {% if sortie.etat.id == 1 %}
@@ -92,3 +92,4 @@
                     {% endfor %}
             </div>
 </div>
+    {% endif %}
