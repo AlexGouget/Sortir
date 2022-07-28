@@ -65,7 +65,7 @@
 
                      <a data-toggle="modal"  data-target="#infos" class="btn btn-danger">
                          <i class="glyphicon glyphicon-trash"></i>
-                         Supprimer
+                         Annuler
                      </a>
 
                      <div class="modal fade" id="infos">
@@ -87,18 +87,17 @@
                                      </style>
 
 
-                                     Etes-vous sur de vouloir supprimer votre évenement ?
+                                     Etes-vous sur de vouloir annuler votre évenement ?
                                      <br>
-                                     Indiquez nous le motif de suppresion
                                      <div class="aSupprimer">
-                                         {{ form_start(formulaireMotif) }}
-                                         {{ form_widget(formulaireMotif)}}
+                                         {{ form_start(annulationSortie) }}
+                                         {{ form_widget(annulationSortie)}}
                                      </div>
                                  </div>
                                  <div class="modal-footer">
                                      <button type="submit" class="btn btn-primary">OUI</button>
                                      <button class="btn btn-info" data-dismiss="modal">NON</button>
-                                     {{ form_end(formulaireMotif) }}
+                                     {{ form_end(annulationSortie) }}
                                  </div>
                              </div>
                          </div>
