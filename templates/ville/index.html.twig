@@ -3,7 +3,8 @@
     {% block title %}Hello villeController!{% endblock %}
 
     {% block body %}
-
+<div class="header">
+    <header class="header flex flex-column justify-content-center align-items-center">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -13,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            
+
 
             {% for ville in listville%}
                 <tr>
@@ -36,9 +37,10 @@
 
             </tbody>
         </table>
-        <div class="test">
+    </header>
+</div>
 
-        </div>
+
         <script>
             function alerteSupression() {
               confirm("Etes vous sûr de vouloir supprimer ce campus? Tous les LIEUX et toutes les SORTIES liées à ce campus seront supprimées");
