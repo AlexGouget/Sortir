@@ -19,7 +19,7 @@
             <span>organisé par {{  sortie.organisateur.pseudo}} du campus : {{ sortie.campus.nom }}</span>
             <p>Date : {{ sortie.dateHeureDebut |date("d/m/y", "Europe/Paris") }}</p>
             <p>Date limite d'inscription {{ sortie.dateLimiteInscription|date("d/m/y", "Europe/Paris") }}</p>
-            <p>Durée de l'évènement :      {{ macros.MinutesToHour(sortie.duree) }}</p>
+            <p>Durée de l'évènement : {{ macros.MinutesToHour(sortie.duree) }}</p>
 
             <h4>Description de la sortie : </h4>
             <p>{{ sortie.infosSortie }}</p>
@@ -130,12 +130,9 @@
                 {% endif %}
 
         </div>
-
-
-
-
-
-
+         {% if sortie.etat.id == 1 %}
+             <a class="btn btn-primary" href="{{ path('sortie_publier',{'id':sortie.id}) }}">Publier votre sortie</a>
+         {% endif%}
      </div>
  </div>
 
