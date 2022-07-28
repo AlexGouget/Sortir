@@ -1,67 +1,42 @@
-<div class="gallary row position-relative pt-4">
-    <h1>SORTIE OU JE SUIS INSCRIT</h1>
-    {% for sortie in user.sortiesParticipant %}
-        {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
-        <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-            <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
-            <div class="gallary-info">
-                <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
-                <h4 class="info-title">{{ sortie.nom }}</h4>
-                <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
-                <div class="info-ville">
+<div class="gallary row position-relative pt-4 flex flex-column justify-content-center align-items-center">
+    <h2>Evènement inscrit :</h2>
+    <div class="flex flex- justify-content-center flex-wrap">
+        {% for sortie in user.sortiesParticipant %}
+            {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
+            <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
+                <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
+                <div class="gallary-info">
+                    <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
+                    <h4 class="info-title">{{ sortie.nom }}</h4>
+                    <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
+                    <div class="info-ville">
 
-                    <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
+                        <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
+                    </div>
+                    <p> {{ placeDispo }} places disponibles</p>
+
+                    {% if app.user and sortie in app.user.sortiesParticipant %}
+                        <p class="btn btn-primary">inscrit</p>
+                    {% endif %}
                 </div>
-                <p> {{ placeDispo }} places disponibles</p>
-
-                {% if app.user and sortie in app.user.sortiesParticipant %}
-                    <p class="btn btn-primary">inscrit</p>
-                {% endif %}
+                <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
+                    <i class="gallary-icon ti-plus"></i>
+                </a>
             </div>
-            <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
-                <i class="gallary-icon ti-plus"></i>
-            </a>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+
 </div>
 
 
 
 
-<h1>SORTIE QUE J'ORGANISE</h1>
-    <div class="gallary row position-relative pt-4">
-        {% for sortie in user.sortiesOrga %}
+
+    <div class="gallary row position-relative pt-4 flex flex-column justify-content-center align-items-center">
+        <h2>Sortie organisé :</h2>
+        <div class="flex flex- justify-content-center flex-wrap">
+            {% for sortie in user.sortiesOrga %}
                 {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
-                    <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
-                        <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
-                        <div class="gallary-info">
-                            <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
-                            <h4 class="info-title">{{ sortie.nom }}</h4>
-                            <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
-                            <div class="info-ville">
-
-                                <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
-                            </div>
-                            <p> {{ placeDispo }} places disponibles</p>
-
-                            {% if app.user and sortie in app.user.sortiesOrga %}
-                                <p class="btn btn-primary">Organisé</p>
-                            {% endif %}
-                        </div>
-                        <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
-                            <i class="gallary-icon ti-plus"></i>
-                        </a>
-                    </div>
-        {% endfor %}
-    </div>
-
-
-
-            <h1>SORTIE BROUILLON</h1>
-            <div class="gallary row position-relative pt-4">
-                {% for sortie in user.sortiesOrga %}
-                    {% if sortie.etat.id == 1 %}
-                        {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
                 <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
                     <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
                     <div class="gallary-info">
@@ -73,12 +48,47 @@
                             <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
                         </div>
                         <p> {{ placeDispo }} places disponibles</p>
-                            <p class="btn btn-primary">Brouillon</p>
+
+                        {% if app.user and sortie in app.user.sortiesOrga %}
+                            <p class="btn btn-primary">Organisé</p>
+                        {% endif %}
                     </div>
                     <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
                         <i class="gallary-icon ti-plus"></i>
                     </a>
                 </div>
-        {% endif %}
-    {% endfor %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+
+            <div class="gallary row position-relative pt-4 flex flex-column justify-content-center align-items-center">
+                <h1>Sortie non publié :</h1>
+                <div class="flex flex- justify-content-center flex-wrap">
+                    {% for sortie in user.sortiesOrga %}
+                        {% if sortie.etat.id == 1 %}
+                            {% set placeDispo = sortie.nbInscriptionMax - sortie.participant|length %}
+                            <div  class="gallary-container col-sm-6 col-lg-3 gallary-item wow fadeIn">
+                                <img src="{{ asset('assets/imgs/'~ sortie.categorie.backdrop )}}" class="gallary-img">
+                                <div class="gallary-info">
+                                    <img class="picto" src="{{ asset('assets/imgs/picto/'~ sortie.categorie.picto )}}" alt="">
+                                    <h4 class="info-title">{{ sortie.nom }}</h4>
+                                    <p>{{ sortie.dateHeureDebut |date("d/m/y H:i") }}</p>
+                                    <div class="info-ville">
+
+                                        <p><i class="ti-location-pin"></i> {{ sortie.lieu.ville.nom }}</p>
+                                    </div>
+                                    <p> {{ placeDispo }} places disponibles</p>
+                                    <p class="btn btn-primary">Brouillon</p>
+                                </div>
+                                <a href="{{ path('sortie_detail', { 'id': sortie.id}) }}" class="gallary-overlay">
+                                    <i class="gallary-icon ti-plus"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+            </div>
 </div>
