@@ -198,7 +198,7 @@ class SortieController extends AbstractController
             $sortie->setEtat($etat);
             $em->flush($sortie);
 
-            $this->addFlash('successs', 'Votre sortie a était annuler!');
+            $this->addFlash('successs', 'Votre sortie a été annulée!');
            return$this->redirectToRoute('main_home');
 
 
