@@ -31,12 +31,12 @@
 
 
             {% if sortie.motif or sortie.organisateur.actif == 0 %}
-                <h4>Motif d'annulation :</h4>
-                {% if sortie.organisateur.actif == 0 %}
-                    <h4>Utilisateur suspendu</h4>
+                <h4>Motif d'annulation :  {% if sortie.organisateur.actif == 0 %}
+                        Utilisateur suspendu
                     {% else %}
-                    <h4>{{ sortie.motif }}</h4>
-            {% endif %}
+                        {{ sortie.motif }}
+                    {% endif %}</h4>
+
                 {% endif %}
 
 

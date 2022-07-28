@@ -52,12 +52,16 @@ class SortieRepository extends ServiceEntityRepository
             ->leftJoin('s.organisateur', 'o')
             ->leftJoin('s.participant', 'p')
             ->leftJoin('s.lieu', 'l')
+            ->leftJoin('p.Campus','camp')
             ->leftJoin('l.ville', 'v')
+            ->leftJoin('s.etat', 'e')
+            ->addSelect('camp')
             ->addSelect('v')
             ->addSelect('l')
             ->addSelect('p')
             ->addSelect('c')
             ->addSelect('o')
+            ->addSelect('e')
            // ->andWhere('s.etat= :val')
             //->setParameter('val', 6)
             ->andWhere('s.etat != 4')
@@ -98,13 +102,15 @@ class SortieRepository extends ServiceEntityRepository
             ->leftJoin('s.campus', 'camp')
         ->leftJoin('s.participant', 'p')
         ->leftJoin('s.lieu', 'l')
-        ->leftJoin('l.ville', 'v');
+        ->leftJoin('l.ville', 'v')
+        ->leftJoin('s.etat', 'e');
         $qb ->addSelect('v')
             ->addSelect('l')
             ->addSelect('p')
             ->addSelect('c')
             ->addSelect('camp')
-            ->addSelect('o');
+            ->addSelect('o')
+             ->addSelect('e');
         $qb->where(
                 $qb->expr()->andX(
                     $qb->expr()->orX(
@@ -175,6 +181,7 @@ class SortieRepository extends ServiceEntityRepository
 
     public function findEventForDisableUser(UserInterface $user){
         $qb = $this->createQueryBuilder('s');
+        $qb->leftJoin('s.organisateur','o')->addSelect('o');
         $qb->leftJoin('s.etat','e')->addSelect('e');
         $qb->andWhere('s.organisateur = :val1')->setParameter('val1',$user);
         $qb->andWhere('s.motif IS NULL');
@@ -186,6 +193,7 @@ class SortieRepository extends ServiceEntityRepository
 
     public function findForUnableUser(UserInterface $user){
         $qb = $this->createQueryBuilder('s');
+        $qb->leftJoin('s.organisateur','o')->addSelect('o');
         $qb->leftJoin('s.etat','e')->addSelect('e');
         $qb->andWhere('s.organisateur = :val1')->setParameter('val1',$user);
         $qb->andWhere('s.motif = :val2')->setParameter('val2', 'Organisateur suspendu');
@@ -197,6 +205,7 @@ class SortieRepository extends ServiceEntityRepository
 
 public function findCloseAndOpen(){
         $qb = $this->createQueryBuilder('s');
+        $qb ->leftJoin('s.etat', 'e')->addSelect('e');
         $qb->andWhere('s.etat in (6,7)');
         return $qb
             ->getQuery()
