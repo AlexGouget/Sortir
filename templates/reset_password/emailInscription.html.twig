@@ -1,0 +1,9 @@
+<h1>Hi!</h1>
+
+<p>Ton compte a été crée, clique sur le lien ci-dessous pour créer ton mot de passe</p>
+
+<a href="http://localhost/Sortir/Sortir/public{{ path('app_reset_password', {token: resetToken.token}) }}">Créer mon mot de passe</a>
+
+<p>This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+<p>Bonne journée</p>
