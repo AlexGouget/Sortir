@@ -3,32 +3,37 @@
 {% block title %}Hello CampusController!{% endblock %}
 
 {% block body %}
+<div class="header">
+    <header class="header">
+
+
 
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th scope="col">Campus</th>
-            <th scope="col">Action</th>
+                <tr>
+                    <th scope="col">Campus</th>
+                    <th scope="col">Action</th>
 
-        </tr>
-        </thead>
+                </tr>
+            </thead>
         <tbody>
 
 
 
         {% for camp in listCampus%}
-        <tr>
-            <td>{{ camp.nom }}</td>
-            <td>    <a href="{{path('campus_supprimer', {'id':camp.id}) }}" class="btn btn-danger" onclick="alerteSupression()">Supprimer</a>
+            <tr>
+                <td>{{ camp.nom }}</td>
+                <td>
+                    <a href="{{path('campus_supprimer', {'id':camp.id}) }}" class="btn btn-danger" onclick="return confirm('Etes vous sûr de vouloir supprimer ce campus? Toutes les SORTIES liées à ce campus seront supprimées')">Supprimer</a>
                     <a href="{{ path('campus_edit', {'id':camp.id}) }}"class="btn btn-danger">Modifier</a>
-            </td>
-        </tr>
+                </td>
+            </tr>
         {% endfor %}
         <tr>
             <td> {{form_start(formulaireCampus.nom) }}
                 {{ form_widget(formulaireCampus) }}
 
-                </td>
+            </td>
 
             <td></td>
 
@@ -37,53 +42,16 @@
 
 
 
-        <div class="modal fade" id="modifier">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">x</button>
-                        <h4 class="modal-title">Modifier</h4>
-                    </div>
-                    <div class="modal-body">
 
-                        {# A mettre dans fichier css
-                        #}
-
-                        <style>
-                            .modal-content{
-                                color: #1b1e21;
-                            }
-                        </style>
-
-
-                        Etes-vous sur de vouloir supprimer votre évenement ?
-                        <br>
-                        Indiquez nous le motif de suppresion
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">OUI</button>
-                        <button class="btn btn-info" data-dismiss="modal">NON</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
 
         </tbody>
     </table>
-    <div class="test">
 
+
+   
+
+    </header>
     </div>
-    </div>
-    <script>
-        function alerteSupression() {
-            confirm("Etes vous sûr de vouloir supprimer ce campus? Toutes les SORTIES liées à ce campus seront supprimées");
-        }
-    </script>
-
-
 
 
 
