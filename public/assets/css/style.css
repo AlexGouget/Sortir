@@ -11655,7 +11655,7 @@ header form{
 
 
 .header-sortie{
-  margin-top: 150px;
+  padding-top: 150px;
   margin-bottom: 240px;
   height: inherit;
 }
@@ -11678,4 +11678,12 @@ header form{
 
 .zindexTop{
   z-index: 1050;
+}
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
 }

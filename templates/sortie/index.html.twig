@@ -3,6 +3,14 @@
 {% block title %}Création sortie{% endblock %}
 
 {% block body %}
+    <style>
+        main{
+            /*background: url({{ asset('assets/imgs/bg_party.jpg') }}) no-repeat center center fixed;*/
+            background-image: linear-gradient(rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url({{ asset('assets/imgs/bg_party.jpg') }});
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
 <div id="home" class="header-sortie">
     <header class="header">
 
@@ -32,11 +40,14 @@
 
         <div class="collapse" id="collapseExample">
             <div class="card card-body detail-option">
+                <label for="rechercherlieu"> Rechercher un lieu </label>
+                <input type="text" id="rechercherLieu" class="form-control m-2">
                 {{ form_widget(formulaireSortie.newLieu.nom) }}
-                {{ form_widget(formulaireSortie.newLieu.rue) }}
-                {{ form_widget(formulaireSortie.newLieu.ville) }}
-                {{ form_widget(formulaireSortie.newLieu.latitude) }}
-                {{ form_widget(formulaireSortie.newLieu.longitude)}}
+                {{ form_widget(formulaireSortie.newLieu.rue,{'attr': {'id': 'route'}}) }}
+                {{ form_widget(formulaireSortie.newLieu.ville, {'attr': {'id': 'locality'}}) }}
+                {{ form_widget(formulaireSortie.newLieu.latitude, {'attr': {'type': 'hidden'}}) }}
+                {{ form_widget(formulaireSortie.newLieu.longitude, {'attr': {'type': 'hidden'}})}}
+
             </div>
         </div>
 
@@ -59,9 +70,87 @@
 
     <hr>
 
-
+        <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD0ijXqLnxy85v-yym3AJi_50sZ3ffl1K4"></script>
 
     <script>
+        function initializeAutocomplete(id) {
+            var element = document.getElementById(id);
+            var defaultBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(48.856614, 2.3522219000000177),
+                new google.maps.LatLng(51.5073509, -0.12775829999998223)
+            );
+
+            var input = document.getElementById(id);var options = {
+                bounds: defaultBounds,
+                types: ['establishment']
+            };
+            if (element) {
+                var autocomplete = new google.maps.places.Autocomplete(input, options);
+                google.maps.event.addListener(autocomplete, 'place_changed', fillInAddress);
+            }
+        }
+
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            const place = this.getPlace();
+            console.log(place);
+            let address1 = "";
+            let postcode = "";
+
+
+            document.querySelector("#cree_sortie_newLieu_nom").value = place.name;
+            // Get each component of the address from the place details,
+            // and then fill-in the corresponding field on the form.
+            // place.address_components are google.maps.GeocoderAddressComponent objects
+            // which are documented at http://goo.gle/3l5i5Mr
+            for (const component of place.address_components) {
+                // @ts-ignore remove once typings fixed
+                const componentType = component.types[0];
+
+                switch (componentType) {
+                    case "street_number": {
+                        address1 = `${component.long_name} ${address1}`;
+                        break;
+                    }
+
+                    case "route": {
+                        address1 += component.short_name;
+                        break;
+                    }
+
+                    case "postal_code": {
+                        postcode = `${component.long_name}${postcode}`;
+                        break;
+                    }
+
+                    case "postal_code_suffix": {
+                        postcode = `${postcode}-${component.long_name}`;
+                        break;
+                    }
+                    case "locality":
+                        document.querySelector("#cree_sortie_newLieu_ville").value = component.long_name.charAt(0).toUpperCase() + component.long_name.slice(1);
+                        break;
+
+                }
+            }
+
+           // address1Field.value = address1;
+            // postalField.value = postcode;
+            document.querySelector("#cree_sortie_newLieu_rue").value = address1 ;
+            document.querySelector("#cree_sortie_newLieu_latitude").value =  place.geometry.location.lat();
+            document.querySelector("#cree_sortie_newLieu_longitude").value =  place.geometry.location.lng();
+            // After filling the form with address components from the Autocomplete
+            // prediction, set cursor focus on the second address line to encourage
+            // entry of subpremise information such as apartment, unit, or floor number.
+            address2Field.focus();
+        }
+
+
+
+        google.maps.event.addDomListener(window, 'load', function() {
+            initializeAutocomplete('rechercherLieu');
+        });
+
         const dateDebut = document.getElementById('cree_sortie_dateHeureDebut');
         const dateFin = document.getElementById('cree_sortie_dateLimiteInscription');
 

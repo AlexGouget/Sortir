@@ -59,11 +59,9 @@ class EtatSortie
      */
     public function checkAndUpdateEtatAll():void
     {
-
         $this->checkAndUpdateSortiesOuverteCloture();
         $this->checkAndUpdateSortiesOuverteTermine();
         $this->checkAndUpdateSortiesArchive();
-
         $this->em->flush();
     }
 
