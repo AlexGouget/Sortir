@@ -23,7 +23,7 @@ class MainController extends AbstractController
      */
     public function home(Request $request,SortieRepository $sortieRepo, EtatSortie $etatSortie): Response
     {
-        //On check les sorties afin de modifier leurs etat si besoin
+        //On check les sorties afin de modifier l'eta' si besoin
         $etatSortie->checkAndUpdateEtatAll();
 
         $sorties = $sortieRepo->findSortiesOuverte(16);
@@ -36,7 +36,7 @@ class MainController extends AbstractController
             // on redirige la requete vers la page trouvez un évènement
             return $this->redirectToRoute('app_event_research', [
                 'request' => $request
-            ]);
+            ],307);
         }
 
 
